@@ -1,29 +1,36 @@
-# vue-datamaps
+<div align="center">
+    <h1>Vue Dtamaps</h1>
+    <small>It is a Vue port of the jQuery-based [DataMaps](https://https://datamaps.github.io/)</small>
+</div>
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+## Installation
+comming soon
+```shall
+# 
 ```
 
-### Run your tests
-```
-npm run test
-```
+## Usage
+...
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Inspired
+* [markmarkoh/datamaps](https://datamaps.github.io/) - original
+* [btmills/react-datamaps](https://github.com/btmills/react-datamaps) - React-based datamaps library
+
+
+## props
+
+...
+
+## TODO
+* [x] Base 
+* [x] Hover
+* [ ] Choropleth
+* [ ] Label
+* [ ] Bubble
+* [ ] Arcs
+* [ ] Projections & Graticules
+* [ ] Zoom
+
+## License
+MIT
