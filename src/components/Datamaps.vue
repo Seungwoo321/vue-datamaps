@@ -3,18 +3,22 @@
         <svg ref="svg" class="datamap" :style="svgStyle"
             :width="svgWidth"
             :height="svgHeight">
-            <g>
+            <g :transform="transform">
                 <path v-for="(item, index) in pathData" :key="index"
                     :d="pathAndProjection.path(item)"
-                    :class="`datamaps-subunit ${item.id}`"
+                    :class="`datamaps-styleAttributes ${item.id}`"
                     :fill="fillColor(item)"
-                    :style="subunit[item.id]"
+                    :style="styleAttributes[item.id]"
                     @mouseover="handleMouseoverGeographyConfig($event, item)"
                     @mouseout="handleMouseoutGeographyConfig($event, item)"
                 />
             </g>
         </svg>
-        <div v-if="defaultGeograpphyConfig.popupOnHover || defaultBubblesConfig.popupOnHover" class="datamaps-hoverover" style="z-index:10001;position:absolute"></div>
+        <div v-if="(defaultGeograpphyConfig.popupOnHover || defaultBubblesConfig.popupOnHover) && showHoverinfo" class="datamaps-hoverover" style="z-index:10001;position:absolute" :style="popupPosition">
+            <div class="hoverinfo">
+                {{ popupData }}
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -25,18 +29,22 @@ export default {
     name: 'vue-datamaps',
     data () {
         return {
-            attrs: {
+            showHoverinfo: false,
+            popupData: '',
+            popupPosition: {},
+            options: {
                 width: 0,
                 height: 0,
                 dataWidth: 0
             },
-            previousAttributes: {},
             geo: {
                 projection: null,
                 path: null
             },
+            transform: 'scale(1)',
             pathData: [],
-            subunit: {}
+            styleAttributes: {},
+            previousAttributes: {}
         }
     },
     mixins: [ props ],
@@ -60,19 +68,19 @@ export default {
         },
         svgWidth: {
             get () {
-                return this.attrs.width
+                return this.options.width
             },
             set (element) {
-                this.attrs.dataWidth = this.width || element.offsetWidth
-                this.attrs.width = this.width || element.offsetWidth
+                // this.options.dataWidth = this.width || element.offsetWidth
+                this.options.width = this.width || element.offsetWidth
             }
         },
         svgHeight: {
             get () {
-                return this.attrs.height
+                return this.options.height
             },
             set (element) {
-                this.attrs.height = this.height || element.offsetHeight
+                this.options.height = this.height || element.offsetHeight || 300
             }
         },
         pathStyle () {
@@ -133,9 +141,19 @@ export default {
         this.svgWidth = this.$el
         this.svgHeight = this.$el
         this.draw()
+        window.addEventListener('resize', this.resize)
+    },
+    beforeDestroy () {
+        window.removeEventListener('resize', this.resize)
     },
     methods: {
         addPlugin () {
+        },
+        resize () {
+            const oldSize = this.svgWidth
+            // this.svgWidth = this.$el
+            const newSize = this.$el.clientWidth
+            this.transform = `scale(${newSize / oldSize})`
         },
         fillColor (d) {
             const { data, fills } = this
@@ -165,9 +183,9 @@ export default {
             } else {
                 geoData = result
             }
-            this.drawSubunits(geoData)
+            this.drawstyleAttributess(geoData)
         },
-        drawSubunits (data) {
+        drawstyleAttributess (data) {
             if (this.defaultGeograpphyConfig.hideAntarctica) {
                 data.default.features = data.features.filter(function (feature) {
                     return feature.id !== 'ATA'
@@ -189,6 +207,7 @@ export default {
                 'fill-opacity': target.style['fill-opacity']
             }
             this.$set(this.previousAttributes, d.id, previousAttributes)
+
             const { highlightOnHover, popupOnHover, highlightFillColor, highlightBorderColor, highlightBorderWidth, highlightBorderOpacity, highlightFillOpacity } = this.defaultGeograpphyConfig
             const datum = this.data[d.id] || {}
             if (highlightOnHover || popupOnHover) {
@@ -199,15 +218,29 @@ export default {
                     'stroke-opacity': val(datum.highlightBorderOpacity, highlightBorderOpacity, datum),
                     'fill-opacity': val(datum.highlightFillOpacity, highlightFillOpacity, datum)
                 }
-                this.$set(this.subunit, d.id, data)
+                this.$set(this.styleAttributes, d.id, data)
+            }
+            if (popupOnHover) {
+                this.updatePopup(event, d, true)
             }
         },
         handleMouseoutGeographyConfig (event, d) {
-            const { highlightOnHover } = this.defaultGeograpphyConfig
+            const { highlightOnHover, popupOnHover } = this.defaultGeograpphyConfig
             if (highlightOnHover) {
                 const data = this.previousAttributes[d.id]
-                this.$set(this.subunit, d.id, data)
+                this.$set(this.styleAttributes, d.id, data)
             }
+            if (popupOnHover) {
+                this.updatePopup(event, d, false)
+            }
+        },
+        updatePopup (event, d, flag) {
+            this.popupPosition = {
+                left: `${event.layerX}px`,
+                top: `${event.layerY + 30}px`
+            }
+            this.showHoverinfo = flag
+            this.popupData = d.properties.name
         }
     }
 }
@@ -219,6 +252,12 @@ export default {
     margin: 0 auto;
     width: 750px;
     height: 500px;
+}
+@media (max-width: 900px) {
+    .map {
+        width: 100%;
+        height: 300px;
+    }
 }
 .datamap path.datamaps-graticule {
     fill: none;
@@ -252,7 +291,7 @@ export default {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .datamaps-hoverover {
-    display: none;
+    /* display: none; */
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .hoverinfo {
