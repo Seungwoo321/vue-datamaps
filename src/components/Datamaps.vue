@@ -6,14 +6,20 @@
             <g :transform="transform">
                 <path v-for="(item, index) in pathData" :key="index"
                     :d="pathAndProjection.path(item)"
-                    :class="`datamaps-styleAttributes ${item.id}`"
+                    :class="`datamaps-styleAttributes ${item.id || item.properties.code_hasc}`"
                     :fill="fillColor(item)"
-                    :style="styleAttributes[item.id]"
+                    :style="styleAttributes[item.id || item.properties.code_hasc]"
                     @mouseover="handleMouseoverGeographyConfig($event, item)"
                     @mouseout="handleMouseoutGeographyConfig($event, item)"
                 />
             </g>
-            <layer-label :labelsConfig="labelsConfigOptions"></layer-label>
+            <layer-label
+                v-if="labels"
+                :labelsConfig="labelsConfigOptions"
+                :data="pathData"
+                :projection="pathAndProjection.projection"
+                :path="pathAndProjection.path"
+            />
         </svg>
         <div v-if="(geograpphyConfigOptions.popupOnHover || bubblesConfigOptions.popupOnHover) && showHoverinfo" class="datamaps-hoverover" style="z-index:10001;position:absolute" :style="popupPosition">
             <slot name="hoverinfo">
@@ -64,10 +70,6 @@ export default {
             type: Number,
             default: 0
         }
-        // type: {
-        //     type: String,
-        //     default: 'world'
-        // }
     },
     computed: {
         svg () {
@@ -112,36 +114,7 @@ export default {
             }
         },
         pathAndProjection () {
-            let projection = null
-            let path = null
-            if (this.scope === 'usa') {
-                projection = d3.geoAlbersUsa()
-                    .scale(this.svgWidth)
-                    .translate([this.svgWidth / 2, this.svgHeight / 2])
-            } else if (this.scope === 'world') {
-                projection = d3[`geo${this.projection}`]()
-                    .scale((this.svgWidth + 1) / 2 / Math.PI)
-                    .translate([this.svgWidth / 2, this.svgHeight / (this.projection === 'Mercator' ? 1.45 : 1.8)])
-            }
-            if (this.projection === 'Orthographic') {
-                this.svg.append('defs').append('path')
-                    .datum({ type: 'Sphere' })
-                    .attr('id', 'sphere')
-                    .attr('d', path)
-
-                this.svg.append('use')
-                    .attr('class', 'stroke')
-                    .attr('xlink:href', '#sphere')
-
-                this.svg.append('use')
-                    .attr('class', 'fill')
-                    .attr('xlink:href', '#sphere')
-                projection.scale(250).clipAngle(90).rotate(this.projectionConfigOptions.rotation)
-            }
-
-            path = d3.geoPath()
-                .projection(projection)
-            return { projection, path }
+            return { ...this.setProjection(d3, this.$el) }
         }
     },
     mounted () {
@@ -163,32 +136,33 @@ export default {
             this.transform = `scale(${newSize / oldSize})`
         },
         fillColor (d) {
-            const { data, fills } = this
-            const datum = data[d.id]
+            let { data, fills, defaultFill } = this
+            fills = { defaultFill, ...fills }
+            const datum = data[d.id || d.properties.code_hasc]
+            let color
             if (datum && datum.fillKey) {
-                return fills[ val(datum.fillKey, { data: data[d.id], geography: d }) ]
+                color = fills[ val(datum.fillKey, { data: data[d.id || d.properties.code_hasc], geography: d }) ]
             }
-
-            if (typeof fillColor === 'undefined') {
-                return val(datum && datum.fillColor, fills.defaultFill, { data: data[d.id], geography: d })
+            if (typeof color === 'undefined') {
+                color = val(datum && datum.fillColor, fills.defaultFill, { data: data[d.id || d.properties.code_hasc], geography: d })
             }
+            return color
         },
-        updateChoropleth (data) {
-            console.log(data)
-            console.log('csv data test')
-        },
+        // updateChoropleth (data) {
+        //     console.log(data)
+        //     console.log('csv data test')
+        // },
         async draw () {
             let geoData = null
             let result = this.geograpphyConfigOptions.dataUrl ? await d3[this.dataType](this.geograpphyConfigOptions.dataUrl) : await import(`./data/${this.scope}.json`)
             if (this.geograpphyConfigOptions.dataUrl) {
                 if (this.dataType === 'csv' && (result && result.slice)) {
                     let tmpData = {}
-                    result.forEach(element => item => { tmpData[item.id] = item })
+                    result.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
                     geoData = tmpData
                 }
                 this.updateChoropleth(result)
             } else {
-                console.log(result)
                 geoData = result
             }
             this.drawstyleAttributess(geoData)
@@ -214,10 +188,10 @@ export default {
                 'stroke-width': target.style['stroke-width'],
                 'fill-opacity': target.style['fill-opacity']
             }
-            this.$set(this.previousAttributes, d.id, previousAttributes)
+            this.$set(this.previousAttributes, d.id || d.properties.code_hasc, previousAttributes)
 
             const { highlightOnHover, popupOnHover, highlightFillColor, highlightBorderColor, highlightBorderWidth, highlightBorderOpacity, highlightFillOpacity } = this.geograpphyConfigOptions
-            const datum = this.data[d.id] || {}
+            const datum = this.data[d.id || d.properties.code_hasc] || {}
             if (highlightOnHover || popupOnHover) {
                 const data = {
                     fill: val(datum.highlightFillColor, highlightFillColor, datum),
@@ -226,7 +200,7 @@ export default {
                     'stroke-opacity': val(datum.highlightBorderOpacity, highlightBorderOpacity, datum),
                     'fill-opacity': val(datum.highlightFillOpacity, highlightFillOpacity, datum)
                 }
-                this.$set(this.styleAttributes, d.id, data)
+                this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
             if (popupOnHover) {
                 this.updatePopup(event, d, true)
@@ -235,8 +209,8 @@ export default {
         handleMouseoutGeographyConfig (event, d) {
             const { highlightOnHover, popupOnHover } = this.geograpphyConfigOptions
             if (highlightOnHover) {
-                const data = this.previousAttributes[d.id]
-                this.$set(this.styleAttributes, d.id, data)
+                const data = this.previousAttributes[d.id || d.properties.code_hasc]
+                this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
             if (popupOnHover) {
                 this.updatePopup(event, d, false)
@@ -247,8 +221,12 @@ export default {
                 left: `${event.layerX}px`,
                 top: `${event.layerY + 30}px`
             }
+            if (this.popupTemplate) {
+                this.$emit('custom:popup', { geography: d, data: this.data[d.id || d.properties.code_hasc] })
+            } else {
+                this.popupData = d.properties.name
+            }
             this.showHoverinfo = flag
-            this.popupData = d.properties.name
         }
     }
 }
@@ -299,7 +277,6 @@ export default {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .datamaps-hoverover {
-    /* display: none; */
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .hoverinfo {

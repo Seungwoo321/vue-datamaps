@@ -1,21 +1,41 @@
 <template>
   <div id="app">
     <h2>Example</h2>
-    <!-- <div>
+    <div>
         <h4>Basic:</h4>
         <vue-datamaps/>
     </div>
     <div>
         <h4>Choropleth:</h4>
-        <vue-datamaps :projection="choropleth.projection" :data="choropleth.data" :fills="choropleth.fills" />
-    </div> -->
-    <div>
-        <h4>State Labels</h4>
         <vue-datamaps
+            :projection="choropleth.projection"
+            :data="choropleth.data"
+            :fills="choropleth.fills"
+        />
+    </div>
+    <div>
+        <h4>State Labels:</h4>
+        <vue-datamaps
+            labels
             :scope="stateLabels.scope"
             :geographyConfig="stateLabels.geographyConfig"
             :fills="stateLabels.fills"
             :data="stateLabels.data"
+            popupTemplate
+            @custom:popup="popupTemplate"
+        >
+            <div slot="hoverinfo" class="hoverinfo" style="white-space: pre-line;">
+                {{ stateLabels.popupData }}
+            </div>
+        </vue-datamaps>
+    </div>
+    <div>
+        <h4>Korea:</h4>
+        <vue-datamaps
+            :scope="korea.scope"
+            :setProjection="setProjection"
+            :fills="korea.fills"
+            :data="korea.data"
         />
     </div>
   </div>
@@ -31,15 +51,28 @@ export default {
                 projection: 'Mercator',
                 fills: {
                     defaultFill: '#ABDDA4',
-                    authorHasTraveledTo: '#fa0fa0'
+                    authorHasTraveledTo: '#fa0fa0',
+                    USA: '#fa0fa0'
                 },
                 data: {
-                    USA: { fillKey: 'authorHasTraveledTo' },
-                    JPN: { fillKey: 'authorHasTraveledTo' },
-                    ITA: { fillKey: 'authorHasTraveledTo' },
-                    CRI: { fillKey: 'authorHasTraveledTo' },
-                    KOR: { fillKey: 'authorHasTraveledTo' },
-                    DEU: { fillKey: 'authorHasTraveledTo' }
+                    USA: {
+                        fillKey: 'USA'
+                    },
+                    JPN: {
+                        fillKey: 'authorHasTraveledTo'
+                    },
+                    ITA: {
+                        fillKey: 'authorHasTraveledTo'
+                    },
+                    CRI: {
+                        fillKey: 'authorHasTraveledTo'
+                    },
+                    KOR: {
+                        fillKey: 'authorHasTraveledTo'
+                    },
+                    DEU: {
+                        fillKey: 'authorHasTraveledTo'
+                    }
                 }
             },
             stateLabels: {
@@ -258,6 +291,23 @@ export default {
                         'fillKey': 'Republican',
                         'electoralVotes': 32
                     }
+                },
+                popupData: ''
+            },
+            korea: {
+                scope: 'kor',
+                fills: {
+                    // defaultFill: '#deb542',
+                    color1: '#fa0fa0',
+                    color2: '#A9C0DE'
+                },
+                data: {
+                    'KR.SO': {
+                        fillKey: 'color1'
+                    },
+                    'KR.TG': {
+                        fillKey: 'color2'
+                    }
                 }
             }
         }
@@ -267,10 +317,23 @@ export default {
             return d3.schemeCategory10
         }
     },
+    methods: {
+        setProjection (d3, element) {
+            const projection = d3.geoMercator().center([0, 0])
+                .rotate([-128, -36])
+                .scale(5000)
+                .translate([element.offsetWidth / 2, element.offsetHeight / 2])
+            const path = d3.geoPath().projection(projection)
+            return { projection, path }
+        },
+        popupTemplate ({ geography, data }) {
+            this.stateLabels.popupData = `${geography.properties.name}\nElectoral Votes: ${data.electoralVotes}`
+        }
+    },
     mounted () {
         // window.setInterval(() => {
-        //     console.log(this.colors, Math.random() * 10)
-        //     console.log(this.colors[Math.random() * 10])
+        //     this.choropleth.fills.USA = this.colors[Math.floor(Math.random() * (10 - 1)) + 1]
+        //     console.log(this.choropleth.data)
         // }, 2000)
     }
 }
