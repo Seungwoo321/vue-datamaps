@@ -1,6 +1,6 @@
 <div align="center">
-    <h1>Vue Dtamaps</h1>
-    <small>It is a Vue port of the jQuery-based [DataMaps](https://https://datamaps.github.io/)</small>
+    <h1>Vue Datamaps</h1>
+    <small>It is a Vue port of the jQuery-based [DataMaps](https://datamaps.github.io/)</small>
 </div>
 
 ## Installation
@@ -26,7 +26,7 @@ comming soon
 * [x] Base 
 * [x] Hover
 * [ ] Choropleth
-* [ ] Label
+* [x] Label
 * [ ] Bubble
 * [ ] Arcs
 * [ ] Projections & Graticules
