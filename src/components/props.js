@@ -63,6 +63,9 @@ export default {
         disableDefaultStyles: {
             type: Boolean,
             default: false
+        },
+        labelsConfig: {
+            type: Object
         }
     },
     data () {
@@ -124,33 +127,46 @@ export default {
                             return ''
                         }
                     }
+                },
+                labelsConfig: {
+                    fontSize: 10,
+                    fontFamily: 'Verdana',
+                    labelColor: '#000',
+                    lineWidth: 1,
+                    smallStateIndex: ['VT', 'NH', 'MA', 'RI', 'CT', 'NJ', 'DE', 'MD', 'DC']
                 }
             }
         }
     },
     computed: {
-        defaultGeograpphyConfig () {
+        geograpphyConfigOptions () {
             return {
                 ...this.default.geographyConfig,
                 ...this.geographyConfig
             }
         },
-        defaultProjectionConfig () {
+        projectionConfigOptions () {
             return {
                 ...this.default.projectionConfig,
                 ...this.projectionConfig
             }
         },
-        defaultBubblesConfig () {
+        bubblesConfigOptions () {
             return {
                 ...this.default.bubblesConfig,
                 ...this.bubblesConfig
             }
         },
-        defaultArcConfig () {
+        arcConfigOptions () {
             return {
                 ...this.default.arcConfig,
                 ...this.arcConfig
+            }
+        },
+        labelsConfigOptions () {
+            return {
+                ...this.default.labelsConfig,
+                ...this.labelsConfig
             }
         }
     }

@@ -13,11 +13,14 @@
                     @mouseout="handleMouseoutGeographyConfig($event, item)"
                 />
             </g>
+            <layer-label :labelsConfig="labelsConfigOptions"></layer-label>
         </svg>
-        <div v-if="(defaultGeograpphyConfig.popupOnHover || defaultBubblesConfig.popupOnHover) && showHoverinfo" class="datamaps-hoverover" style="z-index:10001;position:absolute" :style="popupPosition">
-            <div class="hoverinfo">
-                {{ popupData }}
-            </div>
+        <div v-if="(geograpphyConfigOptions.popupOnHover || bubblesConfigOptions.popupOnHover) && showHoverinfo" class="datamaps-hoverover" style="z-index:10001;position:absolute" :style="popupPosition">
+            <slot name="hoverinfo">
+                <div class="hoverinfo">
+                    {{ popupData }}
+                </div>
+            </slot>
         </div>
     </div>
 </template>
@@ -25,8 +28,12 @@
 import * as d3 from 'd3v4'
 import props from './props'
 import { val } from './helper'
+import LayerLabel from './LayerLabel'
 export default {
     name: 'vue-datamaps',
+    components: {
+        LayerLabel
+    },
     data () {
         return {
             showHoverinfo: false,
@@ -56,11 +63,11 @@ export default {
         height: {
             type: Number,
             default: 0
-        },
-        type: {
-            type: String,
-            default: 'world'
         }
+        // type: {
+        //     type: String,
+        //     default: 'world'
+        // }
     },
     computed: {
         svg () {
@@ -85,9 +92,9 @@ export default {
         },
         pathStyle () {
             return {
-                'stroke-width': this.defaultGeograpphyConfig.borderWidth,
-                'stroke-opacity': this.defaultGeograpphyConfig.borderOpacity,
-                'stroke': this.defaultGeograpphyConfig.borderColor
+                'stroke-width': this.geograpphyConfigOptions.borderWidth,
+                'stroke-opacity': this.geograpphyConfigOptions.borderOpacity,
+                'stroke': this.geograpphyConfigOptions.borderColor
             }
         },
         svgStyle () {
@@ -129,7 +136,7 @@ export default {
                 this.svg.append('use')
                     .attr('class', 'fill')
                     .attr('xlink:href', '#sphere')
-                projection.scale(250).clipAngle(90).rotate(this.defaultProjectionConfig.rotation)
+                projection.scale(250).clipAngle(90).rotate(this.projectionConfigOptions.rotation)
             }
 
             path = d3.geoPath()
@@ -172,8 +179,8 @@ export default {
         },
         async draw () {
             let geoData = null
-            let result = this.defaultGeograpphyConfig.dataUrl ? await d3[this.dataType](this.defaultGeograpphyConfig.dataUrl) : await import(`./data/${this.type}.json`)
-            if (this.defaultGeograpphyConfig.dataUrl) {
+            let result = this.geograpphyConfigOptions.dataUrl ? await d3[this.dataType](this.geograpphyConfigOptions.dataUrl) : await import(`./data/${this.scope}.json`)
+            if (this.geograpphyConfigOptions.dataUrl) {
                 if (this.dataType === 'csv' && (result && result.slice)) {
                     let tmpData = {}
                     result.forEach(element => item => { tmpData[item.id] = item })
@@ -181,17 +188,18 @@ export default {
                 }
                 this.updateChoropleth(result)
             } else {
+                console.log(result)
                 geoData = result
             }
             this.drawstyleAttributess(geoData)
         },
         drawstyleAttributess (data) {
-            if (this.defaultGeograpphyConfig.hideAntarctica) {
+            if (this.geograpphyConfigOptions.hideAntarctica) {
                 data.default.features = data.features.filter(function (feature) {
                     return feature.id !== 'ATA'
                 })
             }
-            if (this.defaultGeograpphyConfig.hideHawaiiAndAlaska) {
+            if (this.geograpphyConfigOptions.hideHawaiiAndAlaska) {
                 data.default.features = data.features.filter(function (feature) {
                     return feature.id !== 'HI' && feature.id !== 'AK'
                 })
@@ -208,7 +216,7 @@ export default {
             }
             this.$set(this.previousAttributes, d.id, previousAttributes)
 
-            const { highlightOnHover, popupOnHover, highlightFillColor, highlightBorderColor, highlightBorderWidth, highlightBorderOpacity, highlightFillOpacity } = this.defaultGeograpphyConfig
+            const { highlightOnHover, popupOnHover, highlightFillColor, highlightBorderColor, highlightBorderWidth, highlightBorderOpacity, highlightFillOpacity } = this.geograpphyConfigOptions
             const datum = this.data[d.id] || {}
             if (highlightOnHover || popupOnHover) {
                 const data = {
@@ -225,7 +233,7 @@ export default {
             }
         },
         handleMouseoutGeographyConfig (event, d) {
-            const { highlightOnHover, popupOnHover } = this.defaultGeograpphyConfig
+            const { highlightOnHover, popupOnHover } = this.geograpphyConfigOptions
             if (highlightOnHover) {
                 const data = this.previousAttributes[d.id]
                 this.$set(this.styleAttributes, d.id, data)
