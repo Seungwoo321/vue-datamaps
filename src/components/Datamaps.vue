@@ -14,12 +14,19 @@
                 />
             </g>
             <layer-label
-                v-if="labels"
+                v-if="labels && pathData.length > 0"
                 :labelsConfig="labelsConfigOptions"
                 :data="pathData"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
             />
+            <layer-bubble
+                v-if="bubbles && pathData.length > 0"
+                :bubblesConfig="bubblesConfigOptions"
+                :data="bubblePathData"
+                :projection="pathAndProjection.projection"
+                :path="pathAndProjection.path"
+            ></layer-bubble>
         </svg>
         <div v-if="(geograpphyConfigOptions.popupOnHover || bubblesConfigOptions.popupOnHover) && showHoverinfo" class="datamaps-hoverover" style="z-index:10001;position:absolute" :style="popupPosition">
             <slot name="hoverinfo">
@@ -35,10 +42,12 @@ import * as d3 from 'd3v4'
 import props from './props'
 import { val } from './helper'
 import LayerLabel from './LayerLabel'
+import LayerBubble from './LayerBubble'
 export default {
     name: 'vue-datamaps',
     components: {
-        LayerLabel
+        LayerLabel,
+        LayerBubble
     },
     data () {
         return {
@@ -56,6 +65,7 @@ export default {
             },
             transform: 'scale(1)',
             pathData: [],
+            bubblePathData: {},
             styleAttributes: {},
             previousAttributes: {}
         }
@@ -165,20 +175,29 @@ export default {
             } else {
                 geoData = result
             }
-            this.drawstyleAttributess(geoData)
+            this.drawSubunits(geoData)
         },
-        drawstyleAttributess (data) {
+        drawSubunits (data) {
             if (this.geograpphyConfigOptions.hideAntarctica) {
-                data.default.features = data.features.filter(function (feature) {
+                this.pathData = data.features.slice().filter(function (feature) {
                     return feature.id !== 'ATA'
                 })
             }
             if (this.geograpphyConfigOptions.hideHawaiiAndAlaska) {
-                data.default.features = data.features.filter(function (feature) {
+                this.pathData = data.features.slice().filter(function (feature) {
                     return feature.id !== 'HI' && feature.id !== 'AK'
                 })
             }
-            this.pathData = data.default.features
+            if (this.bubbles && this.bubblesConfigOptions.data) {
+                const filters = this.bubblesConfigOptions.data.filter(item => item.centered).map(item => item.centered)
+                this.bubblePathData = data.features.slice().reduce((previousValue, currentValue) => {
+                    if (filters.includes(currentValue.id)) {
+                        previousValue[currentValue.id] = currentValue
+                    }
+                    return previousValue
+                }, {})
+                console.log(this.bubblePathData)
+            }
         },
         handleMouseoverGeographyConfig (event, d) {
             const target = event.target

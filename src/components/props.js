@@ -91,8 +91,16 @@ export default {
         bubblesConfig: {
             type: Object
         },
+        bubbles: {
+            type: Boolean,
+            default: false
+        },
         arcConfig: {
             type: Object
+        },
+        arc: {
+            type: Boolean,
+            default: false
         },
         disableDefaultStyles: {
             type: Boolean,
@@ -185,7 +193,8 @@ export default {
                     highlightBorderOpacity: 1,
                     highlightFillOpacity: 0.85,
                     exitDelay: 100,
-                    key: JSON.stringify
+                    key: JSON.stringify,
+                    data: {}
                 },
                 arcConfig: {
                     strokeColor: '#DD1C77',
