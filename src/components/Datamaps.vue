@@ -9,8 +9,8 @@
                     :class="`datamaps-styleAttributes ${item.id || item.properties.code_hasc}`"
                     :fill="fillColor(item)"
                     :style="styleAttributes[item.id || item.properties.code_hasc]"
-                    @mouseover="handleMouseoverGeographyConfig($event, item)"
-                    @mouseout="handleMouseoutGeographyConfig($event, item)"
+                    @mouseover="handleMouseOver($event, item)"
+                    @mouseout="handleMouseOut($event, item)"
                 />
             </g>
             <layer-label
@@ -199,7 +199,7 @@ export default {
                 console.log(this.bubblePathData)
             }
         },
-        handleMouseoverGeographyConfig (event, d) {
+        handleMouseOver (event, d) {
             const target = event.target
             const previousAttributes = {
                 'fill': target.style['fill'],
@@ -221,19 +221,15 @@ export default {
                 }
                 this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
-            if (popupOnHover) {
-                this.updatePopup(event, d, true)
-            }
+            if (popupOnHover) this.updatePopup(event, d, true)
         },
-        handleMouseoutGeographyConfig (event, d) {
+        handleMouseOut (event, d) {
             const { highlightOnHover, popupOnHover } = this.geograpphyConfigOptions
             if (highlightOnHover) {
                 const data = this.previousAttributes[d.id || d.properties.code_hasc]
                 this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
-            if (popupOnHover) {
-                this.updatePopup(event, d, false)
-            }
+            if (popupOnHover) this.updatePopup(event, d, false)
         },
         updatePopup (event, d, flag) {
             this.popupPosition = {

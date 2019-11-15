@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h2>Vue Datamaps Example</h2>
-    <!-- <hr>
+    <hr>
     <div>
         <h4>Basic:</h4>
         <vue-datamaps/>
@@ -32,17 +32,17 @@
             </div>
         </vue-datamaps>
     </div>
-    <hr> -->
+    <hr>
     <div>
         <h4>Bubbles:</h4>
         <vue-datamaps
             :geographyConfig="bubbles.geographyConfig"
             :bubblesConfig="bubbles.bubblesConfig"
-            :fill="bubbles.fills"
+            :fills="bubbles.fills"
             bubbles
         ></vue-datamaps>
     </div>
-    <!-- <hr>
+    <hr>
     <div>
         <h4>Korea:</h4>
         <vue-datamaps
@@ -51,7 +51,7 @@
             :fills="korea.fills"
             :data="korea.data"
         />
-    </div> -->
+    </div>
   </div>
 </template>
 

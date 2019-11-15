@@ -237,7 +237,8 @@ export default {
         bubblesConfigOptions () {
             return {
                 ...this.default.bubblesConfig,
-                ...this.bubblesConfig
+                ...this.bubblesConfig,
+                fills: this.fills
             }
         },
         arcConfigOptions () {
