@@ -23,17 +23,37 @@
             <layer-bubble
                 v-if="bubbles && pathData.length > 0"
                 :bubblesConfig="bubblesConfigOptions"
-                :data="bubblePathData"
+                :data="bubbleGeoData"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
+                @update:popup="updatePopup"
             ></layer-bubble>
+            <layer-arc
+                v-if="arc && pathData.length > 0"
+                :arcConfig="arcConfigOptions"
+                :data="arcGeoData"
+                :projection="pathAndProjection.projection"
+                :path="pathAndProjection.path"
+                @update:popup="updatePopup"
+            >
+            </layer-arc>
         </svg>
-        <div v-if="(geograpphyConfigOptions.popupOnHover || bubblesConfigOptions.popupOnHover) && showHoverinfo" class="datamaps-hoverover" style="z-index:10001;position:absolute" :style="popupPosition">
+        <div v-if="(geograpphyConfigOptions.popupOnHover || bubblesConfigOptions.popupOnHover) && showHoverinfo"
+            class="datamaps-hoverover"
+            style="z-index:10001;position:absolute"
+            :style="popupPosition"
+        >
             <slot name="hoverinfo">
                 <div class="hoverinfo">
-                    {{ popupData }}
+                    <strong>
+                        {{ popupData.name }}
+                    </strong>
                 </div>
             </slot>
+            <!-- <div v-if="arc && pathData.length > 0" class="hoverinfo">
+                <strong>Arc</strong><br>
+                {{ data.origin }} -> {{ data.destination }}
+            </div> -->
         </div>
     </div>
 </template>
@@ -43,16 +63,22 @@ import props from './props'
 import { val } from './helper'
 import LayerLabel from './LayerLabel'
 import LayerBubble from './LayerBubble'
+import LayerArc from './LayerArc'
 export default {
     name: 'vue-datamaps',
     components: {
         LayerLabel,
-        LayerBubble
+        LayerBubble,
+        LayerArc
     },
     data () {
         return {
             showHoverinfo: false,
-            popupData: '',
+            popupData: {
+                name: '',
+                origin: '',
+                destination: ''
+            },
             popupPosition: {},
             options: {
                 width: 0,
@@ -65,7 +91,8 @@ export default {
             },
             transform: 'scale(1)',
             pathData: [],
-            bubblePathData: {},
+            bubbleGeoData: {},
+            arcGeoData: {},
             styleAttributes: {},
             previousAttributes: {}
         }
@@ -90,7 +117,6 @@ export default {
                 return this.options.width
             },
             set (element) {
-                // this.options.dataWidth = this.width || element.offsetWidth
                 this.options.width = this.width || element.offsetWidth
             }
         },
@@ -190,13 +216,22 @@ export default {
             }
             if (this.bubbles && this.bubblesConfigOptions.data) {
                 const filters = this.bubblesConfigOptions.data.filter(item => item.centered).map(item => item.centered)
-                this.bubblePathData = data.features.slice().reduce((previousValue, currentValue) => {
+                this.bubbleGeoData = data.features.slice().reduce((previousValue, currentValue) => {
                     if (filters.includes(currentValue.id)) {
                         previousValue[currentValue.id] = currentValue
                     }
                     return previousValue
                 }, {})
-                console.log(this.bubblePathData)
+            }
+            if (this.arc && this.arcConfigOptions.data) {
+                const filtered = this.arcConfigOptions.data.filter(item => typeof item.origin === 'string' || typeof item.destination === 'string')
+                const filters = new Set([...filtered.slice().map(item => item.origin), ...filtered.slice().map(item => item.destination)])
+                this.arcGeoData = data.features.slice().reduce((previousValue, currentValue) => {
+                    if (filters.has(currentValue.id)) {
+                        previousValue[currentValue.id] = currentValue
+                    }
+                    return previousValue
+                }, {})
             }
         },
         handleMouseOver (event, d) {
@@ -221,7 +256,7 @@ export default {
                 }
                 this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
-            if (popupOnHover) this.updatePopup(event, d, true)
+            if (popupOnHover) this.updatePopup({ event, geography: d, data: this.data[d.id || d.properties.code_hasc], flag: true })
         },
         handleMouseOut (event, d) {
             const { highlightOnHover, popupOnHover } = this.geograpphyConfigOptions
@@ -229,17 +264,17 @@ export default {
                 const data = this.previousAttributes[d.id || d.properties.code_hasc]
                 this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
-            if (popupOnHover) this.updatePopup(event, d, false)
+            if (popupOnHover) this.updatePopup({ event, geography: d, data: this.data[d.id || d.properties.code_hasc], flag: false })
         },
-        updatePopup (event, d, flag) {
+        updatePopup ({ event, geography, data, flag }) {
             this.popupPosition = {
                 left: `${event.layerX}px`,
                 top: `${event.layerY + 30}px`
             }
             if (this.popupTemplate) {
-                this.$emit('custom:popup', { geography: d, data: this.data[d.id || d.properties.code_hasc] })
+                this.$emit('custom:popup', { geography, data })
             } else {
-                this.popupData = d.properties.name
+                this.popupData.name = geography.properties.name
             }
             this.showHoverinfo = flag
         }

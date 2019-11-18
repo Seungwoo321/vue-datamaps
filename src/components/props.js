@@ -161,9 +161,6 @@ export default {
                     borderWidth: 1,
                     borderOpacity: 1,
                     borderColor: '#FDFDFD',
-                    popupTemplate: function (geography, data) {
-                        return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong></div>'
-                    },
                     popupOnHover: true,
                     highlightOnHover: true,
                     highlightFillColor: '#FC8D59',
@@ -181,9 +178,6 @@ export default {
                     borderColor: '#FFFFFF',
                     popupOnHover: true,
                     radius: null,
-                    popupTemplate: function (geography, data) {
-                        return '<div class="hoverinfo"><strong>' + data.name + '</strong></div>'
-                    },
                     fillOpacity: 0.75,
                     animate: true,
                     highlightOnHover: true,
@@ -194,7 +188,7 @@ export default {
                     highlightFillOpacity: 0.85,
                     exitDelay: 100,
                     key: JSON.stringify,
-                    data: {}
+                    data: []
                 },
                 arcConfig: {
                     strokeColor: '#DD1C77',
@@ -202,15 +196,7 @@ export default {
                     arcSharpness: 1,
                     animationSpeed: 600,
                     popupOnHover: false,
-                    popupTemplate: function (geography, data) {
-                        if ((data.origin && data.destination) && data.origin.latitude && data.origin.longitude && data.destination.latitude && data.destination.longitude) {
-                            return '<div class="hoverinfo"><strong>Arc</strong><br>Origin: ' + JSON.stringify(data.origin) + '<br>Destination: ' + JSON.stringify(data.destination) + '</div>'
-                        } else if (data.origin && data.destination) {
-                            return '<div class="hoverinfo"><strong>Arc</strong><br>' + data.origin + ' -> ' + data.destination + '</div>'
-                        } else {
-                            return ''
-                        }
-                    }
+                    data: []
                 },
                 labelsConfig: {
                     fontSize: 10,

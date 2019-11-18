@@ -16,7 +16,6 @@
 
 <script>
 import { val } from './helper'
-// import * as d3 from 'd3v4'
 export default {
     props: ['bubblesConfig', 'path', 'projection', 'data'],
     data () {
@@ -88,7 +87,7 @@ export default {
                 }
                 this.$set(this.styleAttributes, index, data)
             }
-            if (popupOnHover) this.updatePopup(event, datum, false)
+            if (popupOnHover) this.$emit('update:popup', { event, geography: datum, data: this.options.data[index], flag: true })
         },
         handleMouseOut (event, datum, index) {
             const { highlightOnHover, popupOnHover } = this.options
@@ -96,7 +95,7 @@ export default {
                 const data = this.previousAttributes[index]
                 this.$set(this.styleAttributes, index, data)
             }
-            if (popupOnHover) this.updatePopup(event, datum, false)
+            if (popupOnHover) this.$emit('update:popup', { event, geography: datum, data: this.options.data[index], flag: false })
         }
     }
 }

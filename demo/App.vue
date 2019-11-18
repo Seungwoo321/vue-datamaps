@@ -37,10 +37,29 @@
         <h4>Bubbles:</h4>
         <vue-datamaps
             :geographyConfig="bubbles.geographyConfig"
-            :bubblesConfig="bubbles.bubblesConfig"
+            :bubblesConfig="bubbles.config"
             :fills="bubbles.fills"
+            popupTemplate
+            @custom:popup="bubblePopupTemplate"
             bubbles
-        ></vue-datamaps>
+        >
+            <div slot="hoverinfo" class="hoverinfo" style="text-align:center;">
+                <b>Yield</b>: {{ bubbles.popupData.yeild }}<br>
+                Exploded on {{ bubbles.popupData.date }} by the {{ bubbles.popupData.country }}
+            </div>
+        </vue-datamaps>
+    </div>
+    <hr>
+    <div>
+        <h4>Arcs:</h4>
+        <vue-datamaps
+            :scope="arc.scope"
+            :fills="arc.fills"
+            :data="arc.data"
+            :arcConfig="arc.config"
+            arc
+        >
+        </vue-datamaps>
     </div>
     <hr>
     <div>
@@ -334,7 +353,7 @@ export default {
                     USA: 'blue',
                     RUS: 'red'
                 },
-                bubblesConfig: {
+                config: {
                     data: [
                         {
                             name: 'Not a bomb, but centered on Brazil',
@@ -377,6 +396,79 @@ export default {
                             longitude: 54.5854
                         }
                     ]
+                },
+                popupData: {
+                    yeild: '',
+                    date: '',
+                    country: ''
+                }
+            },
+            arc: {
+                scope: 'usa',
+                fills: {
+                    defaultFill: '#ABDDA4',
+                    win: '#0fa0fa'
+                },
+                data: {
+                    'TX': { fillKey: 'win' },
+                    'FL': { fillKey: 'win' },
+                    'NC': { fillKey: 'win' },
+                    'CA': { fillKey: 'win' },
+                    'NY': { fillKey: 'win' },
+                    'CO': { fillKey: 'win' }
+                },
+                config: {
+                    data: [
+                        {
+                            origin: 'CA',
+                            destination: 'TX'
+                        },
+                        {
+                            origin: 'OR',
+                            destination: 'TX'
+                        },
+                        {
+                            origin: 'NY',
+                            destination: 'TX'
+                        },
+                        {
+                            origin: {
+                                latitude: 40.639722,
+                                longitude: -73.778889
+                            },
+                            destination: {
+                                latitude: 37.618889,
+                                longitude: -122.375
+                            }
+                        },
+                        {
+                            origin: {
+                                latitude: 30.194444,
+                                longitude: -97.67
+                            },
+                            destination: {
+                                latitude: 25.793333,
+                                longitude: -80.290556
+                            },
+                            options: {
+                                strokeWidth: 2,
+                                strokeColor: 'rgba(100, 10, 200, 0.4)',
+                                greatArc: true
+                            }
+                        },
+                        {
+                            origin: {
+                                latitude: 39.861667,
+                                longitude: -104.673056
+                            },
+                            destination: {
+                                latitude: 35.877778,
+                                longitude: -78.7875
+                            }
+                        }
+                    ],
+                    strokeWidth: 1,
+                    arcSharpness: 1.4
                 }
             }
         }
@@ -397,6 +489,13 @@ export default {
         },
         popupTemplate ({ geography, data }) {
             this.stateLabels.popupData = `${geography.properties.name}\nElectoral Votes: ${data.electoralVotes}`
+        },
+        bubblePopupTemplate ({ geography, data }) {
+            this.bubbles.popupData = {
+                yeild: data.yeild,
+                date: data.date,
+                country: data.country
+            }
         }
     },
     mounted () {
