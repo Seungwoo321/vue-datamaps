@@ -11,7 +11,7 @@ module.exports = {
             new CopyWebpackPlugin([
                 {
                     from: path.join(__dirname, 'public'),
-                    to: path.join(__dirname, 'dist/public'),
+                    to: path.join(__dirname, 'dist'),
                     toType: 'dir'
                 }
             ])
