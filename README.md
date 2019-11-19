@@ -9,7 +9,23 @@ $ npm install -D vue-datamaps
 ```
 
 ## Usage
-...
+main.js
+```js
+import Vue from 'vue'
+import VueDatamaps from 'vue-datamaps'
+
+Vue.use(VueDatamaps)
+```
+
+_vue template_
+```html
+<template>
+    <div id="app">
+        <vue-datamaps></vue-datamaps>
+    </div>
+</template>
+
+```
 
 
 ## Inspired
