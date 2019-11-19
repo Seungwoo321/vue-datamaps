@@ -190,7 +190,9 @@ export default {
         // },
         async draw () {
             let geoData = null
-            let result = this.geograpphyConfigOptions.dataUrl ? await d3[this.dataType](this.geograpphyConfigOptions.dataUrl) : await import(`./data/${this.scope}.json`)
+            // let result = await d3[this.dataType](this.geograpphyConfigOptions.dataUrl || '/data/world.json')
+            const response = await fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`)
+            const result = await response.json()
             if (this.geograpphyConfigOptions.dataUrl) {
                 if (this.dataType === 'csv' && (result && result.slice)) {
                     let tmpData = {}

@@ -133,7 +133,6 @@ export default {
             return `M${originXY[0]}, ${originXY[1]}S ${(midXY[0] + (50 * sharpness))}, ${(midXY[1] - (75 * sharpness))}, ${destXY[0]}, ${destXY[1]}`
         },
         handleMouseOver (event, datum, index) {
-            console.log(datum)
             // const { popupOnHover } = this.options
             // if (popupOnHover) this.$emit('update:popup', { event, geography: datum, data: this.options.data[index], flag: true })
         },

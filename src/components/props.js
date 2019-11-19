@@ -27,7 +27,6 @@ export default {
                         .translate([this.svgWidth / 2, this.svgHeight / (this.projection === 'Mercator' ? 1.45 : 1.8)])
                 }
                 if (this.projection === 'Orthographic') {
-                    console.log(this.projectionConfigOptions.rotation)
                     this.svg.append('defs').append('path')
                         .datum({ type: 'Sphere' })
                         .attr('id', 'sphere')
