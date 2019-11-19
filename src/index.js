@@ -1,5 +1,5 @@
 import Datamaps from './components/Datamaps.vue'
-// import './pivottable.css'
+
 const components = {
     Datamaps
 }

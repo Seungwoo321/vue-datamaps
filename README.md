@@ -4,9 +4,8 @@
 </div>
 
 ## Installation
-comming soon
 ```shall
-# npm install -D vue-datamaps
+$ npm install -D vue-datamaps
 ```
 
 ## Usage

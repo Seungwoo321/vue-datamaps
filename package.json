@@ -1,10 +1,25 @@
 {
   "name": "vue-datamaps",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Seungwoo321/vue-datamaps.git"
+  },
+  "keywords": [
+    "vue",
+    "datamaps",
+    "vue-datamaps"
+  ],
+  "author": "Seungwoo, Lee <seungwoo321@gmail.com> (https://github.com/seungwoo321)",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name vue-datamaps src/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
