@@ -1,13 +1,13 @@
-import Datamaps from './components/Datamaps.vue'
+import VueDatamaps from './components/Datamaps.vue'
 
 const components = {
-    Datamaps
+    VueDatamaps
 }
 
-if (typeof window !== 'undefined' && window.Vue) window.Vue.use(Datamaps)
+if (typeof window !== 'undefined' && window.Vue) window.Vue.use(VueDatamaps)
 
 export {
-    Datamaps
+    VueDatamaps
 }
 
 export default (Vue) => {
