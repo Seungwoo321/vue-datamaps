@@ -6,7 +6,7 @@
 ## Installation
 comming soon
 ```shall
-# 
+# npm install -D vue-datamaps
 ```
 
 ## Usage
@@ -27,10 +27,10 @@ comming soon
 * [x] Hover
 * [ ] Choropleth
 * [x] Label
-* [ ] Bubble
-* [ ] Arcs
-* [ ] Projections & Graticules
-* [ ] Zoom
+* [x] Bubble
+* [x] Arcs
+* [x] Projections & Graticules
+* [x] Zoom
 
 ## License
 MIT
