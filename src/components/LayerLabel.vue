@@ -21,6 +21,7 @@
 
 <script>
 export default {
+    name: 'layer-label',
     props: ['labelsConfig', 'data', 'projection', 'path'],
     computed: {
         labelStartCoodinates () {

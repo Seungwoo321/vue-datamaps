@@ -14,6 +14,7 @@
 <script>
 import { val } from './helper'
 export default {
+    name: 'layer-arc',
     props: ['arcConfig', 'path', 'projection', 'data'],
     data () {
         return {
