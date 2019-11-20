@@ -1,5 +1,5 @@
 <template>
-    <div class="map" :style="{ height: this.height + 'px;' }">
+    <div class="map" :style="{ height: this.svgHeight + 'px;' }">
         <svg ref="svg" class="datamap" :style="svgStyle"
             :width="svgWidth"
             :height="svgHeight"
@@ -126,7 +126,7 @@ export default {
                 return this.options.height
             },
             set (element) {
-                this.options.height = this.height || element.offsetHeight || 300
+                this.options.height = element.offsetWidth < 400 ? element.offsetWidth : this.height || element.offsetHeight || 300
             }
         },
         pathStyle () {
