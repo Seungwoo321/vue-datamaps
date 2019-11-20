@@ -10,6 +10,7 @@
     <div>
         <h4>Choropleth:</h4>
         <vue-datamaps
+            :height="750"
             :projection="choropleth.projection"
             :data="choropleth.data"
             :fills="choropleth.fills"

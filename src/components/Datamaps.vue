@@ -1,8 +1,9 @@
 <template>
-    <div class="map">
+    <div class="map" :style="{ height: this.height + 'px;' }">
         <svg ref="svg" class="datamap" :style="svgStyle"
             :width="svgWidth"
-            :height="svgHeight">
+            :height="svgHeight"
+            viewbox="0 0 750 500">
             <g :transform="transform">
                 <path v-for="(item, index) in pathData" :key="index"
                     :d="pathAndProjection.path(item)"
@@ -105,7 +106,7 @@ export default {
         },
         height: {
             type: Number,
-            default: 0
+            default: 600
         }
     },
     computed: {
@@ -138,8 +139,8 @@ export default {
         svgStyle () {
             return {
                 overflow: 'hidden',
-                position: 'absolute',
-                width: '100%',
+                // position: 'absolute',
+                // width: '100%'
                 height: '100%'
             }
         },
@@ -166,6 +167,8 @@ export default {
         addPlugin () {
         },
         resize () {
+            this.svgWidth = this.$el
+            this.svgHeight = this.$el
             const oldSize = this.svgWidth
             // this.svgWidth = this.$el
             const newSize = this.$el.clientWidth
@@ -288,8 +291,6 @@ export default {
 .map {
     position: relative;
     margin: 0 auto;
-    width: 750px;
-    height: 500px;
 }
 @media (max-width: 900px) {
     .map {
