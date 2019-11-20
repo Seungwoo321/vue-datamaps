@@ -3,7 +3,7 @@
         <svg ref="svg" class="datamap" :style="svgStyle"
             :width="svgWidth"
             :height="svgHeight"
-            viewbox="0 0 750 500">
+            viewbox="0 0 750 600">
             <g :transform="transform">
                 <path v-for="(item, index) in pathData" :key="index"
                     :d="pathAndProjection.path(item)"
@@ -291,12 +291,6 @@ export default {
 .map {
     position: relative;
     margin: 0 auto;
-}
-@media (max-width: 900px) {
-    .map {
-        width: 100%;
-        height: 300px;
-    }
 }
 .datamap path.datamaps-graticule {
     fill: none;
