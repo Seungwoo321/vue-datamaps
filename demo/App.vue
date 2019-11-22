@@ -604,7 +604,7 @@ export default {
                 korea: function (d3, element) {
                     const projection = d3.geoMercator().center([0, 0])
                         .rotate([-128, -36])
-                        .scale(5000)
+                        .scale(element.offsetWidth * 6)
                         .translate([element.offsetWidth / 2, element.offsetHeight / 2])
                     const path = d3.geoPath().projection(projection)
                     return { projection, path }
@@ -613,7 +613,7 @@ export default {
                     var projection = d3.geoEquirectangular()
                         .center([23, -3])
                         .rotate([4.4, 0])
-                        .scale(400)
+                        .scale(element.offsetHeight * 0.6)
                         .translate([element.offsetWidth / 2, element.offsetHeight / 2])
                     var path = d3.geoPath()
                         .projection(projection)

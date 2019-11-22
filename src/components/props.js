@@ -39,7 +39,7 @@ export default {
                     this.svg.append('use')
                         .attr('class', 'fill')
                         .attr('xlink:href', '#sphere')
-                    projection.scale(250).clipAngle(90).rotate(this.projectionConfigOptions.rotation)
+                    projection.scale(this.svgWidth / Math.PI * 0.9).clipAngle(90).rotate(this.projectionConfigOptions.rotation)
                 }
 
                 path = d3.geoPath()

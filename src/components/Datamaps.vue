@@ -1,9 +1,9 @@
 <template>
-    <div class="map" :style="{ height: this.svgHeight + 'px;' }">
+    <div class="map" :style="mapStyle">
         <svg ref="svg" class="datamap" :style="svgStyle"
-            :width="svgWidth"
-            :height="svgHeight"
-            viewbox="0 0 750 600">
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            viewbox="0 0 750 500">
             <g :transform="transform">
                 <path v-for="(item, index) in pathData" :key="index"
                     :d="pathAndProjection.path(item)"
@@ -74,6 +74,10 @@ export default {
     },
     data () {
         return {
+            setProjectionData: {
+                path: null,
+                projection: null
+            },
             showHoverinfo: false,
             popupData: {
                 name: '',
@@ -81,10 +85,9 @@ export default {
                 destination: ''
             },
             popupPosition: {},
-            options: {
+            viewbox: {
                 width: 0,
-                height: 0,
-                dataWidth: 0
+                height: 0
             },
             geo: {
                 projection: null,
@@ -102,11 +105,11 @@ export default {
     props: {
         width: {
             type: Number,
-            default: 0
+            default: 750
         },
         height: {
             type: Number,
-            default: 600
+            default: 500
         }
     },
     computed: {
@@ -115,20 +118,26 @@ export default {
         },
         svgWidth: {
             get () {
-                return this.options.width
+                return this.viewbox.width
             },
             set (element) {
-                this.options.width = this.width || element.offsetWidth
+                this.viewbox.width = element.getBoundingClientRect().width
             }
         },
         svgHeight: {
             get () {
-                return this.options.height
+                return this.viewbox.height
             },
             set (element) {
-                this.options.height = element.offsetWidth < 400 ? element.offsetWidth : this.height || element.offsetHeight || 300
+                this.viewbox.height = element.getBoundingClientRect().height
             }
         },
+        // svgWidth () {
+        //     return this.$el.getBoundingClientRect().width
+        // },
+        // svgHeight () {
+        //     return this.$el.getBoundingClientRect().height
+        // },
         pathStyle () {
             return {
                 'stroke-width': this.geograpphyConfigOptions.borderWidth,
@@ -139,24 +148,39 @@ export default {
         svgStyle () {
             return {
                 overflow: 'hidden',
-                // position: 'absolute',
-                // width: '100%'
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
                 height: '100%'
             }
         },
-        divStyle () {
+        mapStyle () {
             return {
+                width: '100%',
+                height: 0,
                 position: 'relative',
-                'padding-bottom': `${(this.aspectRatio * 100)}%`
+                'padding-top': (500 / 750) * 100 + '%',
+                // 'padding-bottom': `${(this.aspectRatio * 100)}%`,
+                margin: '0 auto'
             }
         },
-        pathAndProjection () {
-            return { ...this.setProjection(d3, this.$el) }
+        pathAndProjection: {
+            get () {
+                return this.setProjectionData
+            },
+            set (element) {
+                this.setProjectionData = {
+                    path: this.setProjection(d3, element).path,
+                    projection: this.setProjection(d3, element).projection
+                }
+            }
         }
     },
     mounted () {
         this.svgWidth = this.$el
         this.svgHeight = this.$el
+        this.pathAndProjection = this.$el
         this.draw()
         window.addEventListener('resize', this.resize)
     },
@@ -169,10 +193,7 @@ export default {
         resize () {
             this.svgWidth = this.$el
             this.svgHeight = this.$el
-            const oldSize = this.svgWidth
-            // this.svgWidth = this.$el
-            const newSize = this.$el.clientWidth
-            this.transform = `scale(${newSize / oldSize})`
+            this.pathAndProjection = this.$el
         },
         fillColor (d) {
             let { data, fills, defaultFill } = this
@@ -288,10 +309,10 @@ export default {
 </script>
 
 <style>
-.map {
+/* .map {
     position: relative;
     margin: 0 auto;
-}
+} */
 .datamap path.datamaps-graticule {
     fill: none;
     stroke: #777;
