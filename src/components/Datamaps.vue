@@ -139,7 +139,6 @@ export default {
         //     return this.$el.getBoundingClientRect().height
         // },
         pathStyle () {
-            console.log(this.geograpphyConfigOptions.borderColor)
             return this.styleAttributes || {
                 'stroke-width': this.geograpphyConfigOptions.borderWidth,
                 'stroke-opacity': this.geograpphyConfigOptions.borderOpacity,
