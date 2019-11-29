@@ -9,7 +9,7 @@
                     :d="pathAndProjection.path(item)"
                     :class="`datamaps-styleAttributes ${item.id || item.properties.code_hasc}`"
                     :fill="fillColor(item)"
-                    :style="styleAttributes[item.id || item.properties.code_hasc]"
+                    :style="pathStyle[item.id || item.properties.code_hasc] || pathStyle"
                     @mouseover="handleMouseOver($event, item)"
                     @mouseout="handleMouseOut($event, item)"
                 />
@@ -139,7 +139,8 @@ export default {
         //     return this.$el.getBoundingClientRect().height
         // },
         pathStyle () {
-            return {
+            console.log(this.geograpphyConfigOptions.borderColor)
+            return this.styleAttributes || {
                 'stroke-width': this.geograpphyConfigOptions.borderWidth,
                 'stroke-opacity': this.geograpphyConfigOptions.borderOpacity,
                 'stroke': this.geograpphyConfigOptions.borderColor
@@ -161,7 +162,6 @@ export default {
                 height: 0,
                 position: 'relative',
                 'padding-top': (500 / 750) * 100 + '%',
-                // 'padding-bottom': `${(this.aspectRatio * 100)}%`,
                 margin: '0 auto'
             }
         },
@@ -272,6 +272,7 @@ export default {
 
             const { highlightOnHover, popupOnHover, highlightFillColor, highlightBorderColor, highlightBorderWidth, highlightBorderOpacity, highlightFillOpacity } = this.geograpphyConfigOptions
             const datum = this.data[d.id || d.properties.code_hasc] || {}
+
             if (highlightOnHover || popupOnHover) {
                 const data = {
                     fill: val(datum.highlightFillColor, highlightFillColor, datum),
@@ -286,13 +287,14 @@ export default {
         },
         handleMouseOut (event, d) {
             const { highlightOnHover, popupOnHover } = this.geograpphyConfigOptions
-            if (highlightOnHover) {
+            if (highlightOnHover || popupOnHover) {
                 const data = this.previousAttributes[d.id || d.properties.code_hasc]
                 this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
             if (popupOnHover) this.updatePopup({ event, geography: d, data: this.data[d.id || d.properties.code_hasc], flag: false })
         },
         updatePopup ({ event, geography, data, flag }) {
+            console.log(geography, data)
             this.popupPosition = {
                 left: `${event.layerX}px`,
                 top: `${event.layerY + 30}px`
@@ -300,7 +302,7 @@ export default {
             if (this.popupTemplate) {
                 this.$emit('custom:popup', { geography, data })
             } else {
-                this.popupData.name = geography.properties.name
+                this.popupData.name = data.name || geography.properties.name
             }
             this.showHoverinfo = flag
         }
@@ -324,8 +326,8 @@ export default {
     pointer-events: none;
 }
 .datamap path:not(.datamaps-arc), .datamap circle, .datamap line {
-    stroke: #FFFFFF;
-    stroke-width: 1px;
+    /* stroke: #FFFFFF; */
+    /* stroke-width: 1px; */
 }
 .datamaps-legend dt, .datamaps-legend dd {
     float: left;

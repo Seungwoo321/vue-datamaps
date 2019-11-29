@@ -4,6 +4,17 @@
     <hr>
     <div>
         <h4>Basic:</h4>
+        <vue-datamaps
+            :fills="luna.fills"
+            :data="luna.data"
+            :geographyConfig="luna.geographyConfig"
+            :bubbles="true"
+            :bubblesConfig="luna.bubblesConfig"
+        />
+    </div>
+    <hr>
+    <div>
+        <h4>Basic:</h4>
         <vue-datamaps/>
     </div>
     <hr>
@@ -113,6 +124,45 @@ export default {
     name: 'app',
     data () {
         return {
+            luna: {
+                bubblesConfig: {
+                    data: [
+                        {
+                            name: 'Area 1',
+                            radius: 23,
+                            centered: 'BRA'
+                        },
+                        {
+                            name: 'Area 2',
+                            radius: 15,
+                            centered: 'USA'
+                        },
+                        {
+                            name: 'Area 3',
+                            radius: 50,
+                            latitude: 73.482,
+                            longitude: 54.5854
+                        }
+                    ],
+                    highlightBorderColor: '#FFFFFF',
+                    highlightFillColor: '#F8A900'
+                },
+                geographyConfig: {
+                    popupOnHover: false,
+                    highlightOnHover: false,
+                    borderWidth: 0
+                },
+                data: {
+                    USA: { fillKey: 'active' },
+                    RUS: { fillKey: 'active' },
+                    DEU: { fillKey: 'active' },
+                    BRA: { fillKey: 'active' }
+                },
+                fills: {
+                    defaultFill: '#3B3D46',
+                    active: '#F8A900'
+                }
+            },
             choropleth: {
                 projection: 'Mercator',
                 fills: {
