@@ -293,7 +293,6 @@ export default {
             if (popupOnHover) this.updatePopup({ event, geography: d, data: this.data[d.id || d.properties.code_hasc], flag: false })
         },
         updatePopup ({ event, geography, data, flag }) {
-            console.log(geography, data)
             this.popupPosition = {
                 left: `${event.layerX}px`,
                 top: `${event.layerY + 30}px`
