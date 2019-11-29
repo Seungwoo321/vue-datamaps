@@ -1,6 +1,6 @@
 {
   "name": "vue-datamaps",
-  "version": "0.1.9",
+  "version": "0.1.9.1",
   "main": "src/index.js",
   "files": [
     "dist",
