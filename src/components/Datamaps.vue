@@ -297,10 +297,8 @@ export default {
                 left: `${event.layerX}px`,
                 top: `${event.layerY + 30}px`
             }
-            if (this.popupTemplate) {
-                this.$emit('custom:popup', { geography, data })
-            } else {
-                this.popupData.name = data.name || geography.properties.name
+            if (flag) {
+                this.popupTemplate ? this.$emit('custom:popup', { geography, data }) : this.popupData.name = data.name || geography.properties.name
             }
             this.showHoverinfo = flag
         }
