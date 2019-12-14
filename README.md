@@ -1,7 +1,9 @@
-<div align="center">
-    <h1>Vue Datamaps</h1>
-    <small>It is a Vue port of the jQuery-based [DataMaps](https://datamaps.github.io/)</small>
-</div>
+# Vue Datamaps
+
+[![npm](https://flat.badgen.net/npm/v/vue-datamaps)](https://npmjs.com/package/vue-datamaps)
+[![npm](https://flat.badgen.net/npm/dt/vue-datamaps)](https://npmjs.com/package/vue-datamaps)
+
+It is a Vue port of the jQuery-based [DataMaps](https://datamaps.github.io/)
 
 ## Installation
 ```shall
