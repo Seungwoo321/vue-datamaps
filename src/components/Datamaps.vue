@@ -1,10 +1,7 @@
 <template>
-    <div class="map" :style="mapStyle">
-        <svg ref="svg" class="datamap" :style="svgStyle"
-            xmlns="http://www.w3.org/2000/svg"
-            version="1.1"
-            viewbox="0 0 750 500">
-            <g :transform="transform">
+    <div class="map">
+        <svg ref="svg" class="datamap">
+            <g>
                 <path v-for="(item, index) in pathData" :key="index"
                     :d="pathAndProjection.path(item)"
                     :class="`datamaps-styleAttributes ${item.id || item.properties.code_hasc}`"
@@ -89,11 +86,10 @@ export default {
                 width: 0,
                 height: 0
             },
-            geo: {
-                projection: null,
-                path: null
-            },
-            transform: 'scale(1)',
+            // geo: {
+            //     projection: null,
+            //     path: null
+            // },
             pathData: [],
             bubbleGeoData: {},
             arcGeoData: {},
@@ -132,36 +128,11 @@ export default {
                 this.viewbox.height = element.getBoundingClientRect().height
             }
         },
-        // svgWidth () {
-        //     return this.$el.getBoundingClientRect().width
-        // },
-        // svgHeight () {
-        //     return this.$el.getBoundingClientRect().height
-        // },
         pathStyle () {
             return this.styleAttributes || {
                 'stroke-width': this.geograpphyConfigOptions.borderWidth,
                 'stroke-opacity': this.geograpphyConfigOptions.borderOpacity,
                 'stroke': this.geograpphyConfigOptions.borderColor
-            }
-        },
-        svgStyle () {
-            return {
-                overflow: 'hidden',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%'
-            }
-        },
-        mapStyle () {
-            return {
-                width: '100%',
-                height: 0,
-                position: 'relative',
-                'padding-top': (500 / 750) * 100 + '%',
-                margin: '0 auto'
             }
         },
         pathAndProjection: {
@@ -177,9 +148,7 @@ export default {
         }
     },
     mounted () {
-        this.svgWidth = this.$el
-        this.svgHeight = this.$el
-        this.pathAndProjection = this.$el
+        this.resize()
         this.draw()
         window.addEventListener('resize', this.resize)
     },
@@ -207,13 +176,8 @@ export default {
             }
             return color
         },
-        // updateChoropleth (data) {
-        //     console.log(data)
-        //     console.log('csv data test')
-        // },
         async draw () {
             let geoData = null
-            // let result = await d3[this.dataType](this.geograpphyConfigOptions.dataUrl || '/data/world.json')
             const response = await fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`)
             const result = await response.json()
             if (this.geograpphyConfigOptions.dataUrl) {
@@ -298,7 +262,7 @@ export default {
                 top: `${event.layerY + 30}px`
             }
             if (flag) {
-                this.popupTemplate ? this.$emit('custom:popup', { geography, data }) : this.popupData.name = data.name || geography.properties.name
+                this.popupTemplate ? this.$emit('custom:popup', { geography, data }) : this.popupData.name = (data && data.name) || geography.properties.name
             }
             this.showHoverinfo = flag
         }
@@ -307,10 +271,19 @@ export default {
 </script>
 
 <style>
-/* .map {
+.map {
+    height: 0;
+    width: 100%;
+    padding-top: 66.66%;
     position: relative;
-    margin: 0 auto;
-} */
+}
+.datamap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 .datamap path.datamaps-graticule {
     fill: none;
     stroke: #777;
@@ -322,8 +295,8 @@ export default {
     pointer-events: none;
 }
 .datamap path:not(.datamaps-arc), .datamap circle, .datamap line {
-    /* stroke: #FFFFFF; */
-    /* stroke-width: 1px; */
+    stroke: #FFFFFF;
+    stroke-width: 1px;
 }
 .datamaps-legend dt, .datamaps-legend dd {
     float: left;
