@@ -3,7 +3,7 @@
 [![npm](https://flat.badgen.net/npm/v/vue-datamaps)](https://npmjs.com/package/vue-datamaps)
 [![npm](https://flat.badgen.net/npm/dt/vue-datamaps)](https://npmjs.com/package/vue-datamaps)
 
-It is a Vue port of the jQuery-based [DataMaps](https://datamaps.github.io/)
+It is a Vue port of the javascript-based [DataMaps](https://datamaps.github.io/)
 
 ## Installation
 ```bash
