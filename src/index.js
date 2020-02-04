@@ -6,8 +6,6 @@ export {
     VueDatamaps
 }
 
-VueDatamaps.install = function (Vue) {
+export default function install (Vue) {
     Vue.component(VueDatamaps.name, VueDatamaps)
 }
-
-export default VueDatamaps

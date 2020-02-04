@@ -1,13 +1,13 @@
 <template>
   <div>
     <h4>Basic:</h4>
-    <vue-datamaps :geographyConfig="geographyConfig"/>
-    <!-- <vue-datamaps/> -->
+    <!-- <vue-datamaps :geographyConfig="geographyConfig"/> -->
+    <vue-datamaps/>
   </div>
 </template>
 
 <script>
-import VueDatamaps from 'vue-datamaps'
+import { VueDatamaps } from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps

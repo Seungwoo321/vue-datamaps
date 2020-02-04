@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import VueDatamaps from 'vue-datamaps'
+import { VueDatamaps } from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps
@@ -26,6 +26,7 @@ export default {
   data () {
     return {
       geographyConfig: {
+        // dataUrl: 'https://raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
         popupOnHover: false,
         highlightOnHover: false
       },

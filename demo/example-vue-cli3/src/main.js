@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 // import VueDatamaps from 'vue-datamaps'
-// import VueDatamaps from '../../../src'
+import VueDatamaps from '../../../src'
 
 Vue.config.productionTip = false
 
-// Vue.use(VueDatamaps)
+Vue.use(VueDatamaps)
 // Vue.use(window['vue-datamaps'])
 
 new Vue({
