@@ -25658,14 +25658,14 @@ var Datamaps_component = normalizeComponent(
 
 if (typeof window !== 'undefined' && window.Vue) window.Vue.use(Datamaps);
 
-function install(Vue) {
+/* harmony default export */ var src = (function (Vue) {
   Vue.component(Datamaps.name, Datamaps);
-}
+});
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 /* concated harmony reexport VueDatamaps */__webpack_require__.d(__webpack_exports__, "VueDatamaps", function() { return Datamaps; });
 
 
-/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (install);
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src);
 
 
 
