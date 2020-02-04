@@ -188,7 +188,6 @@ export default {
                 }
                 this.updateChoropleth(result)
             }
-            console.log(geoData)
             this.drawSubunits(geoData)
         },
         drawSubunits (data) {
