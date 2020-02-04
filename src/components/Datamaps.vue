@@ -185,10 +185,10 @@ export default {
                     let tmpData = {}
                     result.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
                     geoData = tmpData
+                } else {
+                    geoData = result
                 }
                 this.updateChoropleth(result)
-            } else {
-                geoData = result
             }
             this.drawSubunits(geoData)
         },
