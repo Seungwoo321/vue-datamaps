@@ -5,6 +5,18 @@
 
 It is a Vue port of the javascript-based [DataMaps](https://datamaps.github.io/)
 
+## Live Demo
+[link](https://jsfiddle.net/front123/437a5wvf/)
+
+## Run Demo 
+
+```bash
+$ git clone https://github.com/Seungwoo321/vue-datamaps.git 
+$ cd vue-datamaps/demo/example-vue-cli3/
+$ npm install
+$ npm run serve
+```
+
 ## Installation
 ```bash
 $ npm install -D vue-datamaps
@@ -53,18 +65,6 @@ export default {
 </style>
 ```
 
-## Run demo 
-
-```bash
-$ git clone https://github.com/Seungwoo321/vue-datamaps.git 
-$ cd vue-datamaps/demo/example-vue-cli3/
-$ npm install
-$ npm run serve
-```
-
-<!-- ## Live demo
-
-[link]() -->
 
 ## Example
 
