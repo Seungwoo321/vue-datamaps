@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps

@@ -42,7 +42,7 @@ _vue template_
     </div>
 </template>
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 export default {
     components: {
         VueDatamaps
@@ -79,7 +79,7 @@ $ npm run serve
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps
@@ -115,7 +115,7 @@ export default {
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps
@@ -377,7 +377,7 @@ export default {
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps
@@ -478,7 +478,7 @@ export default {
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps
@@ -584,7 +584,7 @@ export default {
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 import * as d3 from 'd3v4'
 export default {
   components: {
@@ -667,7 +667,7 @@ export default {
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 import * as d3 from 'd3v4'
 export default {
   components: {
@@ -767,7 +767,7 @@ export default {
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps
@@ -840,7 +840,7 @@ export default {
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import VueDatamaps from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps
