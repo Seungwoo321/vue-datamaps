@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>Basic:</h4>
-    <vue-datamaps/>
+    <vue-datamaps :geographyConfig="geographyConfig"/>
   </div>
 </template>
 
@@ -10,6 +10,13 @@ import { VueDatamaps } from 'vue-datamaps'
 export default {
   components: {
     VueDatamaps
+  },
+  data () {
+    return {
+      geographyConfig: {
+        dataUrl: 'https://raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json'
+      }
+    }
   }
 }
 </script>
