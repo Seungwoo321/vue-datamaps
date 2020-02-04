@@ -4,14 +4,6 @@ export default {
             type: String,
             default: 'world'
         },
-        responsive: {
-            type: Boolean,
-            default: false
-        },
-        aspectRatio: {
-            type: Number,
-            default: 0.5625
-        },
         setProjection: {
             type: Function,
             default: function (d3, element) {
@@ -76,12 +68,6 @@ export default {
                 }
             }
         },
-        filters: {
-            type: Object,
-            default: function () {
-                return {}
-            }
-        },
         geographyConfig: {
             type: Object
         },
@@ -116,38 +102,6 @@ export default {
         popupTemplate: {
             type: Boolean,
             default: false
-        },
-        updateChoropleth: {
-            type: Function,
-            default: function (data, options) {
-                const svg = this.svg
-
-                // When options.reset = true, reset all the fill colors to the defaultFill and kill all data-info
-                if (options && options.reset === true) {
-                    svg.selectAll('.datamaps-subunit')
-                        .transition().style('fill', this.fills.defaultFill)
-                }
-
-                for (const subunit in data) {
-                    if (data.hasOwnProperty(subunit)) {
-                        let color
-                        const subunitData = data[subunit]
-                        if (!subunit) {
-                            continue
-                        } else if (typeof subunitData === 'string') {
-                            color = subunitData
-                        } else if (typeof subunitData.color === 'string') {
-                            color = subunitData.color
-                        } else if (typeof subunitData.fillColor === 'string') {
-                            color = subunitData.fillColor
-                        } else {
-                            color = this.fills[subunitData.fillKey]
-                        }
-                        this.$set(this.previousAttributes, data[subunit], this.styleAttributes[subunit] || {})
-                        this.$set(this.styleAttributes, data[subunit], { fill: color })
-                    }
-                }
-            }
         }
     },
     data () {

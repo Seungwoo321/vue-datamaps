@@ -193,21 +193,6 @@ module.exports = function (exec) {
 
 /***/ }),
 
-/***/ "0aea":
-/***/ (function(module, exports, __webpack_require__) {
-
-var redefine = __webpack_require__("d666");
-
-module.exports = function (target, src, options) {
-  for (var key in src) {
-    if (options && options.unsafe && target[key]) target[key] = src[key];
-    else redefine(target, key, src[key], options);
-  } return target;
-};
-
-
-/***/ }),
-
 /***/ "0b7b":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -992,44 +977,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "362a":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("a5eb");
-var IS_PURE = __webpack_require__("7042");
-var NativePromise = __webpack_require__("f354");
-var getBuiltIn = __webpack_require__("9883");
-var speciesConstructor = __webpack_require__("b0ea");
-var promiseResolve = __webpack_require__("7ef9");
-var redefine = __webpack_require__("d666");
-
-// `Promise.prototype.finally` method
-// https://tc39.github.io/ecma262/#sec-promise.prototype.finally
-$({ target: 'Promise', proto: true, real: true }, {
-  'finally': function (onFinally) {
-    var C = speciesConstructor(this, getBuiltIn('Promise'));
-    var isFunction = typeof onFinally == 'function';
-    return this.then(
-      isFunction ? function (x) {
-        return promiseResolve(C, onFinally()).then(function () { return x; });
-      } : onFinally,
-      isFunction ? function (e) {
-        return promiseResolve(C, onFinally()).then(function () { throw e; });
-      } : onFinally
-    );
-  }
-});
-
-// patch native Promise.prototype for native async functions
-if (!IS_PURE && typeof NativePromise == 'function' && !NativePromise.prototype['finally']) {
-  redefine(NativePromise.prototype, 'finally', getBuiltIn('Promise').prototype['finally']);
-}
-
-
-/***/ }),
-
 /***/ "37e8":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1629,30 +1576,6 @@ module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
   // eslint-disable-next-line no-undef
   return !String(Symbol());
 });
-
-
-/***/ }),
-
-/***/ "4963":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("3ac6");
-var userAgent = __webpack_require__("c4b8");
-
-var process = global.process;
-var versions = process && process.versions;
-var v8 = versions && versions.v8;
-var match, version;
-
-if (v8) {
-  match = v8.split('.');
-  version = match[0] + match[1];
-} else if (userAgent) {
-  match = userAgent.match(/Chrome\/(\d+)/);
-  if (match) version = match[1];
-}
-
-module.exports = version && +version;
 
 
 /***/ }),
@@ -18016,15 +17939,6 @@ for (var COLLECTION_NAME in DOMIterables) {
 
 /***/ }),
 
-/***/ "548c":
-/***/ (function(module, exports, __webpack_require__) {
-
-// TODO: Remove from `core-js@4`
-__webpack_require__("84d2");
-
-
-/***/ }),
-
 /***/ "5692":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18185,164 +18099,6 @@ module.exports = path.Array.isArray;
 
 /***/ }),
 
-/***/ "5afb":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("3ac6");
-var fails = __webpack_require__("06fa");
-var classof = __webpack_require__("fc48");
-var bind = __webpack_require__("194a");
-var html = __webpack_require__("edbd");
-var createElement = __webpack_require__("7a37");
-var userAgent = __webpack_require__("c4b8");
-
-var location = global.location;
-var set = global.setImmediate;
-var clear = global.clearImmediate;
-var process = global.process;
-var MessageChannel = global.MessageChannel;
-var Dispatch = global.Dispatch;
-var counter = 0;
-var queue = {};
-var ONREADYSTATECHANGE = 'onreadystatechange';
-var defer, channel, port;
-
-var run = function (id) {
-  // eslint-disable-next-line no-prototype-builtins
-  if (queue.hasOwnProperty(id)) {
-    var fn = queue[id];
-    delete queue[id];
-    fn();
-  }
-};
-
-var runner = function (id) {
-  return function () {
-    run(id);
-  };
-};
-
-var listener = function (event) {
-  run(event.data);
-};
-
-var post = function (id) {
-  // old engines have not location.origin
-  global.postMessage(id + '', location.protocol + '//' + location.host);
-};
-
-// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
-if (!set || !clear) {
-  set = function setImmediate(fn) {
-    var args = [];
-    var i = 1;
-    while (arguments.length > i) args.push(arguments[i++]);
-    queue[++counter] = function () {
-      // eslint-disable-next-line no-new-func
-      (typeof fn == 'function' ? fn : Function(fn)).apply(undefined, args);
-    };
-    defer(counter);
-    return counter;
-  };
-  clear = function clearImmediate(id) {
-    delete queue[id];
-  };
-  // Node.js 0.8-
-  if (classof(process) == 'process') {
-    defer = function (id) {
-      process.nextTick(runner(id));
-    };
-  // Sphere (JS game engine) Dispatch API
-  } else if (Dispatch && Dispatch.now) {
-    defer = function (id) {
-      Dispatch.now(runner(id));
-    };
-  // Browsers with MessageChannel, includes WebWorkers
-  // except iOS - https://github.com/zloirock/core-js/issues/624
-  } else if (MessageChannel && !/(iphone|ipod|ipad).*applewebkit/i.test(userAgent)) {
-    channel = new MessageChannel();
-    port = channel.port2;
-    channel.port1.onmessage = listener;
-    defer = bind(port.postMessage, port, 1);
-  // Browsers with postMessage, skip WebWorkers
-  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
-  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts && !fails(post)) {
-    defer = post;
-    global.addEventListener('message', listener, false);
-  // IE8-
-  } else if (ONREADYSTATECHANGE in createElement('script')) {
-    defer = function (id) {
-      html.appendChild(createElement('script'))[ONREADYSTATECHANGE] = function () {
-        html.removeChild(this);
-        run(id);
-      };
-    };
-  // Rest old browsers
-  } else {
-    defer = function (id) {
-      setTimeout(runner(id), 0);
-    };
-  }
-}
-
-module.exports = {
-  set: set,
-  clear: clear
-};
-
-
-/***/ }),
-
-/***/ "5b57":
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__("6f8d");
-var isArrayIteratorMethod = __webpack_require__("2616");
-var toLength = __webpack_require__("6725");
-var bind = __webpack_require__("194a");
-var getIteratorMethod = __webpack_require__("0b7b");
-var callWithSafeIterationClosing = __webpack_require__("faaa");
-
-var Result = function (stopped, result) {
-  this.stopped = stopped;
-  this.result = result;
-};
-
-var iterate = module.exports = function (iterable, fn, that, AS_ENTRIES, IS_ITERATOR) {
-  var boundFunction = bind(fn, that, AS_ENTRIES ? 2 : 1);
-  var iterator, iterFn, index, length, result, next, step;
-
-  if (IS_ITERATOR) {
-    iterator = iterable;
-  } else {
-    iterFn = getIteratorMethod(iterable);
-    if (typeof iterFn != 'function') throw TypeError('Target is not iterable');
-    // optimisation for array iterators
-    if (isArrayIteratorMethod(iterFn)) {
-      for (index = 0, length = toLength(iterable.length); length > index; index++) {
-        result = AS_ENTRIES
-          ? boundFunction(anObject(step = iterable[index])[0], step[1])
-          : boundFunction(iterable[index]);
-        if (result && result instanceof Result) return result;
-      } return new Result(false);
-    }
-    iterator = iterFn.call(iterable);
-  }
-
-  next = iterator.next;
-  while (!(step = next.call(iterator)).done) {
-    result = callWithSafeIterationClosing(iterator, boundFunction, step.value, AS_ENTRIES);
-    if (typeof result == 'object' && result && result instanceof Result) return result;
-  } return new Result(false);
-};
-
-iterate.stop = function (result) {
-  return new Result(true, result);
-};
-
-
-/***/ }),
-
 /***/ "5c6c":
 /***/ (function(module, exports) {
 
@@ -18353,18 +18109,6 @@ module.exports = function (bitmap, value) {
     writable: !(bitmap & 4),
     value: value
   };
-};
-
-
-/***/ }),
-
-/***/ "5f7d":
-/***/ (function(module, exports) {
-
-module.exports = function (it, Constructor, name) {
-  if (!(it instanceof Constructor)) {
-    throw TypeError('Incorrect ' + (name ? name + ' ' : '') + 'invocation');
-  } return it;
 };
 
 
@@ -18425,13 +18169,6 @@ module.exports = Array.isArray || function isArray(arg) {
   return classof(arg) == 'Array';
 };
 
-
-/***/ }),
-
-/***/ "62fc":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("984c");
 
 /***/ }),
 
@@ -18765,389 +18502,6 @@ module.exports = function (argument) {
 
 /***/ }),
 
-/***/ "6813":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("a5eb");
-var IS_PURE = __webpack_require__("7042");
-var global = __webpack_require__("3ac6");
-var getBuiltIn = __webpack_require__("9883");
-var NativePromise = __webpack_require__("f354");
-var redefine = __webpack_require__("d666");
-var redefineAll = __webpack_require__("0aea");
-var setToStringTag = __webpack_require__("2874");
-var setSpecies = __webpack_require__("d383");
-var isObject = __webpack_require__("dfdb");
-var aFunction = __webpack_require__("cc94");
-var anInstance = __webpack_require__("5f7d");
-var classof = __webpack_require__("fc48");
-var iterate = __webpack_require__("5b57");
-var checkCorrectnessOfIteration = __webpack_require__("7de7");
-var speciesConstructor = __webpack_require__("b0ea");
-var task = __webpack_require__("5afb").set;
-var microtask = __webpack_require__("a0e6");
-var promiseResolve = __webpack_require__("7ef9");
-var hostReportErrors = __webpack_require__("c2f0");
-var newPromiseCapabilityModule = __webpack_require__("ad27");
-var perform = __webpack_require__("9b8d");
-var InternalStateModule = __webpack_require__("2f5a");
-var isForced = __webpack_require__("a0e5");
-var wellKnownSymbol = __webpack_require__("0363");
-var V8_VERSION = __webpack_require__("4963");
-
-var SPECIES = wellKnownSymbol('species');
-var PROMISE = 'Promise';
-var getInternalState = InternalStateModule.get;
-var setInternalState = InternalStateModule.set;
-var getInternalPromiseState = InternalStateModule.getterFor(PROMISE);
-var PromiseConstructor = NativePromise;
-var TypeError = global.TypeError;
-var document = global.document;
-var process = global.process;
-var $fetch = getBuiltIn('fetch');
-var newPromiseCapability = newPromiseCapabilityModule.f;
-var newGenericPromiseCapability = newPromiseCapability;
-var IS_NODE = classof(process) == 'process';
-var DISPATCH_EVENT = !!(document && document.createEvent && global.dispatchEvent);
-var UNHANDLED_REJECTION = 'unhandledrejection';
-var REJECTION_HANDLED = 'rejectionhandled';
-var PENDING = 0;
-var FULFILLED = 1;
-var REJECTED = 2;
-var HANDLED = 1;
-var UNHANDLED = 2;
-var Internal, OwnPromiseCapability, PromiseWrapper, nativeThen;
-
-var FORCED = isForced(PROMISE, function () {
-  // V8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
-  // We can't detect it synchronously, so just check versions
-  if (V8_VERSION === 66) return true;
-  // Unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-  if (!IS_NODE && typeof PromiseRejectionEvent != 'function') return true;
-  // We need Promise#finally in the pure version for preventing prototype pollution
-  if (IS_PURE && !PromiseConstructor.prototype['finally']) return true;
-  // We can't use @@species feature detection in V8 since it causes
-  // deoptimization and performance degradation
-  // https://github.com/zloirock/core-js/issues/679
-  if (V8_VERSION >= 51 && /native code/.test(PromiseConstructor)) return false;
-  // Detect correctness of subclassing with @@species support
-  var promise = PromiseConstructor.resolve(1);
-  var FakePromise = function (exec) {
-    exec(function () { /* empty */ }, function () { /* empty */ });
-  };
-  var constructor = promise.constructor = {};
-  constructor[SPECIES] = FakePromise;
-  return !(promise.then(function () { /* empty */ }) instanceof FakePromise);
-});
-
-var INCORRECT_ITERATION = FORCED || !checkCorrectnessOfIteration(function (iterable) {
-  PromiseConstructor.all(iterable)['catch'](function () { /* empty */ });
-});
-
-// helpers
-var isThenable = function (it) {
-  var then;
-  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
-};
-
-var notify = function (promise, state, isReject) {
-  if (state.notified) return;
-  state.notified = true;
-  var chain = state.reactions;
-  microtask(function () {
-    var value = state.value;
-    var ok = state.state == FULFILLED;
-    var index = 0;
-    // variable length - can't use forEach
-    while (chain.length > index) {
-      var reaction = chain[index++];
-      var handler = ok ? reaction.ok : reaction.fail;
-      var resolve = reaction.resolve;
-      var reject = reaction.reject;
-      var domain = reaction.domain;
-      var result, then, exited;
-      try {
-        if (handler) {
-          if (!ok) {
-            if (state.rejection === UNHANDLED) onHandleUnhandled(promise, state);
-            state.rejection = HANDLED;
-          }
-          if (handler === true) result = value;
-          else {
-            if (domain) domain.enter();
-            result = handler(value); // can throw
-            if (domain) {
-              domain.exit();
-              exited = true;
-            }
-          }
-          if (result === reaction.promise) {
-            reject(TypeError('Promise-chain cycle'));
-          } else if (then = isThenable(result)) {
-            then.call(result, resolve, reject);
-          } else resolve(result);
-        } else reject(value);
-      } catch (error) {
-        if (domain && !exited) domain.exit();
-        reject(error);
-      }
-    }
-    state.reactions = [];
-    state.notified = false;
-    if (isReject && !state.rejection) onUnhandled(promise, state);
-  });
-};
-
-var dispatchEvent = function (name, promise, reason) {
-  var event, handler;
-  if (DISPATCH_EVENT) {
-    event = document.createEvent('Event');
-    event.promise = promise;
-    event.reason = reason;
-    event.initEvent(name, false, true);
-    global.dispatchEvent(event);
-  } else event = { promise: promise, reason: reason };
-  if (handler = global['on' + name]) handler(event);
-  else if (name === UNHANDLED_REJECTION) hostReportErrors('Unhandled promise rejection', reason);
-};
-
-var onUnhandled = function (promise, state) {
-  task.call(global, function () {
-    var value = state.value;
-    var IS_UNHANDLED = isUnhandled(state);
-    var result;
-    if (IS_UNHANDLED) {
-      result = perform(function () {
-        if (IS_NODE) {
-          process.emit('unhandledRejection', value, promise);
-        } else dispatchEvent(UNHANDLED_REJECTION, promise, value);
-      });
-      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
-      state.rejection = IS_NODE || isUnhandled(state) ? UNHANDLED : HANDLED;
-      if (result.error) throw result.value;
-    }
-  });
-};
-
-var isUnhandled = function (state) {
-  return state.rejection !== HANDLED && !state.parent;
-};
-
-var onHandleUnhandled = function (promise, state) {
-  task.call(global, function () {
-    if (IS_NODE) {
-      process.emit('rejectionHandled', promise);
-    } else dispatchEvent(REJECTION_HANDLED, promise, state.value);
-  });
-};
-
-var bind = function (fn, promise, state, unwrap) {
-  return function (value) {
-    fn(promise, state, value, unwrap);
-  };
-};
-
-var internalReject = function (promise, state, value, unwrap) {
-  if (state.done) return;
-  state.done = true;
-  if (unwrap) state = unwrap;
-  state.value = value;
-  state.state = REJECTED;
-  notify(promise, state, true);
-};
-
-var internalResolve = function (promise, state, value, unwrap) {
-  if (state.done) return;
-  state.done = true;
-  if (unwrap) state = unwrap;
-  try {
-    if (promise === value) throw TypeError("Promise can't be resolved itself");
-    var then = isThenable(value);
-    if (then) {
-      microtask(function () {
-        var wrapper = { done: false };
-        try {
-          then.call(value,
-            bind(internalResolve, promise, wrapper, state),
-            bind(internalReject, promise, wrapper, state)
-          );
-        } catch (error) {
-          internalReject(promise, wrapper, error, state);
-        }
-      });
-    } else {
-      state.value = value;
-      state.state = FULFILLED;
-      notify(promise, state, false);
-    }
-  } catch (error) {
-    internalReject(promise, { done: false }, error, state);
-  }
-};
-
-// constructor polyfill
-if (FORCED) {
-  // 25.4.3.1 Promise(executor)
-  PromiseConstructor = function Promise(executor) {
-    anInstance(this, PromiseConstructor, PROMISE);
-    aFunction(executor);
-    Internal.call(this);
-    var state = getInternalState(this);
-    try {
-      executor(bind(internalResolve, this, state), bind(internalReject, this, state));
-    } catch (error) {
-      internalReject(this, state, error);
-    }
-  };
-  // eslint-disable-next-line no-unused-vars
-  Internal = function Promise(executor) {
-    setInternalState(this, {
-      type: PROMISE,
-      done: false,
-      notified: false,
-      parent: false,
-      reactions: [],
-      rejection: false,
-      state: PENDING,
-      value: undefined
-    });
-  };
-  Internal.prototype = redefineAll(PromiseConstructor.prototype, {
-    // `Promise.prototype.then` method
-    // https://tc39.github.io/ecma262/#sec-promise.prototype.then
-    then: function then(onFulfilled, onRejected) {
-      var state = getInternalPromiseState(this);
-      var reaction = newPromiseCapability(speciesConstructor(this, PromiseConstructor));
-      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
-      reaction.fail = typeof onRejected == 'function' && onRejected;
-      reaction.domain = IS_NODE ? process.domain : undefined;
-      state.parent = true;
-      state.reactions.push(reaction);
-      if (state.state != PENDING) notify(this, state, false);
-      return reaction.promise;
-    },
-    // `Promise.prototype.catch` method
-    // https://tc39.github.io/ecma262/#sec-promise.prototype.catch
-    'catch': function (onRejected) {
-      return this.then(undefined, onRejected);
-    }
-  });
-  OwnPromiseCapability = function () {
-    var promise = new Internal();
-    var state = getInternalState(promise);
-    this.promise = promise;
-    this.resolve = bind(internalResolve, promise, state);
-    this.reject = bind(internalReject, promise, state);
-  };
-  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
-    return C === PromiseConstructor || C === PromiseWrapper
-      ? new OwnPromiseCapability(C)
-      : newGenericPromiseCapability(C);
-  };
-
-  if (!IS_PURE && typeof NativePromise == 'function') {
-    nativeThen = NativePromise.prototype.then;
-
-    // wrap native Promise#then for native async functions
-    redefine(NativePromise.prototype, 'then', function then(onFulfilled, onRejected) {
-      var that = this;
-      return new PromiseConstructor(function (resolve, reject) {
-        nativeThen.call(that, resolve, reject);
-      }).then(onFulfilled, onRejected);
-    // https://github.com/zloirock/core-js/issues/640
-    }, { unsafe: true });
-
-    // wrap fetch result
-    if (typeof $fetch == 'function') $({ global: true, enumerable: true, forced: true }, {
-      // eslint-disable-next-line no-unused-vars
-      fetch: function fetch(input /* , init */) {
-        return promiseResolve(PromiseConstructor, $fetch.apply(global, arguments));
-      }
-    });
-  }
-}
-
-$({ global: true, wrap: true, forced: FORCED }, {
-  Promise: PromiseConstructor
-});
-
-setToStringTag(PromiseConstructor, PROMISE, false, true);
-setSpecies(PROMISE);
-
-PromiseWrapper = getBuiltIn(PROMISE);
-
-// statics
-$({ target: PROMISE, stat: true, forced: FORCED }, {
-  // `Promise.reject` method
-  // https://tc39.github.io/ecma262/#sec-promise.reject
-  reject: function reject(r) {
-    var capability = newPromiseCapability(this);
-    capability.reject.call(undefined, r);
-    return capability.promise;
-  }
-});
-
-$({ target: PROMISE, stat: true, forced: IS_PURE || FORCED }, {
-  // `Promise.resolve` method
-  // https://tc39.github.io/ecma262/#sec-promise.resolve
-  resolve: function resolve(x) {
-    return promiseResolve(IS_PURE && this === PromiseWrapper ? PromiseConstructor : this, x);
-  }
-});
-
-$({ target: PROMISE, stat: true, forced: INCORRECT_ITERATION }, {
-  // `Promise.all` method
-  // https://tc39.github.io/ecma262/#sec-promise.all
-  all: function all(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var resolve = capability.resolve;
-    var reject = capability.reject;
-    var result = perform(function () {
-      var $promiseResolve = aFunction(C.resolve);
-      var values = [];
-      var counter = 0;
-      var remaining = 1;
-      iterate(iterable, function (promise) {
-        var index = counter++;
-        var alreadyCalled = false;
-        values.push(undefined);
-        remaining++;
-        $promiseResolve.call(C, promise).then(function (value) {
-          if (alreadyCalled) return;
-          alreadyCalled = true;
-          values[index] = value;
-          --remaining || resolve(values);
-        }, reject);
-      });
-      --remaining || resolve(values);
-    });
-    if (result.error) reject(result.value);
-    return capability.promise;
-  },
-  // `Promise.race` method
-  // https://tc39.github.io/ecma262/#sec-promise.race
-  race: function race(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var reject = capability.reject;
-    var result = perform(function () {
-      var $promiseResolve = aFunction(C.resolve);
-      iterate(iterable, function (promise) {
-        $promiseResolve.call(C, promise).then(capability.resolve, reject);
-      });
-    });
-    if (result.error) reject(result.value);
-    return capability.promise;
-  }
-});
-
-
-/***/ }),
-
 /***/ "69f3":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19393,14 +18747,6 @@ shared('inspectSource', function (it) {
 
 /***/ }),
 
-/***/ "6f89":
-/***/ (function(module, exports) {
-
-// empty
-
-
-/***/ }),
-
 /***/ "6f8d":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19485,22 +18831,6 @@ module.exports = function (input, PREFERRED_STRING) {
   if (!PREFERRED_STRING && typeof (fn = input.toString) == 'function' && !isObject(val = fn.call(input))) return val;
   throw TypeError("Can't convert object to primitive value");
 };
-
-
-/***/ }),
-
-/***/ "716a":
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__("6f89");
-__webpack_require__("3e47");
-__webpack_require__("5145");
-__webpack_require__("6813");
-__webpack_require__("84d2");
-__webpack_require__("362a");
-var path = __webpack_require__("764b");
-
-module.exports = path.Promise;
 
 
 /***/ }),
@@ -19887,25 +19217,6 @@ module.exports = function (exec, SKIP_CLOSING) {
 
 /***/ }),
 
-/***/ "7ef9":
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__("6f8d");
-var isObject = __webpack_require__("dfdb");
-var newPromiseCapability = __webpack_require__("ad27");
-
-module.exports = function (C, x) {
-  anObject(C);
-  if (isObject(x) && x.constructor === C) return x;
-  var promiseCapability = newPromiseCapability.f(C);
-  var resolve = promiseCapability.resolve;
-  resolve(x);
-  return promiseCapability.promise;
-};
-
-
-/***/ }),
-
 /***/ "7f9a":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19989,57 +19300,6 @@ module.exports = function (object, key, value) {
 
 /***/ }),
 
-/***/ "84d2":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("a5eb");
-var aFunction = __webpack_require__("cc94");
-var newPromiseCapabilityModule = __webpack_require__("ad27");
-var perform = __webpack_require__("9b8d");
-var iterate = __webpack_require__("5b57");
-
-// `Promise.allSettled` method
-// https://github.com/tc39/proposal-promise-allSettled
-$({ target: 'Promise', stat: true }, {
-  allSettled: function allSettled(iterable) {
-    var C = this;
-    var capability = newPromiseCapabilityModule.f(C);
-    var resolve = capability.resolve;
-    var reject = capability.reject;
-    var result = perform(function () {
-      var promiseResolve = aFunction(C.resolve);
-      var values = [];
-      var counter = 0;
-      var remaining = 1;
-      iterate(iterable, function (promise) {
-        var index = counter++;
-        var alreadyCalled = false;
-        values.push(undefined);
-        remaining++;
-        promiseResolve.call(C, promise).then(function (value) {
-          if (alreadyCalled) return;
-          alreadyCalled = true;
-          values[index] = { status: 'fulfilled', value: value };
-          --remaining || resolve(values);
-        }, function (e) {
-          if (alreadyCalled) return;
-          alreadyCalled = true;
-          values[index] = { status: 'rejected', reason: e };
-          --remaining || resolve(values);
-        });
-      });
-      --remaining || resolve(values);
-    });
-    if (result.error) reject(result.value);
-    return capability.promise;
-  }
-});
-
-
-/***/ }),
-
 /***/ "85d3":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20053,67 +19313,6 @@ module.exports = __webpack_require__("9a13");
 module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
-
-
-/***/ }),
-
-/***/ "8b44":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("a5eb");
-var DESCRIPTORS = __webpack_require__("c1b2");
-var getPrototypeOf = __webpack_require__("5779");
-var setPrototypeOf = __webpack_require__("ec62");
-var create = __webpack_require__("4896");
-var defineProperty = __webpack_require__("4180");
-var createPropertyDescriptor = __webpack_require__("2c6c");
-var iterate = __webpack_require__("5b57");
-var createNonEnumerableProperty = __webpack_require__("0273");
-var anObject = __webpack_require__("6f8d");
-var InternalStateModule = __webpack_require__("2f5a");
-
-var setInternalState = InternalStateModule.set;
-var getInternalAggregateErrorState = InternalStateModule.getterFor('AggregateError');
-
-var $AggregateError = function AggregateError(errors, message) {
-  var that = this;
-  if (!(that instanceof $AggregateError)) return new $AggregateError(errors, message);
-  if (setPrototypeOf) {
-    that = setPrototypeOf(new Error(message), getPrototypeOf(that));
-  }
-  var errorsArray = [];
-  iterate(errors, errorsArray.push, errorsArray);
-  if (DESCRIPTORS) setInternalState(that, { errors: errorsArray, type: 'AggregateError' });
-  else that.errors = errorsArray;
-  if (message !== undefined) createNonEnumerableProperty(that, 'message', String(message));
-  return that;
-};
-
-$AggregateError.prototype = create(Error.prototype, {
-  constructor: createPropertyDescriptor(5, $AggregateError),
-  message: createPropertyDescriptor(5, ''),
-  name: createPropertyDescriptor(5, 'AggregateError'),
-  toString: createPropertyDescriptor(5, function toString() {
-    var name = anObject(this).name;
-    name = name === undefined ? 'AggregateError' : String(name);
-    var message = this.message;
-    message = message === undefined ? '' : String(message);
-    return name + ': ' + message;
-  })
-});
-
-if (DESCRIPTORS) defineProperty.f($AggregateError.prototype, 'errors', {
-  get: function () {
-    return getInternalAggregateErrorState(this).errors;
-  },
-  configurable: true
-});
-
-$({ global: true }, {
-  AggregateError: $AggregateError
-});
 
 
 /***/ }),
@@ -21032,20 +20231,6 @@ module.exports = typeof WeakMap === 'function' && /native code/.test(nativeFunct
 
 /***/ }),
 
-/***/ "984c":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("716a");
-
-__webpack_require__("8b44");
-// TODO: Remove from `core-js@4`
-__webpack_require__("548c");
-__webpack_require__("c949");
-__webpack_require__("a3ad");
-
-
-/***/ }),
-
 /***/ "9883":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21136,20 +20321,6 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("a38c");
-
-
-/***/ }),
-
-/***/ "9b8d":
-/***/ (function(module, exports) {
-
-module.exports = function (exec) {
-  try {
-    return { error: false, value: exec() };
-  } catch (error) {
-    return { error: true, value: error };
-  }
-};
 
 
 /***/ }),
@@ -21310,91 +20481,6 @@ module.exports = isForced;
 
 /***/ }),
 
-/***/ "a0e6":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("3ac6");
-var getOwnPropertyDescriptor = __webpack_require__("44ba").f;
-var classof = __webpack_require__("fc48");
-var macrotask = __webpack_require__("5afb").set;
-var userAgent = __webpack_require__("c4b8");
-
-var MutationObserver = global.MutationObserver || global.WebKitMutationObserver;
-var process = global.process;
-var Promise = global.Promise;
-var IS_NODE = classof(process) == 'process';
-// Node.js 11 shows ExperimentalWarning on getting `queueMicrotask`
-var queueMicrotaskDescriptor = getOwnPropertyDescriptor(global, 'queueMicrotask');
-var queueMicrotask = queueMicrotaskDescriptor && queueMicrotaskDescriptor.value;
-
-var flush, head, last, notify, toggle, node, promise, then;
-
-// modern engines have queueMicrotask method
-if (!queueMicrotask) {
-  flush = function () {
-    var parent, fn;
-    if (IS_NODE && (parent = process.domain)) parent.exit();
-    while (head) {
-      fn = head.fn;
-      head = head.next;
-      try {
-        fn();
-      } catch (error) {
-        if (head) notify();
-        else last = undefined;
-        throw error;
-      }
-    } last = undefined;
-    if (parent) parent.enter();
-  };
-
-  // Node.js
-  if (IS_NODE) {
-    notify = function () {
-      process.nextTick(flush);
-    };
-  // browsers with MutationObserver, except iOS - https://github.com/zloirock/core-js/issues/339
-  } else if (MutationObserver && !/(iphone|ipod|ipad).*applewebkit/i.test(userAgent)) {
-    toggle = true;
-    node = document.createTextNode('');
-    new MutationObserver(flush).observe(node, { characterData: true });
-    notify = function () {
-      node.data = toggle = !toggle;
-    };
-  // environments with maybe non-completely correct, but existent Promise
-  } else if (Promise && Promise.resolve) {
-    // Promise.resolve without an argument throws an error in LG WebOS 2
-    promise = Promise.resolve(undefined);
-    then = promise.then;
-    notify = function () {
-      then.call(promise, flush);
-    };
-  // for other environments - macrotask based on:
-  // - setImmediate
-  // - MessageChannel
-  // - window.postMessag
-  // - onreadystatechange
-  // - setTimeout
-  } else {
-    notify = function () {
-      // strange IE + webpack dev server bug - use .call(global)
-      macrotask.call(global, flush);
-    };
-  }
-}
-
-module.exports = queueMicrotask || function (fn) {
-  var task = { fn: fn, next: undefined };
-  if (last) last.next = task;
-  if (!head) {
-    head = task;
-    notify();
-  } last = task;
-};
-
-
-/***/ }),
-
 /***/ "a38c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21408,60 +20494,6 @@ var defineProperty = module.exports = function defineProperty(it, key, desc) {
 };
 
 if (Object.defineProperty.sham) defineProperty.sham = true;
-
-
-/***/ }),
-
-/***/ "a3ad":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("a5eb");
-var aFunction = __webpack_require__("cc94");
-var getBuiltIn = __webpack_require__("9883");
-var newPromiseCapabilityModule = __webpack_require__("ad27");
-var perform = __webpack_require__("9b8d");
-var iterate = __webpack_require__("5b57");
-
-var PROMISE_ANY_ERROR = 'No one promise resolved';
-
-// `Promise.any` method
-// https://github.com/tc39/proposal-promise-any
-$({ target: 'Promise', stat: true }, {
-  any: function any(iterable) {
-    var C = this;
-    var capability = newPromiseCapabilityModule.f(C);
-    var resolve = capability.resolve;
-    var reject = capability.reject;
-    var result = perform(function () {
-      var promiseResolve = aFunction(C.resolve);
-      var errors = [];
-      var counter = 0;
-      var remaining = 1;
-      var alreadyResolved = false;
-      iterate(iterable, function (promise) {
-        var index = counter++;
-        var alreadyRejected = false;
-        errors.push(undefined);
-        remaining++;
-        promiseResolve.call(C, promise).then(function (value) {
-          if (alreadyRejected || alreadyResolved) return;
-          alreadyResolved = true;
-          resolve(value);
-        }, function (e) {
-          if (alreadyRejected || alreadyResolved) return;
-          alreadyRejected = true;
-          errors[index] = e;
-          --remaining || reject(new (getBuiltIn('AggregateError'))(errors, PROMISE_ANY_ERROR));
-        });
-      });
-      --remaining || reject(new (getBuiltIn('AggregateError'))(errors, PROMISE_ANY_ERROR));
-    });
-    if (result.error) reject(result.value);
-    return capability.promise;
-  }
-});
 
 
 /***/ }),
@@ -22033,32 +21065,6 @@ module.exports = shared('native-function-to-string', Function.toString);
 
 /***/ }),
 
-/***/ "ad27":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var aFunction = __webpack_require__("cc94");
-
-var PromiseCapability = function (C) {
-  var resolve, reject;
-  this.promise = new C(function ($$resolve, $$reject) {
-    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
-    resolve = $$resolve;
-    reject = $$reject;
-  });
-  this.resolve = aFunction(resolve);
-  this.reject = aFunction(reject);
-};
-
-// 25.4.1.5 NewPromiseCapability(C)
-module.exports.f = function (C) {
-  return new PromiseCapability(C);
-};
-
-
-/***/ }),
-
 /***/ "ae93":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22151,26 +21157,6 @@ if (DESCRIPTORS && !(NAME in FunctionPrototype)) {
     }
   });
 }
-
-
-/***/ }),
-
-/***/ "b0ea":
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__("6f8d");
-var aFunction = __webpack_require__("cc94");
-var wellKnownSymbol = __webpack_require__("0363");
-
-var SPECIES = wellKnownSymbol('species');
-
-// `SpeciesConstructor` abstract operation
-// https://tc39.github.io/ecma262/#sec-speciesconstructor
-module.exports = function (O, defaultConstructor) {
-  var C = anObject(O).constructor;
-  var S;
-  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? defaultConstructor : aFunction(S);
-};
 
 
 /***/ }),
@@ -22590,21 +21576,6 @@ module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperti
 
 /***/ }),
 
-/***/ "c2f0":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("3ac6");
-
-module.exports = function (a, b) {
-  var console = global.console;
-  if (console && console.error) {
-    arguments.length === 1 ? console.error(a) : console.error(a, b);
-  }
-};
-
-
-/***/ }),
-
 /***/ "c430":
 /***/ (function(module, exports) {
 
@@ -22617,16 +21588,6 @@ module.exports = false;
 /***/ (function(module, exports) {
 
 module.exports = function () { /* empty */ };
-
-
-/***/ }),
-
-/***/ "c4b8":
-/***/ (function(module, exports, __webpack_require__) {
-
-var getBuiltIn = __webpack_require__("9883");
-
-module.exports = getBuiltIn('navigator', 'userAgent') || '';
 
 
 /***/ }),
@@ -22680,29 +21641,6 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
-
-
-/***/ }),
-
-/***/ "c949":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $ = __webpack_require__("a5eb");
-var newPromiseCapabilityModule = __webpack_require__("ad27");
-var perform = __webpack_require__("9b8d");
-
-// `Promise.try` method
-// https://github.com/tc39/proposal-promise-try
-$({ target: 'Promise', stat: true }, {
-  'try': function (callbackfn) {
-    var promiseCapability = newPromiseCapabilityModule.f(this);
-    var result = perform(callbackfn);
-    (result.error ? promiseCapability.reject : promiseCapability.resolve)(result.value);
-    return promiseCapability.promise;
-  }
-});
 
 
 /***/ }),
@@ -23003,33 +21941,6 @@ module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
 
 /***/ }),
 
-/***/ "d383":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var getBuiltIn = __webpack_require__("9883");
-var definePropertyModule = __webpack_require__("4180");
-var wellKnownSymbol = __webpack_require__("0363");
-var DESCRIPTORS = __webpack_require__("c1b2");
-
-var SPECIES = wellKnownSymbol('species');
-
-module.exports = function (CONSTRUCTOR_NAME) {
-  var Constructor = getBuiltIn(CONSTRUCTOR_NAME);
-  var defineProperty = definePropertyModule.f;
-
-  if (DESCRIPTORS && Constructor && !Constructor[SPECIES]) {
-    defineProperty(Constructor, SPECIES, {
-      configurable: true,
-      get: function () { return this; }
-    });
-  }
-};
-
-
-/***/ }),
-
 /***/ "d3b7":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23121,7 +22032,7 @@ var store = __webpack_require__("7685");
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.3.5',
+  version: '3.4.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
 });
@@ -24017,16 +22928,6 @@ hiddenKeys[METADATA] = true;
 
 /***/ }),
 
-/***/ "f354":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("3ac6");
-
-module.exports = global.Promise;
-
-
-/***/ }),
-
 /***/ "f575":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24232,12 +23133,12 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2be3ed46-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=f1e82fb2&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"e1265e32-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=9dad4812&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.bubblesConfigOptions,"data":_vm.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path},on:{"update:popup":_vm.updatePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.arcConfigOptions,"data":_vm.arcGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path},on:{"update:popup":_vm.updatePopup}}):_vm._e()],1),((_vm.geograpphyConfigOptions.popupOnHover || _vm.bubblesConfigOptions.popupOnHover) && _vm.showHoverinfo)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupData.name)+" ")])])])],2):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=f1e82fb2&
+// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=9dad4812&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("a4d3");
@@ -24345,48 +23246,6 @@ function _toConsumableArray(arr) {
 // EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__("96cf");
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js/promise.js
-var promise = __webpack_require__("62fc");
-var promise_default = /*#__PURE__*/__webpack_require__.n(promise);
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs3/helpers/esm/asyncToGenerator.js
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
-
-  if (info.done) {
-    resolve(value);
-  } else {
-    promise_default.a.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new promise_default.a(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs3/core-js/object/define-property.js
 var define_property = __webpack_require__("85d3");
 var define_property_default = /*#__PURE__*/__webpack_require__.n(define_property);
@@ -24420,7 +23279,6 @@ var d3 = __webpack_require__("4f1a");
 
 
 
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -24430,14 +23288,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     scope: {
       type: String,
       default: 'world'
-    },
-    responsive: {
-      type: Boolean,
-      default: false
-    },
-    aspectRatio: {
-      type: Number,
-      default: 0.5625
     },
     setProjection: {
       type: Function,
@@ -24496,12 +23346,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
         };
       }
     },
-    filters: {
-      type: Object,
-      default: function _default() {
-        return {};
-      }
-    },
     geographyConfig: {
       type: Object
     },
@@ -24536,40 +23380,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
     popupTemplate: {
       type: Boolean,
       default: false
-    },
-    updateChoropleth: {
-      type: Function,
-      default: function _default(data, options) {
-        var svg = this.svg; // When options.reset = true, reset all the fill colors to the defaultFill and kill all data-info
-
-        if (options && options.reset === true) {
-          svg.selectAll('.datamaps-subunit').transition().style('fill', this.fills.defaultFill);
-        }
-
-        for (var subunit in data) {
-          if (data.hasOwnProperty(subunit)) {
-            var color = void 0;
-            var subunitData = data[subunit];
-
-            if (!subunit) {
-              continue;
-            } else if (typeof subunitData === 'string') {
-              color = subunitData;
-            } else if (typeof subunitData.color === 'string') {
-              color = subunitData.color;
-            } else if (typeof subunitData.fillColor === 'string') {
-              color = subunitData.fillColor;
-            } else {
-              color = this.fills[subunitData.fillKey];
-            }
-
-            this.$set(this.previousAttributes, data[subunit], this.styleAttributes[subunit] || {});
-            this.$set(this.styleAttributes, data[subunit], {
-              fill: color
-            });
-          }
-        }
-      }
     }
   },
   data: function data() {
@@ -24679,12 +23489,12 @@ function val(datumValue, optionsValue, context) {
 }
 
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2be3ed46-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerLabel.vue?vue&type=template&id=2d40b7e2&
-var LayerLabelvue_type_template_id_2d40b7e2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"labels"},[_vm._l((_vm.data),function(item,index){return [(_vm.smallStateIndex(item) > -1)?_c('line',{key:("line-" + index),style:(("stroke:" + (_vm.labelsConfig.labelColor) + ";stroke-width:" + (_vm.labelsConfig.lineWidth) + ";")),attrs:{"x1":_vm.x(item) - 3,"y1":_vm.y(item) - 5,"x2":_vm.center(item)[0],"y2":_vm.center(item)[1]}}):_vm._e(),_c('text',{key:("text-" + index),style:(("font-size:" + (_vm.labelsConfig.fontSize) + "px;font-family:" + (_vm.labelsConfig.fontFamily) + ";fill:" + (_vm.labelsConfig.labelColor))),attrs:{"x":_vm.x(item),"y":_vm.y(item)}},[_vm._v(" "+_vm._s(item.id)+" ")])]})],2)}
-var LayerLabelvue_type_template_id_2d40b7e2_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"e1265e32-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerLabel.vue?vue&type=template&id=568c8506&
+var LayerLabelvue_type_template_id_568c8506_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"labels"},[_vm._l((_vm.data),function(item,index){return [(_vm.smallStateIndex(item) > -1)?_c('line',{key:("line-" + index),style:(("stroke:" + (_vm.labelsConfig.labelColor) + ";stroke-width:" + (_vm.labelsConfig.lineWidth) + ";")),attrs:{"x1":_vm.x(item) - 3,"y1":_vm.y(item) - 5,"x2":_vm.center(item)[0],"y2":_vm.center(item)[1]}}):_vm._e(),_c('text',{key:("text-" + index),style:(("font-size:" + (_vm.labelsConfig.fontSize) + "px;font-family:" + (_vm.labelsConfig.fontFamily) + ";fill:" + (_vm.labelsConfig.labelColor))),attrs:{"x":_vm.x(item),"y":_vm.y(item)}},[_vm._v(" "+_vm._s(item.id)+" ")])]})],2)}
+var LayerLabelvue_type_template_id_568c8506_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerLabel.vue?vue&type=template&id=2d40b7e2&
+// CONCATENATED MODULE: ./src/components/LayerLabel.vue?vue&type=template&id=568c8506&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.index-of.js
 var es_array_index_of = __webpack_require__("c975");
@@ -24844,8 +23654,8 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_LayerLabelvue_type_script_lang_js_,
-  LayerLabelvue_type_template_id_2d40b7e2_render,
-  LayerLabelvue_type_template_id_2d40b7e2_staticRenderFns,
+  LayerLabelvue_type_template_id_568c8506_render,
+  LayerLabelvue_type_template_id_568c8506_staticRenderFns,
   false,
   null,
   null,
@@ -24854,12 +23664,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerLabel = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2be3ed46-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=22777059&
-var LayerBubblevue_type_template_id_22777059_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut($event, item, index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
-var LayerBubblevue_type_template_id_22777059_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"e1265e32-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=4a29f894&
+var LayerBubblevue_type_template_id_4a29f894_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut($event, item, index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
+var LayerBubblevue_type_template_id_4a29f894_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=22777059&
+// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=4a29f894&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=script&lang=js&
 
@@ -25005,8 +23815,8 @@ var LayerBubblevue_type_template_id_22777059_staticRenderFns = []
 
 var LayerBubble_component = normalizeComponent(
   components_LayerBubblevue_type_script_lang_js_,
-  LayerBubblevue_type_template_id_22777059_render,
-  LayerBubblevue_type_template_id_22777059_staticRenderFns,
+  LayerBubblevue_type_template_id_4a29f894_render,
+  LayerBubblevue_type_template_id_4a29f894_staticRenderFns,
   false,
   null,
   null,
@@ -25015,12 +23825,12 @@ var LayerBubble_component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerBubble = (LayerBubble_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2be3ed46-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerArc.vue?vue&type=template&id=23c7b3c5&
-var LayerArcvue_type_template_id_23c7b3c5_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"arc"},_vm._l((_vm.arcData),function(item,index){return _c('path',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"d":_vm.pathData(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut($event, item, index)}}})}),0)}
-var LayerArcvue_type_template_id_23c7b3c5_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"e1265e32-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerArc.vue?vue&type=template&id=2bac6a02&
+var LayerArcvue_type_template_id_2bac6a02_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"arc"},_vm._l((_vm.arcData),function(item,index){return _c('path',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"d":_vm.pathData(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut($event, item, index)}}})}),0)}
+var LayerArcvue_type_template_id_2bac6a02_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerArc.vue?vue&type=template&id=23c7b3c5&
+// CONCATENATED MODULE: ./src/components/LayerArc.vue?vue&type=template&id=2bac6a02&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerArc.vue?vue&type=script&lang=js&
 
@@ -25213,8 +24023,8 @@ function LayerArcvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
 
 var LayerArc_component = normalizeComponent(
   components_LayerArcvue_type_script_lang_js_,
-  LayerArcvue_type_template_id_23c7b3c5_render,
-  LayerArcvue_type_template_id_23c7b3c5_staticRenderFns,
+  LayerArcvue_type_template_id_2bac6a02_render,
+  LayerArcvue_type_template_id_2bac6a02_staticRenderFns,
   false,
   null,
   null,
@@ -25224,7 +24034,6 @@ var LayerArc_component = normalizeComponent(
 
 /* harmony default export */ var LayerArc = (LayerArc_component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=script&lang=js&
-
 
 
 
@@ -25444,57 +24253,47 @@ function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
 
       return color;
     },
-    draw: function () {
-      var _draw = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var response, result, geoData, tmpData;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return fetch(this.geograpphyConfigOptions.dataUrl || "/data/".concat(this.scope, ".").concat(this.dataType));
+    draw: function draw() {
+      var response, result, geoData, tmpData;
+      return regeneratorRuntime.async(function draw$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return regeneratorRuntime.awrap(fetch(this.geograpphyConfigOptions.dataUrl || "/data/".concat(this.scope, ".").concat(this.dataType)));
 
-              case 2:
-                response = _context.sent;
-                _context.next = 5;
-                return response.json();
+            case 2:
+              response = _context.sent;
+              _context.next = 5;
+              return regeneratorRuntime.awrap(response.json());
 
-              case 5:
-                result = _context.sent;
-                geoData = result;
+            case 5:
+              result = _context.sent;
+              geoData = result;
 
-                if (this.geograpphyConfigOptions.dataUrl) {
-                  if (this.dataType === 'csv' && result && result.slice) {
-                    tmpData = {};
-                    result.forEach(function (element) {
-                      return function (item) {
-                        tmpData[item.id || item.properties.code_hasc] = item;
-                      };
-                    });
-                    geoData = tmpData;
-                  }
-
-                  this.updateChoropleth(result);
+              if (this.geograpphyConfigOptions.dataUrl) {
+                if (this.dataType === 'csv' && result && result.slice) {
+                  tmpData = {};
+                  result.forEach(function (element) {
+                    return function (item) {
+                      tmpData[item.id || item.properties.code_hasc] = item;
+                    };
+                  });
+                  geoData = tmpData;
                 }
 
-                this.drawSubunits(geoData);
+                this.updateChoropleth(result);
+              }
 
-              case 9:
-              case "end":
-                return _context.stop();
-            }
+              this.drawSubunits(geoData);
+
+            case 9:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function draw() {
-        return _draw.apply(this, arguments);
-      }
-
-      return draw;
-    }(),
+        }
+      }, null, this);
+    },
     drawSubunits: function drawSubunits(data) {
       if (this.geograpphyConfigOptions.hideAntarctica) {
         this.pathData = data.features.slice().filter(function (feature) {
