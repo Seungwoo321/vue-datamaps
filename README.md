@@ -15,6 +15,25 @@ $ npm install -D vue-datamaps
 ### Required
 * The [json data](https://github.com/Seungwoo321/vue-datamaps/tree/master/demo/example-vue-cli3/public/) must be in a public directory.
 
+#### Global
+main.js
+```js
+import Vue from 'vue'
+import VueDatamaps from 'vue-datamaps'
+
+Vue.use(VueDatamaps)
+
+```
+_vue template_
+```vue
+<template>
+    <div id="app">
+        <vue-datamaps></vue-datamaps>
+    </div>
+</template>
+```
+
+#### Component Style
 _vue template_
 ```vue
 <template>

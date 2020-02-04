@@ -177,19 +177,18 @@ export default {
             return color
         },
         async draw () {
-            let geoData = null
             const response = await fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`)
             const result = await response.json()
+            let geoData = result
             if (this.geograpphyConfigOptions.dataUrl) {
                 if (this.dataType === 'csv' && (result && result.slice)) {
                     let tmpData = {}
                     result.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
                     geoData = tmpData
-                } else {
-                    geoData = result
                 }
                 this.updateChoropleth(result)
             }
+            console.log(geoData)
             this.drawSubunits(geoData)
         },
         drawSubunits (data) {
