@@ -186,7 +186,6 @@ export default {
                     result.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
                     geoData = tmpData
                 }
-                this.updateChoropleth(result)
             }
             this.drawSubunits(geoData)
         },

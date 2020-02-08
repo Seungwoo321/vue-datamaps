@@ -997,7 +997,7 @@ If slot `hoverinfo` and event `custom:popup` required.
 ```js
 {
   scope: 'world',
-  setProjection: function (d3, element) {
+  setProjection: (d3, element) => {
     let projection = null
     let path = null
     if (this.scope === 'usa') {
