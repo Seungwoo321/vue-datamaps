@@ -24603,4 +24603,3 @@ module.exports = global.Promise;
 
 /******/ })["default"];
 });
-//# sourceMappingURL=vue-datamaps.umd.js.map

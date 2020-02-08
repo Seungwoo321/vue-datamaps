@@ -24593,4 +24593,3 @@ module.exports = global.Promise;
 /***/ })
 
 /******/ })["default"];
-//# sourceMappingURL=vue-datamaps.common.js.map
