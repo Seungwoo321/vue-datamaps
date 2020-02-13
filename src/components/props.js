@@ -1,3 +1,4 @@
+import regions from './regions.json'
 export default {
     props: {
         scope: {
@@ -99,6 +100,13 @@ export default {
             type: Boolean,
             default: false
         },
+        awsRegions: {
+            type: Boolean,
+            default: false
+        },
+        awsRegionsConfig: {
+            type: Object
+        },
         popupTemplate: {
             type: Boolean,
             default: false
@@ -106,6 +114,7 @@ export default {
     },
     data () {
         return {
+            regions: regions,
             defaultFill: '#ABDDA4',
             default: {
                 geographyConfig: {
@@ -157,11 +166,26 @@ export default {
                     fontFamily: 'Verdana',
                     labelColor: '#000',
                     lineWidth: 1
+                },
+                awsRegionsConfig: {
+                    strokeColor: '#0b5fd6',
+                    strokeWidth: 1.5,
+                    defaultFill: 'transparent',
+                    highlightFillOpacity: 1,
+                    showPrivateRegions: false,
+                    popupOnHover: false,
+                    data: []
                 }
             }
         }
     },
     computed: {
+        regionsMap: function () {
+            return regions.reduce((accumulator, currentValue) => {
+                accumulator[currentValue.code] = currentValue
+                return accumulator
+            }, {})
+        },
         geograpphyConfigOptions () {
             return {
                 ...this.default.geographyConfig,
@@ -191,6 +215,13 @@ export default {
             return {
                 ...this.default.labelsConfig,
                 ...this.labelsConfig
+            }
+        },
+        awsRegionsConfigOptions () {
+            return {
+                ...this.default.awsRegionsConfig,
+                ...this.awsRegionsConfig,
+                fills: this.fills
             }
         }
     }

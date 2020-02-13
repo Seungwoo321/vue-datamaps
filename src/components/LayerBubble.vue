@@ -7,7 +7,7 @@
             :r="radius(item)"
             :style="styleAttributes[index]"
             @mouseover="handleMouseOver($event, item, index)"
-            @mouseout="handleMouseOut($event, item, index)"
+            @mouseout="handleMouseOut(index)"
         >
         <animate attributeName="r" begin="0s" dur="400ms" from="0" :to="radius(item)"></animate>
         </circle>
@@ -23,10 +23,7 @@ export default {
         return {
             name: 'datamaps-bubble',
             styleAttributes: {},
-            previousAttributes: {},
-            showHoverinfo: false,
-            popupData: '',
-            popupPosition: {}
+            previousAttributes: {}
         }
     },
     computed: {
@@ -37,7 +34,7 @@ export default {
             return this.bubblesConfig
         },
         bubblesData () {
-            return this.options.data.slice()
+            return this.options.data
         }
     },
     mounted () {
@@ -88,15 +85,15 @@ export default {
                 }
                 this.$set(this.styleAttributes, index, data)
             }
-            if (popupOnHover) this.$emit('update:popup', { event, geography: datum, data: this.options.data[index], flag: true })
+            if (popupOnHover) this.$emit('show:popup', { event, datum })
         },
-        handleMouseOut (event, datum, index) {
+        handleMouseOut (index) {
             const { highlightOnHover, popupOnHover } = this.options
             if (highlightOnHover) {
                 const data = this.previousAttributes[index]
                 this.$set(this.styleAttributes, index, data)
             }
-            if (popupOnHover) this.$emit('update:popup', { event, geography: datum, data: this.options.data[index], flag: false })
+            if (popupOnHover) this.$emit('hide:popup')
         }
     }
 }

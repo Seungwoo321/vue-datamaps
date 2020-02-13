@@ -48,6 +48,7 @@ export default {
         rotation: [97, -30]
       },
       arcConfig: {
+        popupOnHover: false,
         data: [
           {
             origin: {

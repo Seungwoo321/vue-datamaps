@@ -17,6 +17,8 @@
     <datamaps-south-korea/>
     <hr>
     <datamaps-custom-color/>
+    <hr>
+    <datamaps-aws-region/>
   </div>
 </template>
 
@@ -29,6 +31,7 @@ import DatamapsGraticules from '@/components/DatamapsGraticules'
 import DatamapsZoom from '@/components/DatamapsZoom'
 import DatamapsSouthKorea from '@/components/DatamapsSouthKorea'
 import DatamapsCustomColor from '@/components/DatamapsCustomColor'
+import DatamapsAwsRegion from '@/components/DatamapsAwsRegion'
 export default {
   name: 'home',
   components: {
@@ -39,7 +42,8 @@ export default {
     DatamapsGraticules,
     DatamapsZoom,
     DatamapsSouthKorea,
-    DatamapsCustomColor
+    DatamapsCustomColor,
+    DatamapsAwsRegion
   }
 }
 </script>

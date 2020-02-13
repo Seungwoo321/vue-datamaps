@@ -7,11 +7,10 @@
       :fills="fills"
       :bubblesConfig="bubblesConfig"
       bubbles
-      @custom:popup="popupTemplate"
-      popupTemplate
+      @custom:popup-bubble="popupTemplate"
       :setProjection="setProjection('zoom')"
     >
-      <div slot="hoverinfo" class="hoverinfo" style="text-align:center;">
+      <div slot="hoverBubbleInfo" class="hoverinfo" style="text-align:center;">
         {{ popupData.name }}
       </div>
     </vue-datamaps>
@@ -55,6 +54,8 @@ export default {
         'AGO': { fillKey: 'lt50' }
       },
       bubblesConfig: {
+        popupOnHover: true,
+        popupTemplate: true,
         data: [
           { name: 'Bubble 1', latitude: 21.32, longitude: -7.32, radius: 45, fillKey: 'gt500' },
           { name: 'Bubble 2', latitude: 12.32, longitude: 27.32, radius: 25, fillKey: 'eq0' },
@@ -68,8 +69,8 @@ export default {
     }
   },
   methods: {
-    popupTemplate ({ geography, data }) {
-      this.popupData.name = data ? `Bubble for ${data.name}` : geography.properties.name
+    popupTemplate ({ datum }) {
+      this.popupData.name = `Bubble for ${datum.name}`
     },
     setProjection (type) {
       const createProjection = {

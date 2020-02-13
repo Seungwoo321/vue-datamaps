@@ -20,7 +20,6 @@ export default {
     return {
       scope: 'kor',
       fills: {
-        // defaultFill: '#deb542',
         color1: '#fa0fa0',
         color2: '#A9C0DE'
       },

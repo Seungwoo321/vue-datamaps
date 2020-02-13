@@ -18,40 +18,70 @@
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
             />
+           <layer-aws-regions
+                v-if="awsRegions"
+                :awsRegionsConfig="awsRegionsConfigOptions"
+                :projection="pathAndProjection.projection"
+                :path="pathAndProjection.path"
+                :regions="regions"
+                :data="arcRegionData"
+                @show:popup="showPopupRegion"
+                @hide:popup="hidePopup"
+            />
             <layer-bubble
                 v-if="bubbles && pathData.length > 0"
                 :bubblesConfig="bubblesConfigOptions"
                 :data="bubbleGeoData"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
-                @update:popup="updatePopup"
+                @show:popup="showPopupBubble"
+                @hide:popup="hidePopup"
             ></layer-bubble>
             <layer-arc
                 v-if="arc && pathData.length > 0"
                 :arcConfig="arcConfigOptions"
-                :data="arcGeoData"
+                :data="arcData"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
-                @update:popup="updatePopup"
+                :awsRegions="awsRegions"
+                :regionsMap="regionsMap"
+                @show:popup="showPopupArc"
+                @hide:popup="hidePopup"
             >
             </layer-arc>
         </svg>
-        <div v-if="(geograpphyConfigOptions.popupOnHover || bubblesConfigOptions.popupOnHover) && showHoverinfo"
+        <div v-if="isPopupOn"
             class="datamaps-hoverover"
             style="z-index:10001;position:absolute"
             :style="popupPosition"
         >
             <slot name="hoverinfo">
+                <div v-if="showHoverInfo" class="hoverinfo">
+                    <strong>
+                        {{ popupText.title }}
+                    </strong>
+                </div>
+
+            </slot>
+            <slot name="hoverBubbleInfo" v-if="showHoverBubbleInfo">
                 <div class="hoverinfo">
                     <strong>
-                        {{ popupData.name }}
+                        {{ popupText.title }}
                     </strong>
                 </div>
             </slot>
-            <!-- <div v-if="arc && pathData.length > 0" class="hoverinfo">
-                <strong>Arc</strong><br>
-                {{ data.origin }} -> {{ data.destination }}
-            </div> -->
+            <slot name="hoverArcInfo" v-if="showHoverArcInfo">
+                <div class="hoverinfo">
+                    <strong>{{ popupText.title }}</strong><br>
+                    {{ popupText.origin }} -> {{ popupText.destination }}
+                    {{ popupText.value }}
+                </div>
+            </slot>
+            <slot name="hoverRegionInfo" v-if="showHoverRegionInfo">
+                <div class="hoverinfo">
+                    <strong>{{ popupText.title }}</strong><br>
+                </div>
+            </slot>
         </div>
     </div>
 </template>
@@ -62,12 +92,14 @@ import { val } from './helper'
 import LayerLabel from './LayerLabel'
 import LayerBubble from './LayerBubble'
 import LayerArc from './LayerArc'
+import LayerAwsRegions from './LayerAwsRegions'
 export default {
     name: 'vue-datamaps',
     components: {
         LayerLabel,
         LayerBubble,
-        LayerArc
+        LayerArc,
+        LayerAwsRegions
     },
     data () {
         return {
@@ -75,23 +107,25 @@ export default {
                 path: null,
                 projection: null
             },
-            showHoverinfo: false,
-            popupData: {
+            showHoverInfo: false,
+            showHoverBubbleInfo: false,
+            showHoverArcInfo: false,
+            showHoverRegionInfo: false,
+            popupText: {
+                title: '',
                 name: '',
                 origin: '',
-                destination: ''
+                destination: '',
+                value: ''
             },
             popupPosition: {},
             viewbox: {
                 width: 0,
                 height: 0
             },
-            // geo: {
-            //     projection: null,
-            //     path: null
-            // },
             pathData: [],
             bubbleGeoData: {},
+            arcRegionData: {},
             arcGeoData: {},
             styleAttributes: {},
             previousAttributes: {}
@@ -109,6 +143,9 @@ export default {
         }
     },
     computed: {
+        isPopupOn () {
+            return (this.geograpphyConfigOptions.popupOnHover || this.bubblesConfigOptions.popupOnHover) && (this.showHoverInfo || this.showHoverBubbleInfo || this.showHoverArcInfo || this.showHoverRegionInfo)
+        },
         svg () {
             return d3.select(this.$refs.svg)
         },
@@ -209,6 +246,9 @@ export default {
                     return previousValue
                 }, {})
             }
+            if (this.arc && this.arcConfigOptions.data && this.awsRegions) {
+
+            }
             if (this.arc && this.arcConfigOptions.data) {
                 const filtered = this.arcConfigOptions.data.filter(item => typeof item.origin === 'string' || typeof item.destination === 'string')
                 const filters = new Set([...filtered.slice().map(item => item.origin), ...filtered.slice().map(item => item.destination)])
@@ -218,6 +258,13 @@ export default {
                     }
                     return previousValue
                 }, {})
+                this.arcRegionData = this.regions.slice().reduce((previousValue, currentValue) => {
+                    if (filters.has(currentValue.code)) {
+                        previousValue[currentValue.code] = currentValue
+                    }
+                    return previousValue
+                }, {})
+                this.arcData = { ...this.arcGeoData, ...this.arcRegionData }
             }
         },
         handleMouseOver (event, d) {
@@ -233,7 +280,7 @@ export default {
             const { highlightOnHover, popupOnHover, highlightFillColor, highlightBorderColor, highlightBorderWidth, highlightBorderOpacity, highlightFillOpacity } = this.geograpphyConfigOptions
             const datum = this.data[d.id || d.properties.code_hasc] || {}
 
-            if (highlightOnHover || popupOnHover) {
+            if (highlightOnHover) {
                 const data = {
                     fill: val(datum.highlightFillColor, highlightFillColor, datum),
                     stroke: val(datum.highlightBorderColor, highlightBorderColor, datum),
@@ -243,7 +290,7 @@ export default {
                 }
                 this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
-            if (popupOnHover) this.updatePopup({ event, geography: d, data: this.data[d.id || d.properties.code_hasc], flag: true })
+            if (popupOnHover) this.showPopup({ event, geography: d, datum: this.data[d.id || d.properties.code_hasc] })
         },
         handleMouseOut (event, d) {
             const { highlightOnHover, popupOnHover } = this.geograpphyConfigOptions
@@ -251,17 +298,64 @@ export default {
                 const data = this.previousAttributes[d.id || d.properties.code_hasc]
                 this.$set(this.styleAttributes, d.id || d.properties.code_hasc, data)
             }
-            if (popupOnHover) this.updatePopup({ event, geography: d, data: this.data[d.id || d.properties.code_hasc], flag: false })
+            if (popupOnHover) this.hidePopup()
         },
-        updatePopup ({ event, geography, data, flag }) {
+        showPopup ({ event, geography, datum }) {
             this.popupPosition = {
                 left: `${event.layerX}px`,
                 top: `${event.layerY + 30}px`
             }
-            if (flag) {
-                this.popupTemplate ? this.$emit('custom:popup', { geography, data }) : this.popupData.name = (data && data.name) || geography.properties.name
+            if (this.popupTemplate) {
+                this.$emit('custom:popup', { geography, datum })
+            } else {
+                this.popupText.title = geography.properties.name
             }
-            this.showHoverinfo = flag
+            this.showHoverInfo = true
+        },
+        hidePopup () {
+            this.showHoverInfo = false
+            this.showHoverBubbleInfo = false
+            this.showHoverArcInfo = false
+            this.showHoverRegionInfo = false
+        },
+        showPopupBubble ({ event, datum }) {
+            this.popupPosition = {
+                left: `${event.layerX}px`,
+                top: `${event.layerY + 30}px`
+            }
+            if (this.bubblesConfigOptions.popupTemplate) {
+                this.$emit('custom:popup-bubble', { datum })
+            } else {
+                this.popupText.title = datum.name
+            }
+            this.showHoverBubbleInfo = true
+        },
+        showPopupRegion ({ event, datum }) {
+            this.popupPosition = {
+                left: `${event.layerX}px`,
+                top: `${event.layerY + 30}px`
+            }
+            if (this.awsRegionsConfigOptions.popupTemplate) {
+                this.$emit('custom:popup-region', { datum })
+            } else {
+                this.popupText.title = datum.full_name
+            }
+            this.showHoverRegionInfo = true
+        },
+        showPopupArc ({ event, datum, origin, destination }) {
+            this.popupPosition = {
+                left: `${event.layerX}px`,
+                top: `${event.layerY + 30}px`
+            }
+            if (this.arcConfigOptions.popupTemplate) {
+                this.$emit('custom:popup-arc', { origin, destination })
+            } else {
+                this.popupText.title = 'Arc'
+                this.popupText.origin = origin ? origin.name || origin.properties.name : `Lat Long (${datum.origin.latitude}, ${datum.origin.longitude})`
+                this.popupText.destination = destination ? destination.name || destination.properties.name : `Lat Long (${datum.destination.latitude}, ${datum.destination.longitude})`
+                this.popupText.value = datum.value
+            }
+            this.showHoverArcInfo = true
         }
     }
 }

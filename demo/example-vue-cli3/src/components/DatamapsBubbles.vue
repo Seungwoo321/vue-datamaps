@@ -5,11 +5,10 @@
       :geographyConfig="geographyConfig"
       :bubblesConfig="bubblesConfig"
       :fills="fills"
-      popupTemplate
-      @custom:popup="popupTemplate"
+      @custom:popup-bubble="popupTemplate"
       bubbles
     >
-      <div slot="hoverinfo" class="hoverinfo" style="text-align:center;">
+      <div slot="hoverBubbleInfo" class="hoverinfo" style="text-align:center;">
           <b>Yield</b>: {{ popupData.yeild }}<br>
           Exploded on {{ popupData.date }} by the {{ popupData.country }}
       </div>
@@ -26,9 +25,8 @@ export default {
   data () {
     return {
       geographyConfig: {
-        // dataUrl: 'https://raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
-        popupOnHover: false,
-        highlightOnHover: false
+        popupOnHover: true,
+        highlightOnHover: true
       },
       fills: {
         defaultFill: '#ABDDA4',
@@ -36,6 +34,7 @@ export default {
         RUS: 'red'
       },
       bubblesConfig: {
+        popupTemplate: true,
         data: [
           {
             name: 'Not a bomb, but centered on Brazil',
@@ -87,11 +86,11 @@ export default {
     }
   },
   methods: {
-    popupTemplate ({ geography, data }) {
+    popupTemplate ({ datum }) {
       this.popupData = {
-        yeild: data.yeild,
-        date: data.date,
-        country: data.country
+        yeild: datum.yeild,
+        date: datum.date,
+        country: datum.country
       }
     }
   }

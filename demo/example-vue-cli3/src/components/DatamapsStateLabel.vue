@@ -245,8 +245,8 @@ export default {
     }
   },
   methods: {
-    popupTemplate ({ geography, data }) {
-      this.popupData = `${geography.properties.name}\nElectoral Votes: ${data.electoralVotes}`
+    popupTemplate ({ geography, datum }) {
+      this.popupData = `${geography.properties.name}\nElectoral Votes: ${datum.electoralVotes}`
     }
   }
 }

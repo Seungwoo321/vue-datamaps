@@ -342,8 +342,8 @@ export default {
     }
   },
   methods: {
-    popupTemplate ({ geography, data }) {
-      this.popupData = `${geography.properties.name}\nElectoral Votes: ${data.electoralVotes}`
+    popupTemplate ({ geography, datum }) {
+      this.popupData = `${geography.properties.name}\nElectoral Votes: ${datum.electoralVotes}`
     }
   }
 }
@@ -352,6 +352,7 @@ export default {
 <style>
 
 </style>
+
 ```
 
 ![vue-datamaps-demo-bubbles.png](https://seungwoo321.github.io/vue-datamaps-demo-bubbles.png)
@@ -364,11 +365,10 @@ export default {
       :geographyConfig="geographyConfig"
       :bubblesConfig="bubblesConfig"
       :fills="fills"
-      popupTemplate
-      @custom:popup="popupTemplate"
+      @custom:popup-bubble="popupTemplate"
       bubbles
     >
-      <div slot="hoverinfo" class="hoverinfo" style="text-align:center;">
+      <div slot="hoverBubbleInfo" class="hoverinfo" style="text-align:center;">
           <b>Yield</b>: {{ popupData.yeild }}<br>
           Exploded on {{ popupData.date }} by the {{ popupData.country }}
       </div>
@@ -385,8 +385,8 @@ export default {
   data () {
     return {
       geographyConfig: {
-        popupOnHover: false,
-        highlightOnHover: false
+        popupOnHover: true,
+        highlightOnHover: true
       },
       fills: {
         defaultFill: '#ABDDA4',
@@ -394,6 +394,7 @@ export default {
         RUS: 'red'
       },
       bubblesConfig: {
+        popupTemplate: true,
         data: [
           {
             name: 'Not a bomb, but centered on Brazil',
@@ -445,11 +446,11 @@ export default {
     }
   },
   methods: {
-    popupTemplate ({ geography, data }) {
+    popupTemplate ({ datum }) {
       this.popupData = {
-        yeild: data.yeild,
-        date: data.date,
-        country: data.country
+        yeild: datum.yeild,
+        date: datum.date,
+        country: datum.country
       }
     }
   }
@@ -459,6 +460,7 @@ export default {
 <style>
 
 </style>
+
 ```
 
 ![vue-datamaps-demo-arcs.png](https://seungwoo321.github.io/vue-datamaps-demo-arcs.png)
@@ -471,6 +473,7 @@ export default {
       :scope="scope"
       :fills="fills"
       :data="data"
+      :geographyConfig="geographyConfig"
       :arcConfig="arcConfig"
       arc
     />
@@ -486,8 +489,8 @@ export default {
   data () {
     return {
       geographyConfig: {
-        popupOnHover: false,
-        highlightOnHover: false
+        popupOnHover: true,
+        highlightOnHover: true
       },
       scope: 'usa',
       fills: {
@@ -503,6 +506,7 @@ export default {
         'CO': { fillKey: 'win' }
       },
       arcConfig: {
+        popupOnHover: true,
         data: [
           {
             origin: 'CA',
@@ -563,6 +567,7 @@ export default {
 <style>
 
 </style>
+
 ```
 
 ![vue-datamaps-demo-graticules.png](https://seungwoo321.github.io/vue-datamaps-demo-graticules.png)
@@ -618,6 +623,7 @@ export default {
         rotation: [97, -30]
       },
       arcConfig: {
+        popupOnHover: false,
         data: [
           {
             origin: {
@@ -655,11 +661,10 @@ export default {
       :fills="fills"
       :bubblesConfig="bubblesConfig"
       bubbles
-      @custom:popup="popupTemplate"
-      popupTemplate
+      @custom:popup-bubble="popupTemplate"
       :setProjection="setProjection('zoom')"
     >
-      <div slot="hoverinfo" class="hoverinfo" style="text-align:center;">
+      <div slot="hoverBubbleInfo" class="hoverinfo" style="text-align:center;">
         {{ popupData.name }}
       </div>
     </vue-datamaps>
@@ -703,6 +708,8 @@ export default {
         'AGO': { fillKey: 'lt50' }
       },
       bubblesConfig: {
+        popupOnHover: true,
+        popupTemplate: true,
         data: [
           { name: 'Bubble 1', latitude: 21.32, longitude: -7.32, radius: 45, fillKey: 'gt500' },
           { name: 'Bubble 2', latitude: 12.32, longitude: 27.32, radius: 25, fillKey: 'eq0' },
@@ -716,8 +723,8 @@ export default {
     }
   },
   methods: {
-    popupTemplate ({ geography, data }) {
-      this.popupData.name = data ? `Bubble for ${data.name}` : geography.properties.name
+    popupTemplate ({ datum }) {
+      this.popupData.name = `Bubble for ${datum.name}`
     },
     setProjection (type) {
       const createProjection = {
@@ -776,7 +783,6 @@ export default {
     return {
       scope: 'kor',
       fills: {
-        // defaultFill: '#deb542',
         color1: '#fa0fa0',
         color2: '#A9C0DE'
       },
@@ -894,6 +900,142 @@ export default {
 </style>
 ```
 
+![vue-datamaps-demo-aws-region.png](https://seungwoo321.github.io/vue-datamaps-demo-aws-region.png)
+
+```vue
+<template>
+  <div>
+    <h4>AWS Region:</h4>
+    <vue-datamaps
+        :geographyConfig="geographyConfig"
+        :fills="fills"
+        :arcConfig="arcConfig"
+        arc
+        aws-regions
+        :awsRegionsConfig="awsRegionsConfig"
+        @custom:popup-arc="popupTemplate"
+    >
+      <div slot="hoverArcInfo" class="hoverinfo">
+        <strong>{{ popupData.title }}</strong><br>
+        {{ popupData.origin }} ▶▶▶ {{ popupData.destination }}
+      </div>
+    </vue-datamaps>
+  </div>
+</template>
+
+<script>
+import { VueDatamaps } from 'vue-datamaps'
+export default {
+  components: {
+    VueDatamaps
+  },
+  data () {
+    return {
+      geographyConfig: {
+        dataUrl: 'https://raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
+        popupOnHover: false,
+        highlightOnHover: false
+      },
+      fills: {
+        defaultFill: '#cfcfcf',
+        active: '#0b5fd6'
+      },
+      awsRegionsConfig: {
+        popupOnHover: true,
+        data: [
+          {
+            code: 'ap-northeast-2',
+            fillKey: 'active'
+          },
+          { code: 'ap-northeast-1',
+            fillKey: 'active'
+          },
+          { code: 'us-east-2',
+            fillKey: 'active'
+          },
+          { code: 'eu-north-1',
+            fillKey: 'active'
+          },
+          { code: 'ca-central-1',
+            fillKey: 'active'
+          }
+        ]
+      },
+      arcConfig: {
+        popupOnHover: true,
+        popupTemplate: true,
+        data: [
+          {
+            origin: 'ap-northeast-2',
+            destination: 'ap-northeast-1',
+            options: {
+              arcSharpness: 0.5
+            }
+          },
+          {
+            origin: 'ap-northeast-1',
+            destination: 'ap-northeast-2',
+            options: {
+              arcSharpness: 0.5
+            }
+          },
+          {
+            origin: 'us-east-2',
+            destination: 'ap-northeast-2',
+            options: {
+              arcSharpness: 3
+            }
+          },
+          {
+            origin: 'ap-northeast-2',
+            destination: 'us-east-2',
+            options: {
+              arcSharpness: 3
+            }
+          },
+          {
+            origin: 'eu-north-1',
+            destination: 'ap-northeast-2',
+            options: {
+              strokeColor: 'red',
+              arcSharpness: 2
+            }
+          },
+          {
+            origin: 'ca-central-1',
+            destination: 'eu-west-2',
+            options: {
+              strokeColor: 'rgba(100, 10, 200, 0.4)',
+              arcSharpness: 3
+            }
+          }
+        ],
+        strokeColor: '#0b5fd6',
+        greatArc: true,
+        animationSpeed: 2000
+      },
+      popupData: {
+        title: 'DataTransfer',
+        origin: '',
+        destination: ''
+      }
+    }
+  },
+  methods: {
+    popupTemplate (datum) {
+      this.popupData.origin = datum.origin.full_name
+      this.popupData.destination = datum.destination.full_name
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>
+```
+
+
 
 ## Available Props Option
 
@@ -990,7 +1132,7 @@ If `labelsConfig` required.
 * type: __Boolean__
 * value: __true__, __false__
 
-If slot `hoverinfo` and event `custom:popup` required.
+If slot `hoverinfo` and event `custom:popup`||`custom:popup-bubble`||`custom:popup-arc`||`custom:popup-region`|| required.
 
 
 ## Default Props Option
@@ -1040,78 +1182,117 @@ If slot `hoverinfo` and event `custom:popup` required.
     defaultFill: '#ABDDA4'
   },
   geographyConfig: {
-      dataUrl: null,
-      hideAntarctica: true,
-      hideHawaiiAndAlaska: false,
-      borderWidth: 1,
-      borderOpacity: 1,
-      borderColor: '#FDFDFD',
-      popupOnHover: true,
-      highlightOnHover: true,
-      highlightFillColor: '#FC8D59',
-      highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
-      highlightBorderWidth: 2,
-      highlightBorderOpacity: 1,
-      highlightFillOpacity: 0.85
+    dataUrl: null,
+    hideAntarctica: true,
+    hideHawaiiAndAlaska: false,
+    borderWidth: 1,
+    borderOpacity: 1,
+    borderColor: '#FDFDFD',
+    popupOnHover: true,
+    highlightOnHover: true,
+    highlightFillColor: '#FC8D59',
+    highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
+    highlightBorderWidth: 2,
+    highlightBorderOpacity: 1,
+    highlightFillOpacity: 0.85
   },
   projectionConfig: {
-      rotation: [97, 0]
+    rotation: [97, 0]
   },
   bubblesConfig: {
-      borderWidth: 2,
-      borderOpacity: 1,
-      borderColor: '#FFFFFF',
-      popupOnHover: true,
-      radius: null,
-      fillOpacity: 0.75,
-      animate: true,
-      highlightOnHover: true,
-      highlightFillColor: '#FC8D59',
-      highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
-      highlightBorderWidth: 2,
-      highlightBorderOpacity: 1,
-      highlightFillOpacity: 0.85,
-      exitDelay: 100,
-      key: JSON.stringify,
-      data: []
+    borderWidth: 2,
+    borderOpacity: 1,
+    borderColor: '#FFFFFF',
+    popupOnHover: true,
+    radius: null,
+    fillOpacity: 0.75,
+    animate: true,
+    highlightOnHover: true,
+    highlightFillColor: '#FC8D59',
+    highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
+    highlightBorderWidth: 2,
+    highlightBorderOpacity: 1,
+    highlightFillOpacity: 0.85,
+    exitDelay: 100,
+    key: JSON.stringify,
+    data: []
   },
   bubbles: false,
   arcConfig: {
-      strokeColor: '#DD1C77',
-      strokeWidth: 1,
-      arcSharpness: 1,
-      animationSpeed: 600,
-      popupOnHover: false,
-      data: []
+    strokeColor: '#DD1C77',
+    strokeWidth: 1,
+    arcSharpness: 1,
+    animationSpeed: 600,
+    popupOnHover: false,
+    data: []
   },
   arc: false,
   disableDefaultStyles: false,
   labelsConfig: {
-      fontSize: 10,
-      fontFamily: 'Verdana',
-      labelColor: '#000',
-      lineWidth: 1
+    fontSize: 10,
+    fontFamily: 'Verdana',
+    labelColor: '#000',
+    lineWidth: 1
   },
   labels: false,
-  popupTemplate: false
+  popupTemplate: false,
+  awsRegions: false,
+  awsRegionsConfig: {
+    strokeColor: '#0b5fd6',
+    strokeWidth: 1.5,
+    defaultFill: 'transparent',
+    highlightFillOpacity: 1,
+    showPrivateRegions: false,
+    popupOnHover: false,
+    data: []
+  }
 }
 
 ```
 
 
-## Slot
-* in custom element `vue-datamaps`
+## Slot & Event for @mouseover
+* when geography mouse hover:
+  - slot: `hoverinfo`
+  - event: `custom:popup`
+
 ```html
   <div slot="hoverinfo" class="hoverinfo" style="text-align:center;">
-    {{ popupData }}
+    <!-- ... -->
   </div>
 ```
 
+* when bubbles mouse hover: 
+  - slot: `hoverBubbleInfo`
+  - event: `custom:popup-bubble`
+```html
+  <div slot="hoverBubbleInfo" class="hoverinfo" style="text-align:center;">
+    <!-- ... -->
+  </div>
+```
+
+* when arc mouse hover:
+  - slot: `hoverArcInfo`
+  - event: `custom:popup-arc`
+```html
+  <div slot="hoverArcInfo" class="hoverinfo" style="text-align:center;">
+    <!-- ... -->
+  </div>
+```
+
+* when aws-region mouse hover
+  - slot: `hoverRegionInfo`
+  - event: `custom:popup-region`
+```html
+  <div slot="hoverRegionInfo" class="hoverinfo" style="text-align:center;">
+    <!-- ... -->
+  </div>
+```
 
 ## Inspired
 * [markmarkoh/datamaps](https://datamaps.github.io/) - original
 * [btmills/react-datamaps](https://github.com/btmills/react-datamaps) - React-based datamaps library
-
+* [jsonmaur/aws-regions](https://github.com/jsonmaur/aws-regions) - AWS Regions and Availability Zones
 
 
 ## License

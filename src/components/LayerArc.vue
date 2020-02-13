@@ -1,11 +1,11 @@
 <template>
     <g class="arc">
-        <path :ref="`${name}`" v-for="(item, index) in arcData" :key="index"
+        <path v-for="(item, index) in arcData" :key="index" :ref="`arc`"
             :class="name"
             :style="styleAttributes[index]"
             :d="pathData(item)"
             @mouseover="handleMouseOver($event, item, index)"
-            @mouseout="handleMouseOut($event, item, index)"
+            @mouseout="handleMouseOut"
         >
         </path>
     </g>
@@ -15,7 +15,7 @@
 import { val } from './helper'
 export default {
     name: 'layer-arc',
-    props: ['arcConfig', 'path', 'projection', 'data'],
+    props: ['arcConfig', 'path', 'projection', 'data', 'awsRegions'],
     data () {
         return {
             name: 'datamaps-arc',
@@ -23,16 +23,14 @@ export default {
         }
     },
     computed: {
-        arc () {
-            return this.$refs[`${this.name}`]
-        },
         options () {
             return this.arcConfig
         },
         arcData () {
             return this.options.data.map(item => {
                 return {
-                    ...item,
+                    origin: item.origin,
+                    destination: item.destination,
                     ...item.options
                 }
             })
@@ -59,7 +57,9 @@ export default {
         pathData (datum) {
             let originXY = []
             let destXY = []
-            if (typeof datum.origin === 'string') {
+            if (this.awsRegions && typeof datum.origin === 'string') {
+                originXY = this.latLngToXY(this.data[datum.origin].coordinates.latitude, this.data[datum.origin].coordinates.longitude)
+            } else if (typeof datum.origin === 'string') {
                 switch (datum.origin) {
                 case 'CAN':
                     originXY = this.latLngToXY(56.624472, -114.665293)
@@ -94,7 +94,9 @@ export default {
             } else {
                 originXY = this.latLngToXY(val(datum.origin.latitude, datum), val(datum.origin.longitude, datum))
             }
-            if (typeof datum.destination === 'string') {
+            if (this.awsRegions && typeof datum.destination === 'string') {
+                destXY = this.latLngToXY(this.data[datum.destination].coordinates.latitude, this.data[datum.destination].coordinates.longitude)
+            } else if (typeof datum.destination === 'string') {
                 switch (datum.destination) {
                 case 'CAN':
                     destXY = this.latLngToXY(56.624472, -114.665293)
@@ -131,15 +133,36 @@ export default {
             }
             const midXY = [(originXY[0] + destXY[0]) / 2, (originXY[1] + destXY[1]) / 2]
             const sharpness = val(datum.arcSharpness, this.options.arcSharpness, datum)
-            return `M${originXY[0]}, ${originXY[1]}S ${(midXY[0] + (50 * sharpness))}, ${(midXY[1] - (75 * sharpness))}, ${destXY[0]}, ${destXY[1]}`
+            return `M${originXY[0]}, ${originXY[1]}S ${(midXY[0] + (originXY[0] > destXY[0] ? 40 : -40 * sharpness))}, ${(midXY[1] - (75 * sharpness))}, ${destXY[0]}, ${destXY[1]}`
         },
         handleMouseOver (event, datum, index) {
-            // const { popupOnHover } = this.options
-            // if (popupOnHover) this.$emit('update:popup', { event, geography: datum, data: this.options.data[index], flag: true })
+            if (this.options.popupOnHover) {
+                const originKey = datum.origin || datum.id
+                const destinationKey = datum.destination || datum.id
+                this.$emit('show:popup', { event, datum, origin: this.data[originKey], destination: this.data[destinationKey] })
+            }
         },
-        handleMouseOut (event, datum, index) {
-            // const { popupOnHover } = this.options
-            // if (popupOnHover) this.$emit('update:popup', { event, geography: datum, data: this.options.data[index], flag: false })
+        handleMouseOut () {
+            if (this.options.popupOnHover) this.$emit('hide:popup')
+        }
+    },
+    watch: {
+        arcData: {
+            immediate: true,
+            handler () {
+                this.$nextTick(() => {
+                    const arcPaths = this.$refs.arc
+                    arcPaths.forEach((path, i) => {
+                        const length = path.getTotalLength()
+                        path.style.transition = 'none'
+                        path.style.strokeDasharray = length + ' ' + length
+                        path.style.strokeDashoffset = length
+                        path.getBoundingClientRect()
+                        path.style.transition = `stroke-dashoffset ${val(this.arcData[i].animationSpeed, this.options.animationSpeed, this.arcData[i])}ms ease-out 1s`
+                        path.style.strokeDashoffset = 0
+                    })
+                })
+            }
         }
     }
 }

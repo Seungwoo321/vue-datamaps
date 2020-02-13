@@ -5,6 +5,7 @@
       :scope="scope"
       :fills="fills"
       :data="data"
+      :geographyConfig="geographyConfig"
       :arcConfig="arcConfig"
       arc
     />
@@ -13,7 +14,6 @@
 
 <script>
 import { VueDatamaps } from 'vue-datamaps'
-
 export default {
   components: {
     VueDatamaps
@@ -21,8 +21,8 @@ export default {
   data () {
     return {
       geographyConfig: {
-        popupOnHover: false,
-        highlightOnHover: false
+        popupOnHover: true,
+        highlightOnHover: true
       },
       scope: 'usa',
       fills: {
@@ -38,6 +38,7 @@ export default {
         'CO': { fillKey: 'win' }
       },
       arcConfig: {
+        popupOnHover: true,
         data: [
           {
             origin: 'CA',
