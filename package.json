@@ -15,6 +15,7 @@
     "datamaps",
     "vue-datamaps"
   ],
+  "homepage": "https://seungwoo321.github.io/opensource/vue-datamaps.html",
   "author": "Seungwoo, Lee <seungwoo321@gmail.com> (https://github.com/seungwoo321)",
   "license": "MIT",
   "scripts": {
