@@ -1,6 +1,10 @@
 {
   "name": "vue-datamaps",
+<<<<<<< HEAD
   "version": "0.2.8",
+=======
+  "version": "0.2.71",
+>>>>>>> 1e236f6ab3f7bd1df7bf5a12cecbd96c469f7e5c
   "main": "src/index.js",
   "files": [
     "dist",
@@ -15,6 +19,7 @@
     "datamaps",
     "vue-datamaps"
   ],
+  "homepage": "https://seungwoo321.github.io/opensource/vue-datamaps.html",
   "author": "Seungwoo, Lee <seungwoo321@gmail.com> (https://github.com/seungwoo321)",
   "license": "MIT",
   "scripts": {

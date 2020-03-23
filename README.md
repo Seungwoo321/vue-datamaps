@@ -1,9 +1,12 @@
 # Vue Datamaps
 
+It is a Vue port of the javascript-based [DataMaps](https://datamaps.github.io/)
+
 [![npm](https://flat.badgen.net/npm/v/vue-datamaps)](https://npmjs.com/package/vue-datamaps)
 [![npm](https://flat.badgen.net/npm/dt/vue-datamaps)](https://npmjs.com/package/vue-datamaps)
+[![npm](https://flat.badgen.net/npm/license/vue-datamaps)](https://flat.badgen.net/npm/license/vue-datamaps)
+[![](https://data.jsdelivr.com/v1/package/npm/vue-datamaps/badge)](https://www.jsdelivr.com/package/npm/vue-datamaps)
 
-It is a Vue port of the javascript-based [DataMaps](https://datamaps.github.io/)
 
 ## Live Demo
 [link](https://jsfiddle.net/front123/437a5wvf/)
