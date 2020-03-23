@@ -166,7 +166,7 @@ export default {
             }
         },
         pathStyle () {
-            return this.styleAttributes || {
+            return Object.keys(this.styleAttributes).length > 0 ? this.styleAttributes : {
                 'stroke-width': this.geograpphyConfigOptions.borderWidth,
                 'stroke-opacity': this.geograpphyConfigOptions.borderOpacity,
                 'stroke': this.geograpphyConfigOptions.borderColor
@@ -385,10 +385,10 @@ export default {
 .datamap .labels {
     pointer-events: none;
 }
-.datamap path:not(.datamaps-arc), .datamap circle, .datamap line {
+/* .datamap path:not(.datamaps-arc), .datamap circle, .datamap line {
     stroke: #FFFFFF;
     stroke-width: 1px;
-}
+} */
 .datamaps-legend dt, .datamaps-legend dd {
     float: left;
     margin: 0 3px 0 0;

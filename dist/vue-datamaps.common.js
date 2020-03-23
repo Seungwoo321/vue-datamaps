@@ -24239,12 +24239,12 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=8b89d9ba&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=7f08f8fe&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.awsRegions)?_c('layer-aws-regions',{attrs:{"awsRegionsConfig":_vm.awsRegionsConfigOptions,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"regions":_vm.regions,"data":_vm.arcRegionData},on:{"show:popup":_vm.showPopupRegion,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.bubblesConfigOptions,"data":_vm.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path},on:{"show:popup":_vm.showPopupBubble,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.arcConfigOptions,"data":_vm.arcData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"awsRegions":_vm.awsRegions,"regionsMap":_vm.regionsMap},on:{"show:popup":_vm.showPopupArc,"hide:popup":_vm.hidePopup}}):_vm._e()],1),(_vm.isPopupOn)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[(_vm.showHoverInfo)?_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])]):_vm._e()]),(_vm.showHoverBubbleInfo)?_vm._t("hoverBubbleInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])])]):_vm._e(),(_vm.showHoverArcInfo)?_vm._t("hoverArcInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br'),_vm._v(" "+_vm._s(_vm.popupText.origin)+" -> "+_vm._s(_vm.popupText.destination)+" "+_vm._s(_vm.popupText.value)+" ")])]):_vm._e(),(_vm.showHoverRegionInfo)?_vm._t("hoverRegionInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br')])]):_vm._e()],2):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=8b89d9ba&
+// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=7f08f8fe&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("a4d3");
@@ -25541,7 +25541,7 @@ function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
       }
     },
     pathStyle: function pathStyle() {
-      return this.styleAttributes || {
+      return Object.keys(this.styleAttributes).length > 0 ? this.styleAttributes : {
         'stroke-width': this.geograpphyConfigOptions.borderWidth,
         'stroke-opacity': this.geograpphyConfigOptions.borderOpacity,
         'stroke': this.geograpphyConfigOptions.borderColor

@@ -27,6 +27,7 @@ export default {
   data () {
     return {
       geographyConfig: {
+        borderWidth: 0.2,
         dataUrl: 'https://raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
         popupOnHover: false,
         highlightOnHover: false
@@ -42,13 +43,14 @@ export default {
             code: 'ap-northeast-2',
             fillKey: 'active'
           },
-          { code: 'ap-northeast-1',
+          {
+            code: 'ap-northeast-1',
             fillKey: 'active'
           },
           { code: 'us-east-2',
             fillKey: 'active'
           },
-          { code: 'eu-north-1',
+          { code: 'ap-southeast-1',
             fillKey: 'active'
           },
           { code: 'ca-central-1',
@@ -61,48 +63,24 @@ export default {
         popupTemplate: true,
         data: [
           {
-            origin: 'ap-northeast-2',
-            destination: 'ap-northeast-1',
-            options: {
-              arcSharpness: 0.5
-            }
-          },
-          {
             origin: 'ap-northeast-1',
-            destination: 'ap-northeast-2',
-            options: {
-              arcSharpness: 0.5
-            }
+            destination: 'ap-northeast-2'
           },
           {
-            origin: 'us-east-2',
-            destination: 'ap-northeast-2',
-            options: {
-              arcSharpness: 3
-            }
+            origin: 'ap-southeast-1',
+            destination: 'ap-northeast-2'
           },
           {
-            origin: 'ap-northeast-2',
-            destination: 'us-east-2',
-            options: {
-              arcSharpness: 3
-            }
-          },
-          {
-            origin: 'eu-north-1',
-            destination: 'ap-northeast-2',
-            options: {
-              strokeColor: 'red',
-              arcSharpness: 2
-            }
+            origin: 'ap-southeast-2',
+            destination: 'ap-northeast-1'
           },
           {
             origin: 'ca-central-1',
-            destination: 'eu-west-2',
-            options: {
-              strokeColor: 'rgba(100, 10, 200, 0.4)',
-              arcSharpness: 3
-            }
+            destination: 'ap-northeast-2'
+          },
+          {
+            origin: 'us-east-2',
+            destination: 'ap-northeast-2'
           }
         ],
         strokeColor: '#0b5fd6',
