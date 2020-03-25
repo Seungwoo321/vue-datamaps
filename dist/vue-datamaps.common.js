@@ -24232,12 +24232,12 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=008dd752&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.awsRegions)?_c('layer-aws-regions',{attrs:{"awsRegionsConfig":_vm.awsRegionsConfigOptions,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"regions":_vm.regions,"data":_vm.awsRegionData},on:{"show:popup":_vm.showPopupRegion,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.bubblesConfigOptions,"data":_vm.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"regions":_vm.regions},on:{"show:popup":_vm.showPopupBubble,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.arcConfigOptions,"data":_vm.arcGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"awsRegions":_vm.awsRegions},on:{"show:popup":_vm.showPopupArc,"hide:popup":_vm.hidePopup}}):_vm._e()],1),(_vm.isPopupOn)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[(_vm.showHoverInfo)?_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])]):_vm._e()]),(_vm.showHoverBubbleInfo)?_vm._t("hoverBubbleInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])])]):_vm._e(),(_vm.showHoverArcInfo)?_vm._t("hoverArcInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br'),_vm._v(" "+_vm._s(_vm.popupText.origin)+" -> "+_vm._s(_vm.popupText.destination)+" "+_vm._s(_vm.popupText.value)+" ")])]):_vm._e(),(_vm.showHoverRegionInfo)?_vm._t("hoverRegionInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br')])]):_vm._e()],2):_vm._e()])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=5a748e50&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.awsRegions)?_c('layer-aws-regions',{attrs:{"awsRegionsConfig":_vm.awsRegionsConfigOptions,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"data":_vm.awsRegionData},on:{"show:popup":_vm.showPopupRegion,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.bubblesConfigOptions,"data":_vm.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path},on:{"show:popup":_vm.showPopupBubble,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.arcConfigOptions,"data":_vm.arcGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"awsRegions":_vm.awsRegions},on:{"show:popup":_vm.showPopupArc,"hide:popup":_vm.hidePopup}}):_vm._e()],1),(_vm.isPopupOn)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[(_vm.showHoverInfo)?_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])]):_vm._e()]),(_vm.showHoverBubbleInfo)?_vm._t("hoverBubbleInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])])]):_vm._e(),(_vm.showHoverArcInfo)?_vm._t("hoverArcInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br'),_vm._v(" "+_vm._s(_vm.popupText.origin)+" -> "+_vm._s(_vm.popupText.destination)+" "+_vm._s(_vm.popupText.value)+" ")])]):_vm._e(),(_vm.showHoverRegionInfo)?_vm._t("hoverRegionInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br')])]):_vm._e()],2):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=008dd752&
+// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=5a748e50&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("a4d3");
@@ -24410,8 +24410,36 @@ function _defineProperty(obj, key, value) {
 // EXTERNAL MODULE: ./node_modules/d3v4/build/d3.js
 var d3 = __webpack_require__("4f1a");
 
-// CONCATENATED MODULE: ./src/components/regions.js
-/* harmony default export */ var regions = ([{
+// CONCATENATED MODULE: ./src/components/helper.js
+/*
+  Getter for value. If not declared on datumValue, look up the chain into optionsValue
+*/
+function val(datumValue, optionsValue, context) {
+  if (typeof context === 'undefined') {
+    context = optionsValue;
+    optionsValue = undefined;
+  }
+
+  var value = typeof datumValue !== 'undefined' ? datumValue : optionsValue;
+
+  if (typeof value === 'undefined') {
+    return null;
+  }
+
+  if (typeof value === 'function') {
+    var fnContext = [context];
+
+    if (context.geography) {
+      fnContext = [context.geography, context.data];
+    }
+
+    return value.apply(null, fnContext);
+  } else {
+    return value;
+  }
+}
+
+var regions = [{
   name: 'N. Virginia',
   full_name: 'US East (N. Virginia)',
   code: 'us-east-1',
@@ -24667,7 +24695,8 @@ var d3 = __webpack_require__("4f1a");
     longitude: 106.249290,
     latitude: 38.488800
   }
-}]);
+}];
+
 // CONCATENATED MODULE: ./src/components/props.js
 
 
@@ -24792,7 +24821,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
   },
   data: function data() {
     return {
-      regions: regions,
       defaultFill: '#ABDDA4',
       default: {
         geographyConfig: {
@@ -24846,14 +24874,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           lineWidth: 1
         },
         awsRegionsConfig: {
-          borderWidth: 2,
+          borderWidth: 1.5,
           borderOpacity: 1,
-          borderColor: '#ffffff',
-          fillOpacity: 1,
-          strokeColor: '#0b5fd6',
-          strokeWidth: 1.5,
-          showPrivateRegions: false,
+          borderColor: '#0b5fd6',
           popupOnHover: false,
+          fillOpacity: 1,
+          showPrivateRegions: false,
           data: []
         }
       }
@@ -24884,40 +24910,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return _objectSpread({}, this.default.labelsConfig, {}, this.labelsConfig);
     },
     awsRegionsConfigOptions: function awsRegionsConfigOptions() {
-      return _objectSpread({}, this.default.awsRegionsConfig, {}, this.awsRegionsConfig);
+      return _objectSpread({}, this.default.awsRegionsConfig, {}, this.awsRegionsConfig, {
+        fills: this.fills
+      });
     }
   }
 });
-// CONCATENATED MODULE: ./src/components/helper.js
-/*
-  Getter for value. If not declared on datumValue, look up the chain into optionsValue
-*/
-function val(datumValue, optionsValue, context) {
-  if (typeof context === 'undefined') {
-    context = optionsValue;
-    optionsValue = undefined;
-  }
-
-  var value = typeof datumValue !== 'undefined' ? datumValue : optionsValue;
-
-  if (typeof value === 'undefined') {
-    return null;
-  }
-
-  if (typeof value === 'function') {
-    var fnContext = [context];
-
-    if (context.geography) {
-      fnContext = [context.geography, context.data];
-    }
-
-    return value.apply(null, fnContext);
-  } else {
-    return value;
-  }
-}
-
-
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerLabel.vue?vue&type=template&id=2d40b7e2&
 var LayerLabelvue_type_template_id_2d40b7e2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"labels"},[_vm._l((_vm.data),function(item,index){return [(_vm.smallStateIndex(item) > -1)?_c('line',{key:("line-" + index),style:(("stroke:" + (_vm.labelsConfig.labelColor) + ";stroke-width:" + (_vm.labelsConfig.lineWidth) + ";")),attrs:{"x1":_vm.x(item) - 3,"y1":_vm.y(item) - 5,"x2":_vm.center(item)[0],"y2":_vm.center(item)[1]}}):_vm._e(),_c('text',{key:("text-" + index),style:(("font-size:" + (_vm.labelsConfig.fontSize) + "px;font-family:" + (_vm.labelsConfig.fontFamily) + ";fill:" + (_vm.labelsConfig.labelColor))),attrs:{"x":_vm.x(item),"y":_vm.y(item)}},[_vm._v(" "+_vm._s(item.id)+" ")])]})],2)}
 var LayerLabelvue_type_template_id_2d40b7e2_staticRenderFns = []
@@ -25093,12 +25091,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerLabel = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=04157af3&
-var LayerBubblevue_type_template_id_04157af3_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut(index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
-var LayerBubblevue_type_template_id_04157af3_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=776d1526&
+var LayerBubblevue_type_template_id_776d1526_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut(index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
+var LayerBubblevue_type_template_id_776d1526_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=04157af3&
+// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=776d1526&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=script&lang=js&
 
@@ -25124,7 +25122,7 @@ var LayerBubblevue_type_template_id_04157af3_staticRenderFns = []
 
 /* harmony default export */ var LayerBubblevue_type_script_lang_js_ = ({
   name: 'layer-bubble',
-  props: ['bubblesConfig', 'path', 'projection', 'data', 'regions'],
+  props: ['bubblesConfig', 'path', 'projection', 'data'],
   data: function data() {
     return {
       name: 'datamaps-bubble',
@@ -25233,8 +25231,8 @@ var LayerBubblevue_type_template_id_04157af3_staticRenderFns = []
 
 var LayerBubble_component = normalizeComponent(
   components_LayerBubblevue_type_script_lang_js_,
-  LayerBubblevue_type_template_id_04157af3_render,
-  LayerBubblevue_type_template_id_04157af3_staticRenderFns,
+  LayerBubblevue_type_template_id_776d1526_render,
+  LayerBubblevue_type_template_id_776d1526_staticRenderFns,
   false,
   null,
   null,
@@ -25484,15 +25482,28 @@ var LayerArc_component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerArc = (LayerArc_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerAwsRegions.vue?vue&type=template&id=312914a0&
-var LayerAwsRegionsvue_type_template_id_312914a0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.projection)?_c('g',{staticClass:"bubbles-aws-regions"},[_vm._l((_vm.filterdData),function(item,index){return _c('circle',{key:(index + "-inner"),style:(_vm.innerStyles(item, index)),attrs:{"cx":_vm.latLng(item.coordinates)[0],"cy":_vm.latLng(item.coordinates)[1],"r":3},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":_vm.handleMouseOut}},[_c('animate',{attrs:{"attributeName":"r","begin":"200ms","dur":"600ms","from":"0","to":"3"}})])}),_vm._l((_vm.filterdData),function(item,index){return _c('circle',{key:(index + "-outer"),style:(_vm.outerStyles(item, index)),attrs:{"cx":_vm.latLng(item.coordinates)[0],"cy":_vm.latLng(item.coordinates)[1],"r":9}},[_c('animate',{attrs:{"attributeName":"r","begin":"200ms","dur":"600ms","from":"0","to":"11"}})])})],2):_vm._e()}
-var LayerAwsRegionsvue_type_template_id_312914a0_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerAwsRegions.vue?vue&type=template&id=55bb190c&
+var LayerAwsRegionsvue_type_template_id_55bb190c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.projection)?_c('g',{staticClass:"bubbles-aws-regions"},[_vm._l((_vm.filterdData),function(item,index){return _c('circle',{key:(index + "-inner"),staticClass:"circle-inner",style:(_vm.innerStyles(item, index)),attrs:{"cx":_vm.latLng(item.coordinates)[0],"cy":_vm.latLng(item.coordinates)[1],"r":3},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":_vm.handleMouseOut}},[_c('animate',{attrs:{"attributeName":"r","begin":"200ms","dur":"600ms","from":"0","to":"3"}})])}),_vm._l((_vm.filterdData),function(item,index){return _c('circle',{key:(index + "-outer"),staticClass:"circle-outer",style:(_vm.outerStyles(item, index)),attrs:{"cx":_vm.latLng(item.coordinates)[0],"cy":_vm.latLng(item.coordinates)[1],"r":9}},[_c('animate',{attrs:{"attributeName":"r","begin":"200ms","dur":"600ms","from":"0","to":"11"}})])})],2):_vm._e()}
+var LayerAwsRegionsvue_type_template_id_55bb190c_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerAwsRegions.vue?vue&type=template&id=312914a0&
+// CONCATENATED MODULE: ./src/components/LayerAwsRegions.vue?vue&type=template&id=55bb190c&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerAwsRegions.vue?vue&type=script&lang=js&
 
+
+
+
+
+
+
+
+
+
+
+function LayerAwsRegionsvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function LayerAwsRegionsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { LayerAwsRegionsvue_type_script_lang_js_ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { LayerAwsRegionsvue_type_script_lang_js_ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 //
 //
@@ -25520,7 +25531,7 @@ var LayerAwsRegionsvue_type_template_id_312914a0_staticRenderFns = []
 
 /* harmony default export */ var LayerAwsRegionsvue_type_script_lang_js_ = ({
   name: 'layer-aws-regions',
-  props: ['awsRegionsConfig', 'path', 'projection', 'regions', 'data'],
+  props: ['awsRegionsConfig', 'path', 'projection', 'data'],
   data: function data() {
     return {};
   },
@@ -25531,8 +25542,10 @@ var LayerAwsRegionsvue_type_template_id_312914a0_staticRenderFns = []
     filterdData: function filterdData() {
       var _this = this;
 
-      return this.regions.filter(function (region) {
+      return regions.filter(function (region) {
         return _this.options.showPrivateRegions ? region : region.public;
+      }).map(function (region) {
+        return LayerAwsRegionsvue_type_script_lang_js_objectSpread({}, region, {}, _this.awsRegionsData[region.code]);
       });
     },
     awsRegionsData: function awsRegionsData() {
@@ -25545,18 +25558,18 @@ var LayerAwsRegionsvue_type_template_id_312914a0_staticRenderFns = []
   methods: {
     innerStyles: function innerStyles(datum, index) {
       return {
-        stroke: val(datum.strokeColor, this.options.strokeColor, datum),
-        strokeWidth: val(datum.strokeWidth, this.options.strokeWidth, datum),
-        fill: this.options.fills[val(this.awsRegionsData[datum.code] && this.awsRegionsData[datum.code].fillKey, datum.fillKey, datum)] || val(datum.strokeColor, this.options.strokeColor, datum),
-        fillOpacity: val(datum.fillOpacity, this.options.fillOpacity, datum)
+        stroke: val(datum.borderColor, this.options.borderColor, datum),
+        strokeWidth: val(datum.borderWidth, this.options.borderWidth, datum),
+        fill: this.options.fills[val(datum.fillKey, this.options.fillKey, datum)] || 'transparent',
+        fillOpacity: val(datum.borderOpacity, this.options.borderOpacity, datum)
       };
     },
     outerStyles: function outerStyles(datum, index) {
       return {
-        stroke: val(datum.strokeColor, this.options.strokeColor, datum),
-        strokeWidth: val(datum.strokeWidth, this.options.strokeWidth, datum),
+        stroke: val(datum.borderColor, this.options.borderColor, datum),
+        strokeWidth: val(datum.borderWidth, this.options.borderWidth, datum),
         fill: 'transparent',
-        fillOpacity: val(datum.fillOpacity, this.options.fillOpacity, datum)
+        fillOpacity: val(datum.borderOpacity, this.options.borderOpacity, datum)
       };
     },
     latLngToXY: function latLngToXY(lat, lng) {
@@ -25588,8 +25601,8 @@ var LayerAwsRegionsvue_type_template_id_312914a0_staticRenderFns = []
 
 var LayerAwsRegions_component = normalizeComponent(
   components_LayerAwsRegionsvue_type_script_lang_js_,
-  LayerAwsRegionsvue_type_template_id_312914a0_render,
-  LayerAwsRegionsvue_type_template_id_312914a0_staticRenderFns,
+  LayerAwsRegionsvue_type_template_id_55bb190c_render,
+  LayerAwsRegionsvue_type_template_id_55bb190c_staticRenderFns,
   false,
   null,
   null,
@@ -25630,8 +25643,6 @@ function Datamapsvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var k
 
 function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Datamapsvue_type_script_lang_js_ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Datamapsvue_type_script_lang_js_ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-//
-//
 //
 //
 //
@@ -25932,7 +25943,7 @@ function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
           return previousValue;
         }, {});
         this.awsRegionData = {};
-        this.awsRegionData = this.regions.slice().reduce(function (previousValue, currentValue) {
+        this.awsRegionData = regions.slice().reduce(function (previousValue, currentValue) {
           if (filters.includes(currentValue.key)) {
             previousValue[currentValue.key] = currentValue;
           }
@@ -25961,9 +25972,11 @@ function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
           return previousValue;
         }, {});
         this.awsRegionData = {};
-        this.awsRegionData = this.regions.slice().reduce(function (previousValue, currentValue) {
+        this.awsRegionData = regions.slice().reduce(function (previousValue, currentValue) {
           if (_filters.has(currentValue.code)) {
             previousValue[currentValue.code] = currentValue;
+          } else if (_filters.has(currentValue.key)) {
+            previousValue[currentValue.key] = currentValue;
           }
 
           return previousValue;
