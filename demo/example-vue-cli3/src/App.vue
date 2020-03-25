@@ -18,7 +18,9 @@
     <hr>
     <datamaps-custom-color/>
     <hr>
-    <datamaps-aws-region/>
+    <datamaps-aws-region-arc/>
+    <hr>
+    <datamaps-aws-region-bubble/>
   </div>
 </template>
 
@@ -31,7 +33,8 @@ import DatamapsGraticules from '@/components/DatamapsGraticules'
 import DatamapsZoom from '@/components/DatamapsZoom'
 import DatamapsSouthKorea from '@/components/DatamapsSouthKorea'
 import DatamapsCustomColor from '@/components/DatamapsCustomColor'
-import DatamapsAwsRegion from '@/components/DatamapsAwsRegion'
+import DatamapsAwsRegionArc from '@/components/DatamapsAwsRegionArc'
+import DatamapsAwsRegionBubble from '@/components/DatamapsAwsRegionBubble'
 export default {
   name: 'home',
   components: {
@@ -43,7 +46,8 @@ export default {
     DatamapsZoom,
     DatamapsSouthKorea,
     DatamapsCustomColor,
-    DatamapsAwsRegion
+    DatamapsAwsRegionArc,
+    DatamapsAwsRegionBubble
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>AWS Region:</h4>
+    <h4>AWS Region Arcs:</h4>
     <vue-datamaps
         :geographyConfig="geographyConfig"
         :fills="fills"
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import { VueDatamaps } from '../../../../src'
 export default {
   components: {
     VueDatamaps
@@ -38,6 +38,9 @@ export default {
       },
       awsRegionsConfig: {
         popupOnHover: true,
+        fills: {
+          active: '#0b5fd6'
+        },
         data: [
           {
             code: 'ap-northeast-2',

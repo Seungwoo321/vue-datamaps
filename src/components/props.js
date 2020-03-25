@@ -1,4 +1,4 @@
-import regions from './regions.json'
+import regions from './regions'
 export default {
     props: {
         scope: {
@@ -168,10 +168,12 @@ export default {
                     lineWidth: 1
                 },
                 awsRegionsConfig: {
+                    borderWidth: 2,
+                    borderOpacity: 1,
+                    borderColor: '#ffffff',
+                    fillOpacity: 1,
                     strokeColor: '#0b5fd6',
                     strokeWidth: 1.5,
-                    defaultFill: 'transparent',
-                    highlightFillOpacity: 1,
                     showPrivateRegions: false,
                     popupOnHover: false,
                     data: []
@@ -220,8 +222,7 @@ export default {
         awsRegionsConfigOptions () {
             return {
                 ...this.default.awsRegionsConfig,
-                ...this.awsRegionsConfig,
-                fills: this.fills
+                ...this.awsRegionsConfig
             }
         }
     }

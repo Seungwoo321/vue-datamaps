@@ -22449,13 +22449,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "ba6f":
-/***/ (function(module) {
-
-module.exports = JSON.parse("[{\"name\":\"N. Virginia\",\"full_name\":\"US East (N. Virginia)\",\"code\":\"us-east-1\",\"public\":true,\"zones\":[\"us-east-1a\",\"us-east-1b\",\"us-east-1c\",\"us-east-1d\",\"us-east-1e\",\"us-east-1f\"],\"coordinates\":{\"longitude\":-90.20607,\"latitude\":39.946}},{\"name\":\"Ohio\",\"full_name\":\"US East (Ohio)\",\"code\":\"us-east-2\",\"public\":true,\"zones\":[\"us-east-2a\",\"us-east-2b\",\"us-east-2c\"],\"coordinates\":{\"longitude\":-89.46344,\"latitude\":41.50396}},{\"name\":\"N. California\",\"full_name\":\"US West (N. California)\",\"code\":\"us-west-1\",\"public\":true,\"zone_limit\":2,\"zones\":[\"us-west-1a\",\"us-west-1b\",\"us-west-1c\"],\"coordinates\":{\"longitude\":-92.57275,\"latitude\":38.62998}},{\"name\":\"Oregon\",\"full_name\":\"US West (Oregon)\",\"code\":\"us-west-2\",\"public\":true,\"zones\":[\"us-west-2a\",\"us-west-2b\",\"us-west-2c\",\"us-west-2d\"],\"coordinates\":{\"longitude\":-122.62206,\"latitude\":45.32745}},{\"name\":\"GovCloud West\",\"full_name\":\"AWS GovCloud (US)\",\"code\":\"us-gov-west-1\",\"public\":false,\"zones\":[\"us-gov-west-1a\",\"us-gov-west-1b\",\"us-gov-west-1c\"],\"coordinates\":{\"longitude\":-97.09434,\"latitude\":31.78395}},{\"name\":\"GovCloud East\",\"full_name\":\"AWS GovCloud (US-East)\",\"code\":\"us-gov-east-1\",\"public\":false,\"zones\":[\"us-gov-east-1a\",\"us-gov-east-1b\",\"us-gov-east-1c\"],\"coordinates\":{\"longitude\":-109.99673,\"latitude\":53.2663}},{\"name\":\"Canada\",\"full_name\":\"Canada (Central)\",\"code\":\"ca-central-1\",\"public\":true,\"zones\":[\"ca-central-1a\",\"ca-central-1b\"],\"coordinates\":{\"longitude\":-105.53215,\"latitude\":50.40277}},{\"name\":\"Stockholm\",\"full_name\":\"EU (Stockholm)\",\"code\":\"eu-north-1\",\"public\":true,\"zones\":[\"eu-north-1a\",\"eu-north-1b\",\"eu-north-1c\"],\"coordinates\":{\"longitude\":18.04856,\"latitude\":59.33097}},{\"name\":\"Ireland\",\"full_name\":\"EU (Ireland)\",\"code\":\"eu-west-1\",\"public\":true,\"zones\":[\"eu-west-1a\",\"eu-west-1b\",\"eu-west-1c\"],\"coordinates\":{\"longitude\":-6.266155,\"latitude\":53.35014}},{\"name\":\"London\",\"full_name\":\"EU (London)\",\"code\":\"eu-west-2\",\"public\":true,\"zones\":[\"eu-west-2a\",\"eu-west-2b\",\"eu-west-2c\"],\"coordinates\":{\"longitude\":-0.11362,\"latitude\":51.51768}},{\"name\":\"Paris\",\"full_name\":\"EU (Paris)\",\"code\":\"eu-west-3\",\"public\":true,\"zones\":[\"eu-west-3a\",\"eu-west-3b\",\"eu-west-3c\"],\"coordinates\":{\"longitude\":2.34293,\"latitude\":48.85717}},{\"name\":\"Frankfurt\",\"full_name\":\"EU (Frankfurt)\",\"code\":\"eu-central-1\",\"public\":true,\"zones\":[\"eu-central-1a\",\"eu-central-1b\",\"eu-central-1c\"],\"coordinates\":{\"longitude\":8.65399,\"latitude\":50.12581}},{\"name\":\"Tokyo\",\"full_name\":\"Asia Pacific (Tokyo)\",\"code\":\"ap-northeast-1\",\"public\":true,\"zone_limit\":3,\"zones\":[\"ap-northeast-1a\",\"ap-northeast-1b\",\"ap-northeast-1c\",\"ap-northeast-1d\"],\"coordinates\":{\"longitude\":139.68872,\"latitude\":35.68052}},{\"name\":\"Seoul\",\"full_name\":\"Asia Pacific (Seoul)\",\"code\":\"ap-northeast-2\",\"public\":true,\"zones\":[\"ap-northeast-2a\",\"ap-northeast-2b\",\"ap-northeast-2c\"],\"coordinates\":{\"longitude\":126.99272,\"latitude\":37.57444}},{\"name\":\"Osaka\",\"full_name\":\"Asia Pacific (Osaka-Local)\",\"code\":\"ap-northeast-3\",\"public\":false,\"zones\":[\"ap-northeast-3a\"],\"coordinates\":{\"longitude\":135.50674,\"latitude\":34.69857}},{\"name\":\"Singapore\",\"full_name\":\"Asia Pacific (Singapore)\",\"code\":\"ap-southeast-1\",\"public\":true,\"zones\":[\"ap-southeast-1a\",\"ap-southeast-1b\",\"ap-southeast-1c\"],\"coordinates\":{\"longitude\":103.851959,\"latitude\":1.29027}},{\"name\":\"Sydney\",\"full_name\":\"Asia Pacific (Sydney)\",\"code\":\"ap-southeast-2\",\"public\":true,\"zones\":[\"ap-southeast-2a\",\"ap-southeast-2b\",\"ap-southeast-2c\"],\"coordinates\":{\"longitude\":-60.1856,\"latitude\":46.13527}},{\"name\":\"Hong Kong\",\"full_name\":\"Asia Pacific (Hong Kong)\",\"code\":\"ap-east-1\",\"public\":true,\"zones\":[\"ap-east-1a\",\"ap-east-1b\",\"ap-east-1c\"],\"coordinates\":{\"longitude\":114.13624,\"latitude\":22.25424}},{\"name\":\"Mumbai\",\"full_name\":\"Asia Pacific (Mumbai)\",\"code\":\"ap-south-1\",\"public\":true,\"zones\":[\"ap-south-1a\",\"ap-south-1b\",\"ap-south-1c\"],\"coordinates\":{\"longitude\":72.8673,\"latitude\":19.07257}},{\"name\":\"São Paulo\",\"full_name\":\"South America (São Paulo)\",\"code\":\"sa-east-1\",\"public\":true,\"zone_limit\":2,\"zones\":[\"sa-east-1a\",\"sa-east-1b\",\"sa-east-1c\"],\"coordinates\":{\"longitude\":-37.54154,\"latitude\":-10.5442}},{\"name\":\"Bahrain\",\"full_name\":\"Middle East (Bahrain)\",\"code\":\"me-south-1\",\"public\":true,\"zones\":[\"me-south-1a\",\"me-south-1b\",\"me-south-1c\"],\"coordinates\":{\"longitude\":25.9304142,\"latitude\":50.6377716}},{\"name\":\"Beijing\",\"full_name\":\"China (Beijing)\",\"code\":\"cn-north-1\",\"public\":false,\"zones\":[\"cn-north-1a\",\"cn-north-1b\"],\"coordinates\":{\"longitude\":116.3857,\"latitude\":39.90388}},{\"name\":\"Ningxia\",\"full_name\":\"China (Ningxia)\",\"code\":\"cn-northwest-1\",\"public\":false,\"zones\":[\"cn-northwest-1a\",\"cn-northwest-1b\",\"cn-northwest-1c\"],\"coordinates\":{\"longitude\":106.24929,\"latitude\":38.4888}}]");
-
-/***/ }),
-
 /***/ "bb2f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24239,12 +24232,12 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=7f08f8fe&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.awsRegions)?_c('layer-aws-regions',{attrs:{"awsRegionsConfig":_vm.awsRegionsConfigOptions,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"regions":_vm.regions,"data":_vm.arcRegionData},on:{"show:popup":_vm.showPopupRegion,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.bubblesConfigOptions,"data":_vm.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path},on:{"show:popup":_vm.showPopupBubble,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.arcConfigOptions,"data":_vm.arcData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"awsRegions":_vm.awsRegions,"regionsMap":_vm.regionsMap},on:{"show:popup":_vm.showPopupArc,"hide:popup":_vm.hidePopup}}):_vm._e()],1),(_vm.isPopupOn)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[(_vm.showHoverInfo)?_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])]):_vm._e()]),(_vm.showHoverBubbleInfo)?_vm._t("hoverBubbleInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])])]):_vm._e(),(_vm.showHoverArcInfo)?_vm._t("hoverArcInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br'),_vm._v(" "+_vm._s(_vm.popupText.origin)+" -> "+_vm._s(_vm.popupText.destination)+" "+_vm._s(_vm.popupText.value)+" ")])]):_vm._e(),(_vm.showHoverRegionInfo)?_vm._t("hoverRegionInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br')])]):_vm._e()],2):_vm._e()])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=008dd752&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.awsRegions)?_c('layer-aws-regions',{attrs:{"awsRegionsConfig":_vm.awsRegionsConfigOptions,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"regions":_vm.regions,"data":_vm.awsRegionData},on:{"show:popup":_vm.showPopupRegion,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.bubblesConfigOptions,"data":_vm.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"regions":_vm.regions},on:{"show:popup":_vm.showPopupBubble,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.arcConfigOptions,"data":_vm.arcGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"awsRegions":_vm.awsRegions},on:{"show:popup":_vm.showPopupArc,"hide:popup":_vm.hidePopup}}):_vm._e()],1),(_vm.isPopupOn)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[(_vm.showHoverInfo)?_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])]):_vm._e()]),(_vm.showHoverBubbleInfo)?_vm._t("hoverBubbleInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])])]):_vm._e(),(_vm.showHoverArcInfo)?_vm._t("hoverArcInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br'),_vm._v(" "+_vm._s(_vm.popupText.origin)+" -> "+_vm._s(_vm.popupText.destination)+" "+_vm._s(_vm.popupText.value)+" ")])]):_vm._e(),(_vm.showHoverRegionInfo)?_vm._t("hoverRegionInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br')])]):_vm._e()],2):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=7f08f8fe&
+// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=008dd752&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("a4d3");
@@ -24417,9 +24410,264 @@ function _defineProperty(obj, key, value) {
 // EXTERNAL MODULE: ./node_modules/d3v4/build/d3.js
 var d3 = __webpack_require__("4f1a");
 
-// EXTERNAL MODULE: ./src/components/regions.json
-var regions = __webpack_require__("ba6f");
-
+// CONCATENATED MODULE: ./src/components/regions.js
+/* harmony default export */ var regions = ([{
+  name: 'N. Virginia',
+  full_name: 'US East (N. Virginia)',
+  code: 'us-east-1',
+  key: 'USE1',
+  public: true,
+  zones: ['us-east-1a', 'us-east-1b', 'us-east-1c', 'us-east-1d', 'us-east-1e', 'us-east-1f'],
+  coordinates: {
+    longitude: -90.20607,
+    latitude: 39.94600
+  }
+}, {
+  name: 'Ohio',
+  full_name: 'US East (Ohio)',
+  key: 'USE2',
+  code: 'us-east-2',
+  public: true,
+  zones: ['us-east-2a', 'us-east-2b', 'us-east-2c'],
+  coordinates: {
+    longitude: -89.46344,
+    latitude: 41.50396
+  }
+}, {
+  name: 'N. California',
+  full_name: 'US West (N. California)',
+  key: 'USW1',
+  code: 'us-west-1',
+  public: true,
+  zone_limit: 2,
+  zones: ['us-west-1a', 'us-west-1b', 'us-west-1c'],
+  coordinates: {
+    longitude: -92.57275,
+    latitude: 38.62998
+  }
+}, {
+  name: 'Oregon',
+  full_name: 'US West (Oregon)',
+  key: 'USW2',
+  code: 'us-west-2',
+  public: true,
+  zones: ['us-west-2a', 'us-west-2b', 'us-west-2c', 'us-west-2d'],
+  coordinates: {
+    longitude: -122.62206,
+    latitude: 45.32745
+  }
+}, {
+  name: 'GovCloud West',
+  full_name: 'AWS GovCloud (US)',
+  key: 'UGW1',
+  code: 'us-gov-west-1',
+  public: false,
+  zones: ['us-gov-west-1a', 'us-gov-west-1b', 'us-gov-west-1c'],
+  coordinates: {
+    longitude: -97.09434,
+    latitude: 31.78395
+  }
+}, {
+  name: 'GovCloud East',
+  full_name: 'AWS GovCloud (US-East)',
+  key: 'UGE1',
+  code: 'us-gov-east-1',
+  public: false,
+  zones: ['us-gov-east-1a', 'us-gov-east-1b', 'us-gov-east-1c'],
+  coordinates: {
+    longitude: -109.99673,
+    latitude: 53.26630
+  }
+}, {
+  name: 'Canada',
+  full_name: 'Canada (Central)',
+  key: 'CAN1',
+  code: 'ca-central-1',
+  public: true,
+  zones: ['ca-central-1a', 'ca-central-1b'],
+  coordinates: {
+    longitude: -105.53215,
+    latitude: 50.40277
+  }
+}, {
+  name: 'Stockholm',
+  full_name: 'EU (Stockholm)',
+  key: 'EUN1',
+  code: 'eu-north-1',
+  public: true,
+  zones: ['eu-north-1a', 'eu-north-1b', 'eu-north-1c'],
+  coordinates: {
+    longitude: 18.04856,
+    latitude: 59.33097
+  }
+}, {
+  name: 'Ireland',
+  full_name: 'EU (Ireland)',
+  key: 'EU',
+  code: 'eu-west-1',
+  public: true,
+  zones: ['eu-west-1a', 'eu-west-1b', 'eu-west-1c'],
+  coordinates: {
+    longitude: -6.266155,
+    latitude: 53.350140
+  }
+}, {
+  name: 'London',
+  full_name: 'EU (London)',
+  key: 'EUW2',
+  code: 'eu-west-2',
+  public: true,
+  zones: ['eu-west-2a', 'eu-west-2b', 'eu-west-2c'],
+  coordinates: {
+    longitude: -0.11362,
+    latitude: 51.51768
+  }
+}, {
+  name: 'Paris',
+  full_name: 'EU (Paris)',
+  key: 'EUW3',
+  code: 'eu-west-3',
+  public: true,
+  zones: ['eu-west-3a', 'eu-west-3b', 'eu-west-3c'],
+  coordinates: {
+    longitude: 2.34293,
+    latitude: 48.85717
+  }
+}, {
+  name: 'Frankfurt',
+  full_name: 'EU (Frankfurt)',
+  key: 'EUC1',
+  code: 'eu-central-1',
+  public: true,
+  zones: ['eu-central-1a', 'eu-central-1b', 'eu-central-1c'],
+  coordinates: {
+    longitude: 8.65399,
+    latitude: 50.12581
+  }
+}, {
+  name: 'Tokyo',
+  full_name: 'Asia Pacific (Tokyo)',
+  key: 'APN1',
+  code: 'ap-northeast-1',
+  public: true,
+  zone_limit: 3,
+  zones: ['ap-northeast-1a', 'ap-northeast-1b', 'ap-northeast-1c', 'ap-northeast-1d'],
+  coordinates: {
+    longitude: 139.68872,
+    latitude: 35.68052
+  }
+}, {
+  name: 'Seoul',
+  full_name: 'Asia Pacific (Seoul)',
+  key: 'APN2',
+  code: 'ap-northeast-2',
+  public: true,
+  zones: ['ap-northeast-2a', 'ap-northeast-2b', 'ap-northeast-2c'],
+  coordinates: {
+    longitude: 126.99272,
+    latitude: 37.57444
+  }
+}, {
+  name: 'Osaka',
+  full_name: 'Asia Pacific (Osaka-Local)',
+  key: 'APN3',
+  code: 'ap-northeast-3',
+  public: false,
+  zones: ['ap-northeast-3a'],
+  coordinates: {
+    longitude: 135.50674,
+    latitude: 34.69857
+  }
+}, {
+  name: 'Singapore',
+  full_name: 'Asia Pacific (Singapore)',
+  key: 'APS1',
+  code: 'ap-southeast-1',
+  public: true,
+  zones: ['ap-southeast-1a', 'ap-southeast-1b', 'ap-southeast-1c'],
+  coordinates: {
+    longitude: 103.851959,
+    latitude: 1.290270
+  }
+}, {
+  name: 'Sydney',
+  full_name: 'Asia Pacific (Sydney)',
+  key: 'APS2',
+  code: 'ap-southeast-2',
+  public: true,
+  zones: ['ap-southeast-2a', 'ap-southeast-2b', 'ap-southeast-2c'],
+  coordinates: {
+    longitude: -60.18560,
+    latitude: 46.13527
+  }
+}, {
+  name: 'Hong Kong',
+  full_name: 'Asia Pacific (Hong Kong)',
+  key: 'APE1',
+  code: 'ap-east-1',
+  public: true,
+  zones: ['ap-east-1a', 'ap-east-1b', 'ap-east-1c'],
+  coordinates: {
+    longitude: 114.13624,
+    latitude: 22.25424
+  }
+}, {
+  name: 'Mumbai',
+  full_name: 'Asia Pacific (Mumbai)',
+  key: 'APS3',
+  code: 'ap-south-1',
+  public: true,
+  zones: ['ap-south-1a', 'ap-south-1b', 'ap-south-1c'],
+  coordinates: {
+    longitude: 72.86730,
+    latitude: 19.07257
+  }
+}, {
+  name: 'São Paulo',
+  full_name: 'South America (São Paulo)',
+  key: 'SAE1',
+  code: 'sa-east-1',
+  public: true,
+  zone_limit: 2,
+  zones: ['sa-east-1a', 'sa-east-1b', 'sa-east-1c'],
+  coordinates: {
+    longitude: -37.54154,
+    latitude: -10.54420
+  }
+}, {
+  name: 'Bahrain',
+  full_name: 'Middle East (Bahrain)',
+  key: 'MES1',
+  code: 'me-south-1',
+  public: true,
+  zones: ['me-south-1a', 'me-south-1b', 'me-south-1c'],
+  coordinates: {
+    longitude: 25.9304142,
+    latitude: 50.6377716
+  }
+}, {
+  name: 'Beijing',
+  full_name: 'China (Beijing)',
+  key: 'CNN1',
+  code: 'cn-north-1',
+  public: false,
+  zones: ['cn-north-1a', 'cn-north-1b'],
+  coordinates: {
+    longitude: 116.38570,
+    latitude: 39.90388
+  }
+}, {
+  name: 'Ningxia',
+  full_name: 'China (Ningxia)',
+  key: 'CNN1',
+  code: 'cn-northwest-1',
+  public: false,
+  zones: ['cn-northwest-1a', 'cn-northwest-1b', 'cn-northwest-1c'],
+  coordinates: {
+    longitude: 106.249290,
+    latitude: 38.488800
+  }
+}]);
 // CONCATENATED MODULE: ./src/components/props.js
 
 
@@ -24598,10 +24846,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
           lineWidth: 1
         },
         awsRegionsConfig: {
+          borderWidth: 2,
+          borderOpacity: 1,
+          borderColor: '#ffffff',
+          fillOpacity: 1,
           strokeColor: '#0b5fd6',
           strokeWidth: 1.5,
-          defaultFill: 'transparent',
-          highlightFillOpacity: 1,
           showPrivateRegions: false,
           popupOnHover: false,
           data: []
@@ -24634,9 +24884,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
       return _objectSpread({}, this.default.labelsConfig, {}, this.labelsConfig);
     },
     awsRegionsConfigOptions: function awsRegionsConfigOptions() {
-      return _objectSpread({}, this.default.awsRegionsConfig, {}, this.awsRegionsConfig, {
-        fills: this.fills
-      });
+      return _objectSpread({}, this.default.awsRegionsConfig, {}, this.awsRegionsConfig);
     }
   }
 });
@@ -24845,12 +25093,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerLabel = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=3627a934&
-var LayerBubblevue_type_template_id_3627a934_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut(index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
-var LayerBubblevue_type_template_id_3627a934_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=04157af3&
+var LayerBubblevue_type_template_id_04157af3_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut(index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
+var LayerBubblevue_type_template_id_04157af3_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=3627a934&
+// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=04157af3&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=script&lang=js&
 
@@ -24876,7 +25124,7 @@ var LayerBubblevue_type_template_id_3627a934_staticRenderFns = []
 
 /* harmony default export */ var LayerBubblevue_type_script_lang_js_ = ({
   name: 'layer-bubble',
-  props: ['bubblesConfig', 'path', 'projection', 'data'],
+  props: ['bubblesConfig', 'path', 'projection', 'data', 'regions'],
   data: function data() {
     return {
       name: 'datamaps-bubble',
@@ -24923,15 +25171,15 @@ var LayerBubblevue_type_template_id_3627a934_staticRenderFns = []
       return this.projection([lng, lat]);
     },
     latLng: function latLng(datum) {
-      return this.datumHasCoords(datum) ? this.latLngToXY(datum.latitude, datum.longitude) : datum.centered === 'USA' ? this.projection([-98.58333, 39.83333]) : this.path.centroid(this.data[datum.centered]);
+      return datum.region ? this.latLngToXY(this.data[datum.region].coordinates.latitude, this.data[datum.region].coordinates.longitude) : this.datumHasCoords(datum) ? this.latLngToXY(datum.latitude, datum.longitude) : datum.centered === 'USA' ? this.projection([-98.58333, 39.83333]) : this.path.centroid(this.data[datum.centered]);
     },
     handleMouseOver: function handleMouseOver(event, datum, index) {
       var target = event.target;
       var previousAttributes = {
-        'fill': target.style['fill'],
-        'stroke': target.style['stroke'],
-        'stroke-width': target.style['stroke-width'],
-        'fill-opacity': target.style['fill-opacity']
+        fill: target.style.fill,
+        stroke: target.style.stroke,
+        strokeWidth: target.style.strokeWidth,
+        fillOpacity: target.style.fillOpacity
       };
       this.$set(this.previousAttributes, index, previousAttributes);
       var _this$options = this.options,
@@ -24947,9 +25195,9 @@ var LayerBubblevue_type_template_id_3627a934_staticRenderFns = []
         var data = {
           fill: val(datum.highlightFillColor, highlightFillColor, datum),
           stroke: val(datum.highlightBorderColor, highlightBorderColor, datum),
-          'stroke-width': val(datum.highlightBorderWidth, highlightBorderWidth, datum),
-          'stroke-opacity': val(datum.highlightBorderOpacity, highlightBorderOpacity, datum),
-          'fill-opacity': val(datum.highlightFillOpacity, highlightFillOpacity, datum)
+          strokeWidth: val(datum.highlightBorderWidth, highlightBorderWidth, datum),
+          strokeOpacity: val(datum.highlightBorderOpacity, highlightBorderOpacity, datum),
+          fillOpacity: val(datum.highlightFillOpacity, highlightFillOpacity, datum)
         };
         this.$set(this.styleAttributes, index, data);
       }
@@ -24985,8 +25233,8 @@ var LayerBubblevue_type_template_id_3627a934_staticRenderFns = []
 
 var LayerBubble_component = normalizeComponent(
   components_LayerBubblevue_type_script_lang_js_,
-  LayerBubblevue_type_template_id_3627a934_render,
-  LayerBubblevue_type_template_id_3627a934_staticRenderFns,
+  LayerBubblevue_type_template_id_04157af3_render,
+  LayerBubblevue_type_template_id_04157af3_staticRenderFns,
   false,
   null,
   null,
@@ -25236,17 +25484,24 @@ var LayerArc_component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerArc = (LayerArc_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerAwsRegions.vue?vue&type=template&id=314f9645&
-var LayerAwsRegionsvue_type_template_id_314f9645_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.projection)?_c('g',{staticClass:"bubbles-aws-regions"},_vm._l((_vm.filterdData),function(item,index){return _c('circle',{key:index,style:(_vm.styles(item, index)),attrs:{"cx":_vm.latLng(item.coordinates)[0],"cy":_vm.latLng(item.coordinates)[1],"r":5},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":_vm.handleMouseOut}},[_c('animate',{attrs:{"attributeName":"r","begin":"200ms","dur":"600ms","from":"0","to":"4"}})])}),0):_vm._e()}
-var LayerAwsRegionsvue_type_template_id_314f9645_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"626109c8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerAwsRegions.vue?vue&type=template&id=312914a0&
+var LayerAwsRegionsvue_type_template_id_312914a0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.projection)?_c('g',{staticClass:"bubbles-aws-regions"},[_vm._l((_vm.filterdData),function(item,index){return _c('circle',{key:(index + "-inner"),style:(_vm.innerStyles(item, index)),attrs:{"cx":_vm.latLng(item.coordinates)[0],"cy":_vm.latLng(item.coordinates)[1],"r":3},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":_vm.handleMouseOut}},[_c('animate',{attrs:{"attributeName":"r","begin":"200ms","dur":"600ms","from":"0","to":"3"}})])}),_vm._l((_vm.filterdData),function(item,index){return _c('circle',{key:(index + "-outer"),style:(_vm.outerStyles(item, index)),attrs:{"cx":_vm.latLng(item.coordinates)[0],"cy":_vm.latLng(item.coordinates)[1],"r":9}},[_c('animate',{attrs:{"attributeName":"r","begin":"200ms","dur":"600ms","from":"0","to":"11"}})])})],2):_vm._e()}
+var LayerAwsRegionsvue_type_template_id_312914a0_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerAwsRegions.vue?vue&type=template&id=314f9645&
+// CONCATENATED MODULE: ./src/components/LayerAwsRegions.vue?vue&type=template&id=312914a0&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerAwsRegions.vue?vue&type=script&lang=js&
 
 
-
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -25280,13 +25535,6 @@ var LayerAwsRegionsvue_type_template_id_314f9645_staticRenderFns = []
         return _this.options.showPrivateRegions ? region : region.public;
       });
     },
-    circleStyle: function circleStyle() {
-      return {
-        stroke: this.options.strokeColor,
-        strokeWidth: this.options.strokeWidth,
-        fill: this.options.fill
-      };
-    },
     awsRegionsData: function awsRegionsData() {
       return this.options.data.reduce(function (accumulator, currentValue) {
         accumulator[currentValue.code] = currentValue;
@@ -25295,12 +25543,20 @@ var LayerAwsRegionsvue_type_template_id_314f9645_staticRenderFns = []
     }
   },
   methods: {
-    styles: function styles(datum, index) {
+    innerStyles: function innerStyles(datum, index) {
       return {
         stroke: val(datum.strokeColor, this.options.strokeColor, datum),
         strokeWidth: val(datum.strokeWidth, this.options.strokeWidth, datum),
-        fill: this.options.fills[val(this.awsRegionsData[datum.code] && this.awsRegionsData[datum.code].fillKey, datum.fillKey, datum)] || this.options.fills.defaultFill,
-        fillOpacity: val(datum.fillOpacity, this.options.highlightFillOpacity, datum)
+        fill: this.options.fills[val(this.awsRegionsData[datum.code] && this.awsRegionsData[datum.code].fillKey, datum.fillKey, datum)] || val(datum.strokeColor, this.options.strokeColor, datum),
+        fillOpacity: val(datum.fillOpacity, this.options.fillOpacity, datum)
+      };
+    },
+    outerStyles: function outerStyles(datum, index) {
+      return {
+        stroke: val(datum.strokeColor, this.options.strokeColor, datum),
+        strokeWidth: val(datum.strokeWidth, this.options.strokeWidth, datum),
+        fill: 'transparent',
+        fillOpacity: val(datum.fillOpacity, this.options.fillOpacity, datum)
       };
     },
     latLngToXY: function latLngToXY(lat, lng) {
@@ -25332,8 +25588,8 @@ var LayerAwsRegionsvue_type_template_id_314f9645_staticRenderFns = []
 
 var LayerAwsRegions_component = normalizeComponent(
   components_LayerAwsRegionsvue_type_script_lang_js_,
-  LayerAwsRegionsvue_type_template_id_314f9645_render,
-  LayerAwsRegionsvue_type_template_id_314f9645_staticRenderFns,
+  LayerAwsRegionsvue_type_template_id_312914a0_render,
+  LayerAwsRegionsvue_type_template_id_312914a0_staticRenderFns,
   false,
   null,
   null,
@@ -25500,7 +25756,7 @@ function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
       },
       pathData: [],
       bubbleGeoData: {},
-      arcRegionData: {},
+      awsRegionData: {},
       arcGeoData: {},
       styleAttributes: {},
       previousAttributes: {}
@@ -25664,9 +25920,9 @@ function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
 
       if (this.bubbles && this.bubblesConfigOptions.data) {
         var filters = this.bubblesConfigOptions.data.filter(function (item) {
-          return item.centered;
+          return item.centered || item.region;
         }).map(function (item) {
-          return item.centered;
+          return item.centered || item.region;
         });
         this.bubbleGeoData = data.features.slice().reduce(function (previousValue, currentValue) {
           if (filters.includes(currentValue.id)) {
@@ -25675,9 +25931,16 @@ function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
 
           return previousValue;
         }, {});
-      }
+        this.awsRegionData = {};
+        this.awsRegionData = this.regions.slice().reduce(function (previousValue, currentValue) {
+          if (filters.includes(currentValue.key)) {
+            previousValue[currentValue.key] = currentValue;
+          }
 
-      if (this.arc && this.arcConfigOptions.data && this.awsRegions) {}
+          return previousValue;
+        }, {});
+        this.bubbleGeoData = Datamapsvue_type_script_lang_js_objectSpread({}, this.bubbleGeoData, {}, this.awsRegionData);
+      }
 
       if (this.arc && this.arcConfigOptions.data) {
         var filtered = this.arcConfigOptions.data.filter(function (item) {
@@ -25697,14 +25960,15 @@ function Datamapsvue_type_script_lang_js_objectSpread(target) { for (var i = 1; 
 
           return previousValue;
         }, {});
-        this.arcRegionData = this.regions.slice().reduce(function (previousValue, currentValue) {
+        this.awsRegionData = {};
+        this.awsRegionData = this.regions.slice().reduce(function (previousValue, currentValue) {
           if (_filters.has(currentValue.code)) {
             previousValue[currentValue.code] = currentValue;
           }
 
           return previousValue;
         }, {});
-        this.arcData = Datamapsvue_type_script_lang_js_objectSpread({}, this.arcGeoData, {}, this.arcRegionData);
+        this.arcGeoData = Datamapsvue_type_script_lang_js_objectSpread({}, this.arcGeoData, {}, this.awsRegionData);
       }
     },
     handleMouseOver: function handleMouseOver(event, d) {

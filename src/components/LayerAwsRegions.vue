@@ -1,14 +1,22 @@
 <template>
     <g class="bubbles-aws-regions" v-if="projection">
-        <circle v-for="(item, index) in filterdData" :key="index"
+        <circle v-for="(item, index) in filterdData" :key="`${index}-inner`"
             :cx="latLng(item.coordinates)[0]"
             :cy="latLng(item.coordinates)[1]"
-            :r="5"
-            :style="styles(item, index)"
+            :r="3"
+            :style="innerStyles(item, index)"
             @mouseover="handleMouseOver($event, item)"
             @mouseout="handleMouseOut"
         >
-        <animate attributeName="r" begin="200ms" dur="600ms" from="0" to="4"></animate>
+        <animate attributeName="r" begin="200ms" dur="600ms" from="0" to="3"></animate>
+        </circle>
+        <circle v-for="(item, index) in filterdData" :key="`${index}-outer`"
+            :cx="latLng(item.coordinates)[0]"
+            :cy="latLng(item.coordinates)[1]"
+            :r="9"
+            :style="outerStyles(item, index)"
+        >
+        <animate attributeName="r" begin="200ms" dur="600ms" from="0" to="11"></animate>
         </circle>
     </g>
 </template>
@@ -29,13 +37,6 @@ export default {
         filterdData () {
             return this.regions.filter(region => this.options.showPrivateRegions ? region : region.public)
         },
-        circleStyle () {
-            return {
-                stroke: this.options.strokeColor,
-                strokeWidth: this.options.strokeWidth,
-                fill: this.options.fill
-            }
-        },
         awsRegionsData () {
             return this.options.data.reduce((accumulator, currentValue) => {
                 accumulator[currentValue.code] = currentValue
@@ -44,12 +45,20 @@ export default {
         }
     },
     methods: {
-        styles (datum, index) {
+        innerStyles (datum, index) {
             return {
                 stroke: val(datum.strokeColor, this.options.strokeColor, datum),
                 strokeWidth: val(datum.strokeWidth, this.options.strokeWidth, datum),
-                fill: this.options.fills[val(this.awsRegionsData[datum.code] && this.awsRegionsData[datum.code].fillKey, datum.fillKey, datum)] || this.options.fills.defaultFill,
-                fillOpacity: val(datum.fillOpacity, this.options.highlightFillOpacity, datum)
+                fill: this.options.fills[val(this.awsRegionsData[datum.code] && this.awsRegionsData[datum.code].fillKey, datum.fillKey, datum)] || val(datum.strokeColor, this.options.strokeColor, datum),
+                fillOpacity: val(datum.fillOpacity, this.options.fillOpacity, datum)
+            }
+        },
+        outerStyles (datum, index) {
+            return {
+                stroke: val(datum.strokeColor, this.options.strokeColor, datum),
+                strokeWidth: val(datum.strokeWidth, this.options.strokeWidth, datum),
+                fill: 'transparent',
+                fillOpacity: val(datum.fillOpacity, this.options.fillOpacity, datum)
             }
         },
         latLngToXY (lat, lng) {

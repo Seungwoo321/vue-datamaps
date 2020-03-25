@@ -18,7 +18,7 @@
 import { val } from './helper'
 export default {
     name: 'layer-bubble',
-    props: ['bubblesConfig', 'path', 'projection', 'data'],
+    props: ['bubblesConfig', 'path', 'projection', 'data', 'regions'],
     data () {
         return {
             name: 'datamaps-bubble',
@@ -63,15 +63,15 @@ export default {
             return this.projection([lng, lat])
         },
         latLng (datum) {
-            return this.datumHasCoords(datum) ? this.latLngToXY(datum.latitude, datum.longitude) : (datum.centered === 'USA' ? this.projection([-98.58333, 39.83333]) : this.path.centroid(this.data[datum.centered]))
+            return datum.region ? this.latLngToXY(this.data[datum.region].coordinates.latitude, this.data[datum.region].coordinates.longitude) : (this.datumHasCoords(datum) ? this.latLngToXY(datum.latitude, datum.longitude) : (datum.centered === 'USA' ? this.projection([-98.58333, 39.83333]) : this.path.centroid(this.data[datum.centered])))
         },
         handleMouseOver (event, datum, index) {
             const target = event.target
             const previousAttributes = {
-                'fill': target.style['fill'],
-                'stroke': target.style['stroke'],
-                'stroke-width': target.style['stroke-width'],
-                'fill-opacity': target.style['fill-opacity']
+                fill: target.style.fill,
+                stroke: target.style.stroke,
+                strokeWidth: target.style.strokeWidth,
+                fillOpacity: target.style.fillOpacity
             }
             this.$set(this.previousAttributes, index, previousAttributes)
             const { highlightOnHover, popupOnHover, highlightFillColor, highlightBorderColor, highlightBorderWidth, highlightBorderOpacity, highlightFillOpacity } = this.options
@@ -79,9 +79,9 @@ export default {
                 const data = {
                     fill: val(datum.highlightFillColor, highlightFillColor, datum),
                     stroke: val(datum.highlightBorderColor, highlightBorderColor, datum),
-                    'stroke-width': val(datum.highlightBorderWidth, highlightBorderWidth, datum),
-                    'stroke-opacity': val(datum.highlightBorderOpacity, highlightBorderOpacity, datum),
-                    'fill-opacity': val(datum.highlightFillOpacity, highlightFillOpacity, datum)
+                    strokeWidth: val(datum.highlightBorderWidth, highlightBorderWidth, datum),
+                    strokeOpacity: val(datum.highlightBorderOpacity, highlightBorderOpacity, datum),
+                    fillOpacity: val(datum.highlightFillOpacity, highlightFillOpacity, datum)
                 }
                 this.$set(this.styleAttributes, index, data)
             }
