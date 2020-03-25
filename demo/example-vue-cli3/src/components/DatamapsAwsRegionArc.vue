@@ -33,14 +33,12 @@ export default {
         highlightOnHover: false
       },
       fills: {
-        defaultFill: '#cfcfcf',
-        active: '#0b5fd6'
+        defaultFill: '#9fabaf',
+        active: '#e8762e'
       },
       awsRegionsConfig: {
         popupOnHover: true,
-        fills: {
-          active: '#0b5fd6'
-        },
+        borderColor: '#e8762e',
         data: [
           {
             code: 'ap-northeast-2',
@@ -50,13 +48,16 @@ export default {
             code: 'ap-northeast-1',
             fillKey: 'active'
           },
-          { code: 'us-east-2',
+          {
+            code: 'us-east-2',
             fillKey: 'active'
           },
-          { code: 'ap-southeast-1',
+          {
+            code: 'ap-southeast-1',
             fillKey: 'active'
           },
-          { code: 'ca-central-1',
+          {
+            code: 'ca-central-1',
             fillKey: 'active'
           }
         ]
@@ -86,7 +87,8 @@ export default {
             destination: 'ap-northeast-2'
           }
         ],
-        strokeColor: '#0b5fd6',
+        strokeColor: '#e8762e',
+        strokeWidth: 2,
         greatArc: true,
         animationSpeed: 2000
       },

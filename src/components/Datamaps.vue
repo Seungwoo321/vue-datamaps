@@ -23,7 +23,6 @@
                 :awsRegionsConfig="awsRegionsConfigOptions"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
-                :regions="regions"
                 :data="awsRegionData"
                 @show:popup="showPopupRegion"
                 @hide:popup="hidePopup"
@@ -34,7 +33,6 @@
                 :data="bubbleGeoData"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
-                :regions="regions"
                 @show:popup="showPopupBubble"
                 @hide:popup="hidePopup"
             ></layer-bubble>
@@ -88,7 +86,7 @@
 <script>
 import * as d3 from 'd3v4'
 import props from './props'
-import { val } from './helper'
+import { val, regions } from './helper'
 import LayerLabel from './LayerLabel'
 import LayerBubble from './LayerBubble'
 import LayerArc from './LayerArc'
@@ -248,7 +246,7 @@ export default {
                 }, {})
 
                 this.awsRegionData = {}
-                this.awsRegionData = this.regions.slice().reduce((previousValue, currentValue) => {
+                this.awsRegionData = regions.slice().reduce((previousValue, currentValue) => {
                     if (filters.includes(currentValue.key)) {
                         previousValue[currentValue.key] = currentValue
                     }
@@ -266,9 +264,11 @@ export default {
                     return previousValue
                 }, {})
                 this.awsRegionData = {}
-                this.awsRegionData = this.regions.slice().reduce((previousValue, currentValue) => {
+                this.awsRegionData = regions.slice().reduce((previousValue, currentValue) => {
                     if (filters.has(currentValue.code)) {
                         previousValue[currentValue.code] = currentValue
+                    } else if (filters.has(currentValue.key)) {
+                        previousValue[currentValue.key] = currentValue
                     }
                     return previousValue
                 }, {})

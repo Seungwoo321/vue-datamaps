@@ -1,4 +1,4 @@
-import regions from './regions'
+import { regions } from './helper'
 export default {
     props: {
         scope: {
@@ -114,7 +114,6 @@ export default {
     },
     data () {
         return {
-            regions: regions,
             defaultFill: '#ABDDA4',
             default: {
                 geographyConfig: {
@@ -168,14 +167,12 @@ export default {
                     lineWidth: 1
                 },
                 awsRegionsConfig: {
-                    borderWidth: 2,
+                    borderWidth: 1.5,
                     borderOpacity: 1,
-                    borderColor: '#ffffff',
-                    fillOpacity: 1,
-                    strokeColor: '#0b5fd6',
-                    strokeWidth: 1.5,
-                    showPrivateRegions: false,
+                    borderColor: '#0b5fd6',
                     popupOnHover: false,
+                    fillOpacity: 1,
+                    showPrivateRegions: false,
                     data: []
                 }
             }
@@ -222,7 +219,8 @@ export default {
         awsRegionsConfigOptions () {
             return {
                 ...this.default.awsRegionsConfig,
-                ...this.awsRegionsConfig
+                ...this.awsRegionsConfig,
+                fills: this.fills
             }
         }
     }

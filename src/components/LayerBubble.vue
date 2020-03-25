@@ -18,7 +18,7 @@
 import { val } from './helper'
 export default {
     name: 'layer-bubble',
-    props: ['bubblesConfig', 'path', 'projection', 'data', 'regions'],
+    props: ['bubblesConfig', 'path', 'projection', 'data'],
     data () {
         return {
             name: 'datamaps-bubble',
