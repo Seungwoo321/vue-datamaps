@@ -1,6 +1,6 @@
 <template>
     <g class="bubbles-aws-regions" v-if="projection">
-        <circle v-for="(item, index) in filterdData" :key="`${index}-inner`" class="circle-inner"
+        <circle v-for="(item, index) in filterdData" :key="`${index}-inner`" class="circle-inner" :class="useClass(item)"
             :cx="latLng(item.coordinates)[0]"
             :cy="latLng(item.coordinates)[1]"
             :r="3"
@@ -10,7 +10,7 @@
         >
         <animate attributeName="r" begin="200ms" dur="600ms" from="0" to="3"></animate>
         </circle>
-        <circle v-for="(item, index) in filterdData" :key="`${index}-outer`" class="circle-outer"
+        <circle v-for="(item, index) in filterdData" :key="`${index}-outer`" class="circle-outer" :class="useClass(item)"
             :cx="latLng(item.coordinates)[0]"
             :cy="latLng(item.coordinates)[1]"
             :r="9"
@@ -50,6 +50,11 @@ export default {
         }
     },
     methods: {
+        useClass (datum) {
+            return {
+                use: !!this.awsRegionsData[datum.code]
+            }
+        },
         innerStyles (datum, index) {
             return {
                 stroke: val(datum.borderColor, this.options.borderColor, datum),
