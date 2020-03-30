@@ -6,7 +6,16 @@
         :fills="fills"
         :bubblesConfig="bubblesConfig"
         bubbles
+        @custom:popup-bubble="popupTemplate"
     >
+        <div slot="hoverBubbleInfo" class="hoverinfo">
+            <strong>
+                {{ name }} ({{ code }})
+            </strong>
+            <div>
+                {{ cost }}
+            </div>
+        </div>
     </vue-datamaps>
   </div>
 </template>
@@ -19,21 +28,27 @@ export default {
   },
   data () {
     return {
+      name: '',
+      code: '',
+      cost: '',
       bubblesConfig: {
         data: [
           {
             name: 'Seoul',
             radius: 100,
+            cost: '$100',
             region: 'APN2'
           },
           {
             name: 'Tokyo',
             radius: 10,
+            cost: '$10',
             region: 'APN1'
           },
           {
             name: 'Asia Pacific CDN',
             radius: 50,
+            cost: '$50',
             region: 'AP',
             coordinates: {
               latitude: 1.29,
@@ -43,7 +58,8 @@ export default {
         ],
         fillKey: 'region',
         highlightBorderColor: '#FFFFFF',
-        highlightFillColor: '#ffba8f'
+        highlightFillColor: '#ffba8f',
+        popupTemplate: true
       },
       geographyConfig: {
         borderWidth: 0.2,
@@ -59,9 +75,10 @@ export default {
     }
   },
   methods: {
-    popupTemplate (datum) {
-      this.popupData.origin = datum.origin.full_name
-      this.popupData.destination = datum.destination.full_name
+    popupTemplate ({ datum }) {
+      this.name = datum.name
+      this.code = datum.region
+      this.cost = datum.cost
     }
   }
 }
