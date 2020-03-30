@@ -30,6 +30,15 @@ export default {
             name: 'Tokyo',
             radius: 10,
             region: 'APN1'
+          },
+          {
+            name: 'Asia Pacific CDN',
+            radius: 50,
+            region: 'AP',
+            coordinates: {
+              latitude: 1.29,
+              longitude: 103.85
+            }
           }
         ],
         fillKey: 'region',

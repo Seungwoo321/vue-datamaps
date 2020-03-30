@@ -63,7 +63,17 @@ export default {
             return this.projection([lng, lat])
         },
         latLng (datum) {
-            return datum.region ? this.latLngToXY(this.data[datum.region].coordinates.latitude, this.data[datum.region].coordinates.longitude) : (this.datumHasCoords(datum) ? this.latLngToXY(datum.latitude, datum.longitude) : (datum.centered === 'USA' ? this.projection([-98.58333, 39.83333]) : this.path.centroid(this.data[datum.centered])))
+            if (datum.region && this.data[datum.region]) {
+                return this.latLngToXY(this.data[datum.region].coordinates.latitude, this.data[datum.region].coordinates.longitude)
+            } else if (datum.region && !this.data[datum.region]) {
+                return this.latLngToXY(datum.coordinates.latitude, datum.coordinates.longitude)
+            } else if (this.datumHasCoords(datum)) {
+                return this.latLngToXY(datum.latitude, datum.longitude)
+            } else if (datum.centered === 'USA') {
+                return this.projection([-98.58333, 39.83333])
+            } else {
+                return this.path.centroid(this.data[datum.centered])
+            }
         },
         handleMouseOver (event, datum, index) {
             const target = event.target
