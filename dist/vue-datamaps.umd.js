@@ -22472,12 +22472,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerLabel = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6585edb4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=776d1526&
-var LayerBubblevue_type_template_id_776d1526_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut(index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
-var LayerBubblevue_type_template_id_776d1526_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6585edb4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=1c3338d1&
+var LayerBubblevue_type_template_id_1c3338d1_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut(index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
+var LayerBubblevue_type_template_id_1c3338d1_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=776d1526&
+// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=1c3338d1&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=script&lang=js&
 
@@ -22550,7 +22550,17 @@ var LayerBubblevue_type_template_id_776d1526_staticRenderFns = []
       return this.projection([lng, lat]);
     },
     latLng: function latLng(datum) {
-      return datum.region ? this.latLngToXY(this.data[datum.region].coordinates.latitude, this.data[datum.region].coordinates.longitude) : this.datumHasCoords(datum) ? this.latLngToXY(datum.latitude, datum.longitude) : datum.centered === 'USA' ? this.projection([-98.58333, 39.83333]) : this.path.centroid(this.data[datum.centered]);
+      if (datum.region && this.data[datum.region]) {
+        return this.latLngToXY(this.data[datum.region].coordinates.latitude, this.data[datum.region].coordinates.longitude);
+      } else if (datum.region && !this.data[datum.region]) {
+        return this.latLngToXY(datum.coordinates.latitude, datum.coordinates.longitude);
+      } else if (this.datumHasCoords(datum)) {
+        return this.latLngToXY(datum.latitude, datum.longitude);
+      } else if (datum.centered === 'USA') {
+        return this.projection([-98.58333, 39.83333]);
+      } else {
+        return this.path.centroid(this.data[datum.centered]);
+      }
     },
     handleMouseOver: function handleMouseOver(event, datum, index) {
       var target = event.target;
@@ -22612,8 +22622,8 @@ var LayerBubblevue_type_template_id_776d1526_staticRenderFns = []
 
 var LayerBubble_component = normalizeComponent(
   components_LayerBubblevue_type_script_lang_js_,
-  LayerBubblevue_type_template_id_776d1526_render,
-  LayerBubblevue_type_template_id_776d1526_staticRenderFns,
+  LayerBubblevue_type_template_id_1c3338d1_render,
+  LayerBubblevue_type_template_id_1c3338d1_staticRenderFns,
   false,
   null,
   null,
