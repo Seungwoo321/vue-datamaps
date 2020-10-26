@@ -22623,12 +22623,12 @@ var LayerBubble_component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerBubble = (LayerBubble_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6585edb4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerArc.vue?vue&type=template&id=c08141b6&
-var LayerArcvue_type_template_id_c08141b6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"arc"},_vm._l((_vm.arcData),function(item,index){return _c('path',{key:index,ref:"arc",refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"d":_vm.pathData(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":_vm.handleMouseOut}})}),0)}
-var LayerArcvue_type_template_id_c08141b6_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6585edb4-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerArc.vue?vue&type=template&id=0100fb28&
+var LayerArcvue_type_template_id_0100fb28_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"arc"},_vm._l((_vm.arcData),function(item,index){return _c('path',{key:index,ref:"arc",refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"d":_vm.pathData(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":_vm.handleMouseOut}})}),0)}
+var LayerArcvue_type_template_id_0100fb28_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerArc.vue?vue&type=template&id=c08141b6&
+// CONCATENATED MODULE: ./src/components/LayerArc.vue?vue&type=template&id=0100fb28&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerArc.vue?vue&type=script&lang=js&
 
@@ -22813,18 +22813,18 @@ var LayerArcvue_type_template_id_c08141b6_staticRenderFns = []
   watch: {
     arcData: {
       immediate: true,
-      handler: function handler() {
+      handler: function handler(value) {
         var _this2 = this;
 
         this.$nextTick(function () {
-          var arcPaths = _this2.$refs.arc;
+          var arcPaths = _this2.$refs.arc || [];
           arcPaths.forEach(function (path, i) {
             var length = path.getTotalLength();
             path.style.transition = 'none';
             path.style.strokeDasharray = length + ' ' + length;
             path.style.strokeDashoffset = length;
             path.getBoundingClientRect();
-            path.style.transition = "stroke-dashoffset ".concat(val(_this2.arcData[i].animationSpeed, _this2.options.animationSpeed, _this2.arcData[i]), "ms ease-out 1s");
+            path.style.transition = "stroke-dashoffset ".concat(val(value[i].animationSpeed, _this2.options.animationSpeed, value[i]), "ms ease-out 1s");
             path.style.strokeDashoffset = 0;
           });
         });
@@ -22844,8 +22844,8 @@ var LayerArcvue_type_template_id_c08141b6_staticRenderFns = []
 
 var LayerArc_component = normalizeComponent(
   components_LayerArcvue_type_script_lang_js_,
-  LayerArcvue_type_template_id_c08141b6_render,
-  LayerArcvue_type_template_id_c08141b6_staticRenderFns,
+  LayerArcvue_type_template_id_0100fb28_render,
+  LayerArcvue_type_template_id_0100fb28_staticRenderFns,
   false,
   null,
   null,
