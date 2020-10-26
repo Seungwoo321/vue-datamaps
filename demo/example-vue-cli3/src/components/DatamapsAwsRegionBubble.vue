@@ -63,7 +63,7 @@ export default {
       },
       geographyConfig: {
         borderWidth: 0.2,
-        dataUrl: 'https://raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
+        dataUrl: '',
         popupOnHover: false,
         highlightOnHover: false
       },

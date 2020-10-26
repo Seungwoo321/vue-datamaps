@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       geographyConfig: {
-        dataUrl: 'https://raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json'
+        dataUrl: ''
       }
     }
   }

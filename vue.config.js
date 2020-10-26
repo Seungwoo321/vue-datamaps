@@ -1,18 +1,27 @@
-const path = require('path')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-
+const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin')
 module.exports = {
+    chainWebpack: config => {
+        config.module
+            .rule('file')
+            .test(/\.json/i)
+            .type('javascript/auto')
+            .use('file-loader')
+            .options({
+                name: '[name].[ext]'
+            })
+            .loader('file-loader')
+            .end()
+    },
     productionSourceMap: false,
     configureWebpack: {
         output: {
             libraryExport: 'default'
         },
-        plugins: [
-            new CopyWebpackPlugin([{
-                from: path.join(__dirname, 'src/assets'),
-                to: path.join(__dirname, 'dist'),
-                toType: 'dir'
-            }])
-        ]
+        optimization: {
+            minimize: true,
+            minimizer: [
+                new JsonMinimizerPlugin()
+            ]
+        }
     }
 }

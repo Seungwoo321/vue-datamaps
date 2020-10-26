@@ -101,6 +101,7 @@ export default {
     },
     data () {
         return {
+            geoData: {},
             setProjectionData: {
                 path: null,
                 projection: null
@@ -131,6 +132,12 @@ export default {
     },
     mixins: [ props ],
     props: {
+        localData: {
+            type: Object,
+            default: function () {
+                return {}
+            }
+        },
         width: {
             type: Number,
             default: 750
@@ -212,17 +219,25 @@ export default {
             return color
         },
         async draw () {
-            const response = await fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`)
-            const result = await response.json()
-            let geoData = result
-            if (this.geograpphyConfigOptions.dataUrl) {
-                if (this.dataType === 'csv' && (result && result.slice)) {
+            if (this.localData.type) {
+                this.geoData = this.localData
+            } else if (this.geograpphyConfigOptions.dataUrl && this.geograpphyConfigOptions.dataUrl !== '') {
+                if (this.dataType === 'csv' && (this.geoData && this.geoData.slice)) {
                     let tmpData = {}
-                    result.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
-                    geoData = tmpData
+                    this.geoData.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
+                    this.geoData = tmpData
+                }
+            } else {
+                try {
+                    const response = await fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`)
+                    const result = await response.json()
+                    this.geoData = result
+                } catch (error) {
+                    const { FeatureCollectionMap } = require('../data/')
+                    this.geoData = FeatureCollectionMap['world']
                 }
             }
-            this.drawSubunits(geoData)
+            this.drawSubunits(this.geoData)
         },
         drawSubunits (data) {
             if (this.geograpphyConfigOptions.hideAntarctica) {

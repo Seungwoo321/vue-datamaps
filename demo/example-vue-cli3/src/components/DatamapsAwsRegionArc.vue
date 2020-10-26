@@ -9,6 +9,7 @@
         aws-regions
         :awsRegionsConfig="awsRegionsConfig"
         @custom:popup-arc="popupTemplate"
+        :localData="world"
     >
       <div slot="hoverArcInfo" class="hoverinfo">
         <strong>{{ popupData.title }}</strong><br>
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import world from 'vue-datamaps/dist/world.json'
 import { VueDatamaps } from 'vue-datamaps'
 export default {
   components: {
@@ -26,9 +28,10 @@ export default {
   },
   data () {
     return {
+      world: world,
       geographyConfig: {
         borderWidth: 0.2,
-        dataUrl: 'https://raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
+        dataUrl: '',
         popupOnHover: false,
         highlightOnHover: false
       },
