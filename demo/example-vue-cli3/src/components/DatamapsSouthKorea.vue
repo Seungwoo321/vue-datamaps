@@ -6,18 +6,21 @@
         :setProjection="setProjection('korea')"
         :fills="fills"
         :data="data"
+        :localData="kor"
     />
   </div>
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import { VueDatamaps } from '../../../../src'
+import { kor } from '../../../../src/data/index'
 export default {
   components: {
     VueDatamaps
   },
   data () {
     return {
+      kor: kor,
       scope: 'kor',
       fills: {
         color1: '#fa0fa0',

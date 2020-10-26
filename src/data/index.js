@@ -1,536 +1,532 @@
-const ctx = require.context('./', true, /.*.json$/)
-const FeatureCollectionMap = ctx.keys().reduce((accumulator, currentValue) => {
-    const key = currentValue.split('.')[1].split('/')[1]
-    const josnData = ctx(currentValue)
-    if (josnData.type === 'FeatureCollection') {
-        accumulator[key] = ctx(currentValue)
-    }
-    return accumulator
-}, {})
+// const ctx = require.context('./', true, /.*.json$/)
+// const FeatureCollection = ctx.keys().reduce((accumulator, currentValue) => {
+//     const key = currentValue.split('.')[1].split('/')[1]
+//     const josnData = ctx(currentValue)
+//     if (josnData.type === 'FeatureCollection') {
+//         accumulator[key] = ctx(currentValue)
+//     }
+//     return accumulator
+// }, {})
 
-// const _nul = require('./_nul.json')
-// const abw = require('./abw.json')
-// const afg = require('./afg.json')
-// const ago = require('./ago.json')
-// const aia = require('./aia.json')
-// const alb = require('./alb.json')
-// const ald = require('./ald.json')
-// const and = require('./and.json')
-// const are = require('./are.json')
-// const arg = require('./arg.json')
-// const arm = require('./arm.json')
-// const asm = require('./asm.json')
-// const ata = require('./ata.json')
-// const atc = require('./atc.json')
-// const atf = require('./atf.json')
-// const atg = require('./atg.json')
-// const aus = require('./aus.json')
-// const aut = require('./aut.json')
-// const aze = require('./aze.json')
-// const bdi = require('./bdi.json')
-// const bel = require('./bel.json')
-// const ben = require('./ben.json')
-// const bfa = require('./bfa.json')
-// const bgd = require('./bgd.json')
-// const bgr = require('./bgr.json')
-// const bhr = require('./bhr.json')
-// const bhs = require('./bhs.json')
-// const bih = require('./bih.json')
-// const bjn = require('./bjn.json')
-// const blm = require('./blm.json')
-// const blr = require('./blr.json')
-// const blz = require('./blz.json')
-// const bmu = require('./bmu.json')
-// const bol = require('./bol.json')
-// const bra = require('./bra.json')
-// const brb = require('./brb.json')
-// const brn = require('./brn.json')
-// const btn = require('./btn.json')
-// const bwa = require('./bwa.json')
-// const caf = require('./caf.json')
-// const can = require('./can.json')
-// const che = require('./che.json')
-// const chl = require('./chl.json')
-// const chn = require('./chn.json')
-// const civ = require('./civ.json')
-// const clp = require('./clp.json')
-// const cmr = require('./cmr.json')
-// const cod = require('./cod.json')
-// const cog = require('./cog.json')
-// const cok = require('./cok.json')
-// const col = require('./col.json')
-// const com = require('./com.json')
-// const cpv = require('./cpv.json')
-// const cri = require('./cri.json')
-// const csi = require('./csi.json')
-// const cub = require('./cub.json')
-// const cuw = require('./cuw.json')
-// const cym = require('./cym.json')
-// const cyn = require('./cyn.json')
-// const cyp = require('./cyp.json')
-// const cze = require('./cze.json')
-// const deu = require('./deu.json')
-// const dji = require('./dji.json')
-// const dma = require('./dma.json')
-// const dnk = require('./dnk.json')
-// const dom = require('./dom.json')
-// const dza = require('./dza.json')
-// const ecu = require('./ecu.json')
-// const egy = require('./egy.json')
-// const eri = require('./eri.json')
-// const esb = require('./esb.json')
-// const esp = require('./esp.json')
-// const est = require('./est.json')
-// const eth = require('./eth.json')
-// const fin = require('./fin.json')
-// const fji = require('./fji.json')
-// const flk = require('./flk.json')
-// const fra = require('./fra.json')
-// const fro = require('./fro.json')
-// const fsm = require('./fsm.json')
-// const gab = require('./gab.json')
-// const gbr = require('./gbr.json')
-// const geo = require('./geo.json')
-// const ggy = require('./ggy.json')
-// const gha = require('./gha.json')
-// const gib = require('./gib.json')
-// const gin = require('./gin.json')
-// const gmb = require('./gmb.json')
-// const gnb = require('./gnb.json')
-// const gnq = require('./gnq.json')
-// const grc = require('./grc.json')
-// const grd = require('./grd.json')
-// const grl = require('./grl.json')
-// const gtm = require('./gtm.json')
-// const gum = require('./gum.json')
-// const guy = require('./guy.json')
-// const hkg = require('./hkg.json')
-// const hmd = require('./hmd.json')
-// const hnd = require('./hnd.json')
-// const hrv = require('./hrv.json')
-// const hti = require('./hti.json')
-// const hun = require('./hun.json')
-// const idn = require('./idn.json')
-// const imn = require('./imn.json')
-// const ind = require('./ind.json')
-// const ioa = require('./ioa.json')
-// const iot = require('./iot.json')
-// const irl = require('./irl.json')
-// const irn = require('./irn.json')
-// const irq = require('./irq.json')
-// const isl = require('./isl.json')
-// const isr = require('./isr.json')
-// const ita = require('./ita.json')
-// const jam = require('./jam.json')
-// const jey = require('./jey.json')
-// const jor = require('./jor.json')
-// const jpn = require('./jpn.json')
-// const kab = require('./kab.json')
-// const kas = require('./kas.json')
-// const kaz = require('./kaz.json')
-// const ken = require('./ken.json')
-// const kgz = require('./kgz.json')
-// const khm = require('./khm.json')
-// const kir = require('./kir.json')
-// const kna = require('./kna.json')
-// const kor = require('./kor.json')
-// const kos = require('./kos.json')
-// const kwt = require('./kwt.json')
-// const lao = require('./lao.json')
-// const lbn = require('./lbn.json')
-// const lbr = require('./lbr.json')
-// const lby = require('./lby.json')
-// const lca = require('./lca.json')
-// const lie = require('./lie.json')
-// const lka = require('./lka.json')
-// const lso = require('./lso.json')
-// const ltu = require('./ltu.json')
-// const lux = require('./lux.json')
-// const lva = require('./lva.json')
-// const mac = require('./mac.json')
-// const maf = require('./maf.json')
-// const mar = require('./mar.json')
-// const mco = require('./mco.json')
-// const mda = require('./mda.json')
-// const mdg = require('./mdg.json')
-// const mdv = require('./mdv.json')
-// const mex = require('./mex.json')
-// const mhl = require('./mhl.json')
-// const mkd = require('./mkd.json')
-// const mli = require('./mli.json')
-// const mlt = require('./mlt.json')
-// const mmr = require('./mmr.json')
-// const mne = require('./mne.json')
-// const mng = require('./mng.json')
-// const mnp = require('./mnp.json')
-// const moz = require('./moz.json')
-// const mrt = require('./mrt.json')
-// const msr = require('./msr.json')
-// const mus = require('./mus.json')
-// const mwi = require('./mwi.json')
-// const mys = require('./mys.json')
-// const nam = require('./nam.json')
-// const ncl = require('./ncl.json')
-// const ner = require('./ner.json')
-// const nfk = require('./nfk.json')
-// const nga = require('./nga.json')
-// const nic = require('./nic.json')
-// const niu = require('./niu.json')
-// const nld = require('./nld.json')
-// const nor = require('./nor.json')
-// const npl = require('./npl.json')
-// const nru = require('./nru.json')
-// const nzl = require('./nzl.json')
-// const omn = require('./omn.json')
-// const pak = require('./pak.json')
-// const pan = require('./pan.json')
-// const pcn = require('./pcn.json')
-// const per = require('./per.json')
-// const pga = require('./pga.json')
-// const phl = require('./phl.json')
-// const plw = require('./plw.json')
-// const png = require('./png.json')
-// const pol = require('./pol.json')
-// const pri = require('./pri.json')
-// const prk = require('./prk.json')
-// const prt = require('./prt.json')
-// const pry = require('./pry.json')
-// const psx = require('./psx.json')
-// const pyf = require('./pyf.json')
-// const qat = require('./qat.json')
-// const rou = require('./rou.json')
-// const rus = require('./rus.json')
-// const rwa = require('./rwa.json')
-// const sah = require('./sah.json')
-// const sau = require('./sau.json')
-// const scr = require('./scr.json')
-// const sdn = require('./sdn.json')
-// const sds = require('./sds.json')
-// const sen = require('./sen.json')
-// const ser = require('./ser.json')
-// const sgp = require('./sgp.json')
-// const sgs = require('./sgs.json')
-// const shn = require('./shn.json')
-// const slb = require('./slb.json')
-// const sle = require('./sle.json')
-// const slv = require('./slv.json')
-// const smr = require('./smr.json')
-// const sol = require('./sol.json')
-// const som = require('./som.json')
-// const spm = require('./spm.json')
-// const srb = require('./srb.json')
-// const stp = require('./stp.json')
-// const sur = require('./sur.json')
-// const svk = require('./svk.json')
-// const svn = require('./svn.json')
-// const swe = require('./swe.json')
-// const swz = require('./swz.json')
-// const sxm = require('./sxm.json')
-// const syc = require('./syc.json')
-// const syr = require('./syr.json')
-// const tca = require('./tca.json')
-// const tcd = require('./tcd.json')
-// const testing_world = require('./testing-world.json')
-// const testing = require('./testing.json')
-// const tgo = require('./tgo.json')
-// const tha = require('./tha.json')
-// const tjk = require('./tjk.json')
-// const tkm = require('./tkm.json')
-// const tls = require('./tls.json')
-// const ton = require('./ton.json')
-// const tto = require('./tto.json')
-// const tun = require('./tun.json')
-// const tur = require('./tur.json')
-// const tuv = require('./tuv.json')
-// const twn = require('./twn.json')
-// const tza = require('./tza.json')
-// const uga = require('./uga.json')
-// const ukr = require('./ukr.json')
-// const umi = require('./umi.json')
-// const ury = require('./ury.json')
-// const usa = require('./usa.json')
-// const usg = require('./usg.json')
-// const uzb = require('./uzb.json')
-// const vat = require('./vat.json')
-// const vct = require('./vct.json')
-// const ven = require('./ven.json')
-// const vgb = require('./vgb.json')
-// const vir = require('./vir.json')
-// const vnm = require('./vnm.json')
-// const vut = require('./vut.json')
-// const wlf = require('./wlf.json')
-// const world_hires = require('./world.hires.json')
-// const world = require('./world.json')
-// const wsb = require('./wsb.json')
-// const wsm = require('./wsm.json')
-// const yem = require('./yem.json')
-// const zaf = require('./zaf.json')
-// const zmb = require('./zmb.json')
-// const zwe = require('./zwe.json')
-// const FeatureCollectionMap = {
-//     _nul,
-//     abw,
-//     afg,
-//     ago,
-//     aia,
-//     alb,
-//     ald,
-//     and,
-//     are,
-//     arg,
-//     arm,
-//     asm,
-//     ata,
-//     atc,
-//     atf,
-//     atg,
-//     aus,
-//     aut,
-//     aze,
-//     bdi,
-//     bel,
-//     ben,
-//     bfa,
-//     bgd,
-//     bgr,
-//     bhr,
-//     bhs,
-//     bih,
-//     bjn,
-//     blm,
-//     blr,
-//     blz,
-//     bmu,
-//     bol,
-//     bra,
-//     brb,
-//     brn,
-//     btn,
-//     bwa,
-//     caf,
-//     can,
-//     che,
-//     chl,
-//     chn,
-//     civ,
-//     clp,
-//     cmr,
-//     cod,
-//     cog,
-//     cok,
-//     col,
-//     com,
-//     cpv,
-//     cri,
-//     csi,
-//     cub,
-//     cuw,
-//     cym,
-//     cyn,
-//     cyp,
-//     cze,
-//     deu,
-//     dji,
-//     dma,
-//     dnk,
-//     dom,
-//     dza,
-//     ecu,
-//     egy,
-//     eri,
-//     esb,
-//     esp,
-//     est,
-//     eth,
-//     fin,
-//     fji,
-//     flk,
-//     fra,
-//     fro,
-//     fsm,
-//     gab,
-//     gbr,
-//     geo,
-//     ggy,
-//     gha,
-//     gib,
-//     gin,
-//     gmb,
-//     gnb,
-//     gnq,
-//     grc,
-//     grd,
-//     grl,
-//     gtm,
-//     gum,
-//     guy,
-//     hkg,
-//     hmd,
-//     hnd,
-//     hrv,
-//     hti,
-//     hun,
-//     idn,
-//     imn,
-//     ind,
-//     ioa,
-//     iot,
-//     irl,
-//     irn,
-//     irq,
-//     isl,
-//     isr,
-//     ita,
-//     jam,
-//     jey,
-//     jor,
-//     jpn,
-//     kab,
-//     kas,
-//     kaz,
-//     ken,
-//     kgz,
-//     khm,
-//     kir,
-//     kna,
-//     kor,
-//     kos,
-//     kwt,
-//     lao,
-//     lbn,
-//     lbr,
-//     lby,
-//     lca,
-//     lie,
-//     lka,
-//     lso,
-//     ltu,
-//     lux,
-//     lva,
-//     mac,
-//     maf,
-//     mar,
-//     mco,
-//     mda,
-//     mdg,
-//     mdv,
-//     mex,
-//     mhl,
-//     mkd,
-//     mli,
-//     mlt,
-//     mmr,
-//     mne,
-//     mng,
-//     mnp,
-//     moz,
-//     mrt,
-//     msr,
-//     mus,
-//     mwi,
-//     mys,
-//     nam,
-//     ncl,
-//     ner,
-//     nfk,
-//     nga,
-//     nic,
-//     niu,
-//     nld,
-//     nor,
-//     npl,
-//     nru,
-//     nzl,
-//     omn,
-//     pak,
-//     pan,
-//     pcn,
-//     per,
-//     pga,
-//     phl,
-//     plw,
-//     png,
-//     pol,
-//     pri,
-//     prk,
-//     prt,
-//     pry,
-//     psx,
-//     pyf,
-//     qat,
-//     rou,
-//     rus,
-//     rwa,
-//     sah,
-//     sau,
-//     scr,
-//     sdn,
-//     sds,
-//     sen,
-//     ser,
-//     sgp,
-//     sgs,
-//     shn,
-//     slb,
-//     sle,
-//     slv,
-//     smr,
-//     sol,
-//     som,
-//     spm,
-//     srb,
-//     stp,
-//     sur,
-//     svk,
-//     svn,
-//     swe,
-//     swz,
-//     sxm,
-//     syc,
-//     syr,
-//     tca,
-//     tcd,
-//     'testing-world': testing_world,
-//     testing,
-//     tgo,
-//     tha,
-//     tjk,
-//     tkm,
-//     tls,
-//     ton,
-//     tto,
-//     tun,
-//     tur,
-//     tuv,
-//     twn,
-//     tza,
-//     uga,
-//     ukr,
-//     umi,
-//     ury,
-//     usa,
-//     usg,
-//     uzb,
-//     vat,
-//     vct,
-//     ven,
-//     vgb,
-//     vir,
-//     vnm,
-//     vut,
-//     wlf,
-//     'world.hires': world_hires,
-//     world,
-//     wsb,
-//     wsm,
-//     yem,
-//     zaf,
-//     zmb,
-//     zwe
-// }
-
-export default FeatureCollectionMap
-
-export {
-    FeatureCollectionMap
+export const _nul = require('./_nul.json')
+export const abw = require('./abw.json')
+export const afg = require('./afg.json')
+export const ago = require('./ago.json')
+export const aia = require('./aia.json')
+export const alb = require('./alb.json')
+export const ald = require('./ald.json')
+export const and = require('./and.json')
+export const are = require('./are.json')
+export const arg = require('./arg.json')
+export const arm = require('./arm.json')
+export const asm = require('./asm.json')
+export const ata = require('./ata.json')
+export const atc = require('./atc.json')
+export const atf = require('./atf.json')
+export const atg = require('./atg.json')
+export const aus = require('./aus.json')
+export const aut = require('./aut.json')
+export const aze = require('./aze.json')
+export const bdi = require('./bdi.json')
+export const bel = require('./bel.json')
+export const ben = require('./ben.json')
+export const bfa = require('./bfa.json')
+export const bgd = require('./bgd.json')
+export const bgr = require('./bgr.json')
+export const bhr = require('./bhr.json')
+export const bhs = require('./bhs.json')
+export const bih = require('./bih.json')
+export const bjn = require('./bjn.json')
+export const blm = require('./blm.json')
+export const blr = require('./blr.json')
+export const blz = require('./blz.json')
+export const bmu = require('./bmu.json')
+export const bol = require('./bol.json')
+export const bra = require('./bra.json')
+export const brb = require('./brb.json')
+export const brn = require('./brn.json')
+export const btn = require('./btn.json')
+export const bwa = require('./bwa.json')
+export const caf = require('./caf.json')
+export const can = require('./can.json')
+export const che = require('./che.json')
+export const chl = require('./chl.json')
+export const chn = require('./chn.json')
+export const civ = require('./civ.json')
+export const clp = require('./clp.json')
+export const cmr = require('./cmr.json')
+export const cod = require('./cod.json')
+export const cog = require('./cog.json')
+export const cok = require('./cok.json')
+export const col = require('./col.json')
+export const com = require('./com.json')
+export const cpv = require('./cpv.json')
+export const cri = require('./cri.json')
+export const csi = require('./csi.json')
+export const cub = require('./cub.json')
+export const cuw = require('./cuw.json')
+export const cym = require('./cym.json')
+export const cyn = require('./cyn.json')
+export const cyp = require('./cyp.json')
+export const cze = require('./cze.json')
+export const deu = require('./deu.json')
+export const dji = require('./dji.json')
+export const dma = require('./dma.json')
+export const dnk = require('./dnk.json')
+export const dom = require('./dom.json')
+export const dza = require('./dza.json')
+export const ecu = require('./ecu.json')
+export const egy = require('./egy.json')
+export const eri = require('./eri.json')
+export const esb = require('./esb.json')
+export const esp = require('./esp.json')
+export const est = require('./est.json')
+export const eth = require('./eth.json')
+export const fin = require('./fin.json')
+export const fji = require('./fji.json')
+export const flk = require('./flk.json')
+export const fra = require('./fra.json')
+export const fro = require('./fro.json')
+export const fsm = require('./fsm.json')
+export const gab = require('./gab.json')
+export const gbr = require('./gbr.json')
+export const geo = require('./geo.json')
+export const ggy = require('./ggy.json')
+export const gha = require('./gha.json')
+export const gib = require('./gib.json')
+export const gin = require('./gin.json')
+export const gmb = require('./gmb.json')
+export const gnb = require('./gnb.json')
+export const gnq = require('./gnq.json')
+export const grc = require('./grc.json')
+export const grd = require('./grd.json')
+export const grl = require('./grl.json')
+export const gtm = require('./gtm.json')
+export const gum = require('./gum.json')
+export const guy = require('./guy.json')
+export const hkg = require('./hkg.json')
+export const hmd = require('./hmd.json')
+export const hnd = require('./hnd.json')
+export const hrv = require('./hrv.json')
+export const hti = require('./hti.json')
+export const hun = require('./hun.json')
+export const idn = require('./idn.json')
+export const imn = require('./imn.json')
+export const ind = require('./ind.json')
+export const ioa = require('./ioa.json')
+export const iot = require('./iot.json')
+export const irl = require('./irl.json')
+export const irn = require('./irn.json')
+export const irq = require('./irq.json')
+export const isl = require('./isl.json')
+export const isr = require('./isr.json')
+export const ita = require('./ita.json')
+export const jam = require('./jam.json')
+export const jey = require('./jey.json')
+export const jor = require('./jor.json')
+export const jpn = require('./jpn.json')
+export const kab = require('./kab.json')
+export const kas = require('./kas.json')
+export const kaz = require('./kaz.json')
+export const ken = require('./ken.json')
+export const kgz = require('./kgz.json')
+export const khm = require('./khm.json')
+export const kir = require('./kir.json')
+export const kna = require('./kna.json')
+export const kor = require('./kor.json')
+export const kos = require('./kos.json')
+export const kwt = require('./kwt.json')
+export const lao = require('./lao.json')
+export const lbn = require('./lbn.json')
+export const lbr = require('./lbr.json')
+export const lby = require('./lby.json')
+export const lca = require('./lca.json')
+export const lie = require('./lie.json')
+export const lka = require('./lka.json')
+export const lso = require('./lso.json')
+export const ltu = require('./ltu.json')
+export const lux = require('./lux.json')
+export const lva = require('./lva.json')
+export const mac = require('./mac.json')
+export const maf = require('./maf.json')
+export const mar = require('./mar.json')
+export const mco = require('./mco.json')
+export const mda = require('./mda.json')
+export const mdg = require('./mdg.json')
+export const mdv = require('./mdv.json')
+export const mex = require('./mex.json')
+export const mhl = require('./mhl.json')
+export const mkd = require('./mkd.json')
+export const mli = require('./mli.json')
+export const mlt = require('./mlt.json')
+export const mmr = require('./mmr.json')
+export const mne = require('./mne.json')
+export const mng = require('./mng.json')
+export const mnp = require('./mnp.json')
+export const moz = require('./moz.json')
+export const mrt = require('./mrt.json')
+export const msr = require('./msr.json')
+export const mus = require('./mus.json')
+export const mwi = require('./mwi.json')
+export const mys = require('./mys.json')
+export const nam = require('./nam.json')
+export const ncl = require('./ncl.json')
+export const ner = require('./ner.json')
+export const nfk = require('./nfk.json')
+export const nga = require('./nga.json')
+export const nic = require('./nic.json')
+export const niu = require('./niu.json')
+export const nld = require('./nld.json')
+export const nor = require('./nor.json')
+export const npl = require('./npl.json')
+export const nru = require('./nru.json')
+export const nzl = require('./nzl.json')
+export const omn = require('./omn.json')
+export const pak = require('./pak.json')
+export const pan = require('./pan.json')
+export const pcn = require('./pcn.json')
+export const per = require('./per.json')
+export const pga = require('./pga.json')
+export const phl = require('./phl.json')
+export const plw = require('./plw.json')
+export const png = require('./png.json')
+export const pol = require('./pol.json')
+export const pri = require('./pri.json')
+export const prk = require('./prk.json')
+export const prt = require('./prt.json')
+export const pry = require('./pry.json')
+export const psx = require('./psx.json')
+export const pyf = require('./pyf.json')
+export const qat = require('./qat.json')
+export const rou = require('./rou.json')
+export const rus = require('./rus.json')
+export const rwa = require('./rwa.json')
+export const sah = require('./sah.json')
+export const sau = require('./sau.json')
+export const scr = require('./scr.json')
+export const sdn = require('./sdn.json')
+export const sds = require('./sds.json')
+export const sen = require('./sen.json')
+export const ser = require('./ser.json')
+export const sgp = require('./sgp.json')
+export const sgs = require('./sgs.json')
+export const shn = require('./shn.json')
+export const slb = require('./slb.json')
+export const sle = require('./sle.json')
+export const slv = require('./slv.json')
+export const smr = require('./smr.json')
+export const sol = require('./sol.json')
+export const som = require('./som.json')
+export const spm = require('./spm.json')
+export const srb = require('./srb.json')
+export const stp = require('./stp.json')
+export const sur = require('./sur.json')
+export const svk = require('./svk.json')
+export const svn = require('./svn.json')
+export const swe = require('./swe.json')
+export const swz = require('./swz.json')
+export const sxm = require('./sxm.json')
+export const syc = require('./syc.json')
+export const syr = require('./syr.json')
+export const tca = require('./tca.json')
+export const tcd = require('./tcd.json')
+export const testingWorld = require('./testing-world.json')
+export const testing = require('./testing.json')
+export const tgo = require('./tgo.json')
+export const tha = require('./tha.json')
+export const tjk = require('./tjk.json')
+export const tkm = require('./tkm.json')
+export const tls = require('./tls.json')
+export const ton = require('./ton.json')
+export const tto = require('./tto.json')
+export const tun = require('./tun.json')
+export const tur = require('./tur.json')
+export const tuv = require('./tuv.json')
+export const twn = require('./twn.json')
+export const tza = require('./tza.json')
+export const uga = require('./uga.json')
+export const ukr = require('./ukr.json')
+export const umi = require('./umi.json')
+export const ury = require('./ury.json')
+export const usa = require('./usa.json')
+export const usg = require('./usg.json')
+export const uzb = require('./uzb.json')
+export const vat = require('./vat.json')
+export const vct = require('./vct.json')
+export const ven = require('./ven.json')
+export const vgb = require('./vgb.json')
+export const vir = require('./vir.json')
+export const vnm = require('./vnm.json')
+export const vut = require('./vut.json')
+export const wlf = require('./wlf.json')
+export const worldHires = require('./world.hires.json')
+export const world = require('./world.json')
+export const wsb = require('./wsb.json')
+export const wsm = require('./wsm.json')
+export const yem = require('./yem.json')
+export const zaf = require('./zaf.json')
+export const zmb = require('./zmb.json')
+export const zwe = require('./zwe.json')
+const FeatureCollection = {
+    _nul,
+    abw,
+    afg,
+    ago,
+    aia,
+    alb,
+    ald,
+    and,
+    are,
+    arg,
+    arm,
+    asm,
+    ata,
+    atc,
+    atf,
+    atg,
+    aus,
+    aut,
+    aze,
+    bdi,
+    bel,
+    ben,
+    bfa,
+    bgd,
+    bgr,
+    bhr,
+    bhs,
+    bih,
+    bjn,
+    blm,
+    blr,
+    blz,
+    bmu,
+    bol,
+    bra,
+    brb,
+    brn,
+    btn,
+    bwa,
+    caf,
+    can,
+    che,
+    chl,
+    chn,
+    civ,
+    clp,
+    cmr,
+    cod,
+    cog,
+    cok,
+    col,
+    com,
+    cpv,
+    cri,
+    csi,
+    cub,
+    cuw,
+    cym,
+    cyn,
+    cyp,
+    cze,
+    deu,
+    dji,
+    dma,
+    dnk,
+    dom,
+    dza,
+    ecu,
+    egy,
+    eri,
+    esb,
+    esp,
+    est,
+    eth,
+    fin,
+    fji,
+    flk,
+    fra,
+    fro,
+    fsm,
+    gab,
+    gbr,
+    geo,
+    ggy,
+    gha,
+    gib,
+    gin,
+    gmb,
+    gnb,
+    gnq,
+    grc,
+    grd,
+    grl,
+    gtm,
+    gum,
+    guy,
+    hkg,
+    hmd,
+    hnd,
+    hrv,
+    hti,
+    hun,
+    idn,
+    imn,
+    ind,
+    ioa,
+    iot,
+    irl,
+    irn,
+    irq,
+    isl,
+    isr,
+    ita,
+    jam,
+    jey,
+    jor,
+    jpn,
+    kab,
+    kas,
+    kaz,
+    ken,
+    kgz,
+    khm,
+    kir,
+    kna,
+    kor,
+    kos,
+    kwt,
+    lao,
+    lbn,
+    lbr,
+    lby,
+    lca,
+    lie,
+    lka,
+    lso,
+    ltu,
+    lux,
+    lva,
+    mac,
+    maf,
+    mar,
+    mco,
+    mda,
+    mdg,
+    mdv,
+    mex,
+    mhl,
+    mkd,
+    mli,
+    mlt,
+    mmr,
+    mne,
+    mng,
+    mnp,
+    moz,
+    mrt,
+    msr,
+    mus,
+    mwi,
+    mys,
+    nam,
+    ncl,
+    ner,
+    nfk,
+    nga,
+    nic,
+    niu,
+    nld,
+    nor,
+    npl,
+    nru,
+    nzl,
+    omn,
+    pak,
+    pan,
+    pcn,
+    per,
+    pga,
+    phl,
+    plw,
+    png,
+    pol,
+    pri,
+    prk,
+    prt,
+    pry,
+    psx,
+    pyf,
+    qat,
+    rou,
+    rus,
+    rwa,
+    sah,
+    sau,
+    scr,
+    sdn,
+    sds,
+    sen,
+    ser,
+    sgp,
+    sgs,
+    shn,
+    slb,
+    sle,
+    slv,
+    smr,
+    sol,
+    som,
+    spm,
+    srb,
+    stp,
+    sur,
+    svk,
+    svn,
+    swe,
+    swz,
+    sxm,
+    syc,
+    syr,
+    tca,
+    tcd,
+    'testing-world': testingWorld,
+    testing,
+    tgo,
+    tha,
+    tjk,
+    tkm,
+    tls,
+    ton,
+    tto,
+    tun,
+    tur,
+    tuv,
+    twn,
+    tza,
+    uga,
+    ukr,
+    umi,
+    ury,
+    usa,
+    usg,
+    uzb,
+    vat,
+    vct,
+    ven,
+    vgb,
+    vir,
+    vnm,
+    vut,
+    wlf,
+    'world.hires': worldHires,
+    world,
+    wsb,
+    wsm,
+    yem,
+    zaf,
+    zmb,
+    zwe
 }
+
+export default FeatureCollection

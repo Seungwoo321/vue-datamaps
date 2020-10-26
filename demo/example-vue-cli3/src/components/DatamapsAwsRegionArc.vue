@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import world from 'vue-datamaps/dist/world.json'
+import { world } from '../../../../src/data/index'
 import { VueDatamaps } from 'vue-datamaps'
 export default {
   components: {

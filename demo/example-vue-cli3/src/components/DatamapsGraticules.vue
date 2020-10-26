@@ -9,12 +9,14 @@
       :data="data"
       :arcConfig="arcConfig"
       arc
+      :localData="world"
     />
   </div>
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import { VueDatamaps } from '../../../../src'
+import { world } from '../../../../src/data/index'
 import * as d3 from 'd3v4'
 export default {
   components: {
@@ -22,6 +24,7 @@ export default {
   },
   data () {
     return {
+      world: world,
       scope: 'world',
       projection: 'Orthographic',
       fills: {

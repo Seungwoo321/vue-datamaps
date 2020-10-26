@@ -7,18 +7,21 @@
             :geographyConfig="geographyConfig"
             bubbles
             :bubblesConfig="bubblesConfig"
+            :localData="world"
         />
     </div>
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import { VueDatamaps } from '../../../../src'
+import { world } from '../../../../src/data/index'
 export default {
   components: {
     VueDatamaps
   },
   data () {
     return {
+      world: world,
       bubblesConfig: {
         data: [
           {

@@ -7,6 +7,7 @@
         :bubblesConfig="bubblesConfig"
         bubbles
         @custom:popup-bubble="popupTemplate"
+        :localData="world"
     >
         <div slot="hoverBubbleInfo" class="hoverinfo">
             <strong>
@@ -22,12 +23,14 @@
 
 <script>
 import { VueDatamaps } from '../../../../src'
+import { world } from '../../../../src/data/index'
 export default {
   components: {
     VueDatamaps
   },
   data () {
     return {
+      world: world,
       name: '',
       code: '',
       cost: '',

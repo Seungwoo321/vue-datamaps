@@ -218,26 +218,25 @@ export default {
             }
             return color
         },
-        async draw () {
+        draw () {
             if (this.localData.type) {
                 this.geoData = this.localData
+                this.drawSubunits(this.geoData)
             } else if (this.geograpphyConfigOptions.dataUrl && this.geograpphyConfigOptions.dataUrl !== '') {
                 if (this.dataType === 'csv' && (this.geoData && this.geoData.slice)) {
                     let tmpData = {}
                     this.geoData.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
                     this.geoData = tmpData
+                    this.drawSubunits(this.geoData)
                 }
             } else {
-                try {
-                    const response = await fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`)
-                    const result = await response.json()
+                fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`).then(response => {
+                    return response.json()
+                }).then(result => {
                     this.geoData = result
-                } catch (error) {
-                    const { FeatureCollectionMap } = require('../data/')
-                    this.geoData = FeatureCollectionMap['world']
-                }
+                    this.drawSubunits(this.geoData)
+                })
             }
-            this.drawSubunits(this.geoData)
         },
         drawSubunits (data) {
             if (this.geograpphyConfigOptions.hideAntarctica) {

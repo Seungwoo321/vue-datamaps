@@ -7,6 +7,7 @@
       :fills="fills"
       @custom:popup-bubble="popupTemplate"
       bubbles
+      :localData="world"
     >
       <div slot="hoverBubbleInfo" class="hoverinfo" style="text-align:center;">
           <b>Yield</b>: {{ popupData.yeild }}<br>
@@ -18,12 +19,14 @@
 
 <script>
 import { VueDatamaps } from '../../../../src'
+import { world } from '../../../../src/data/index'
 export default {
   components: {
     VueDatamaps
   },
   data () {
     return {
+      world: world,
       geographyConfig: {
         popupOnHover: true,
         highlightOnHover: true

@@ -7,19 +7,22 @@
       :data="data"
       :geographyConfig="geographyConfig"
       :arcConfig="arcConfig"
+      :loalData="usa"
       arc
     />
   </div>
 </template>
 
 <script>
-import { VueDatamaps } from 'vue-datamaps'
+import { VueDatamaps } from '../../../../src'
+import { usa } from '../../../../src/data/index'
 export default {
   components: {
     VueDatamaps
   },
   data () {
     return {
+      usa: usa,
       geographyConfig: {
         popupOnHover: true,
         highlightOnHover: true
