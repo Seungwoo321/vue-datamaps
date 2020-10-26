@@ -380,6 +380,14 @@ export default {
             }
             this.showHoverArcInfo = true
         }
+    },
+    watch: {
+        awsRegionsConfig: {
+            handler (value) {
+                this.draw()
+            },
+            deep: true
+        }
     }
 }
 </script>
