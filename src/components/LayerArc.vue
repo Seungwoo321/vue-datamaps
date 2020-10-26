@@ -149,16 +149,16 @@ export default {
     watch: {
         arcData: {
             immediate: true,
-            handler () {
+            handler (value) {
                 this.$nextTick(() => {
-                    const arcPaths = this.$refs.arc
+                    const arcPaths = this.$refs.arc || []
                     arcPaths.forEach((path, i) => {
                         const length = path.getTotalLength()
                         path.style.transition = 'none'
                         path.style.strokeDasharray = length + ' ' + length
                         path.style.strokeDashoffset = length
                         path.getBoundingClientRect()
-                        path.style.transition = `stroke-dashoffset ${val(this.arcData[i].animationSpeed, this.options.animationSpeed, this.arcData[i])}ms ease-out 1s`
+                        path.style.transition = `stroke-dashoffset ${val(value[i].animationSpeed, this.options.animationSpeed, value[i])}ms ease-out 1s`
                         path.style.strokeDashoffset = 0
                     })
                 })
