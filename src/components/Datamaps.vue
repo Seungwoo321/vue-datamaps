@@ -29,8 +29,8 @@
             />
             <layer-bubble
                 v-if="bubbles && pathData.length > 0"
-                :bubblesConfig="bubblesConfigOptions"
-                :data="bubbleGeoData"
+                :bubblesConfig="propsData.bubblesConfig"
+                :data="propsData.bubbleGeoData"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
                 @show:popup="showPopupBubble"
@@ -38,8 +38,8 @@
             ></layer-bubble>
             <layer-arc
                 v-if="arc && pathData.length > 0"
-                :arcConfig="arcConfigOptions"
-                :data="arcGeoData"
+                :arcConfig="propsData.arcConfig"
+                :data="propsData.arcGeoData"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
                 :awsRegions="awsRegions"
@@ -127,7 +127,13 @@ export default {
             awsRegionData: {},
             arcGeoData: {},
             styleAttributes: {},
-            previousAttributes: {}
+            previousAttributes: {},
+            propsData: {
+                arcConfig: {},
+                arcGeoData: {},
+                bubblesConfig: {},
+                bubbleGeoData: {}
+            }
         }
     },
     mixins: [ props ],
@@ -259,25 +265,26 @@ export default {
                     return previousValue
                 }, {})
 
-                this.awsRegionData = {}
                 this.awsRegionData = regions.slice().reduce((previousValue, currentValue) => {
                     if (filters.includes(currentValue.key)) {
                         previousValue[currentValue.key] = currentValue
                     }
                     return previousValue
                 }, {})
-                this.bubbleGeoData = { ...this.bubbleGeoData, ...this.awsRegionData }
+                this.propsData.bubbleGeoData = { ...this.bubbleGeoData, ...this.awsRegionData }
+                this.propsData.bubblesConfig = this.bubblesConfigOptions
             }
             if (this.arc && this.arcConfigOptions.data) {
                 const filtered = this.arcConfigOptions.data.filter(item => typeof item.origin === 'string' || typeof item.destination === 'string')
                 const filters = new Set([...filtered.slice().map(item => item.origin), ...filtered.slice().map(item => item.destination)])
+
                 this.arcGeoData = data.features.slice().reduce((previousValue, currentValue) => {
                     if (filters.has(currentValue.id)) {
                         previousValue[currentValue.id] = currentValue
                     }
                     return previousValue
                 }, {})
-                this.awsRegionData = {}
+
                 this.awsRegionData = regions.slice().reduce((previousValue, currentValue) => {
                     if (filters.has(currentValue.code)) {
                         previousValue[currentValue.code] = currentValue
@@ -286,7 +293,8 @@ export default {
                     }
                     return previousValue
                 }, {})
-                this.arcGeoData = { ...this.arcGeoData, ...this.awsRegionData }
+                this.propsData.arcConfig = this.arcConfigOptions
+                this.propsData.arcGeoData = { ...this.arcGeoData, ...this.awsRegionData }
             }
         },
         handleMouseOver (event, d) {
