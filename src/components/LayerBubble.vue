@@ -103,7 +103,6 @@ export default {
             if (popupOnHover) this.$emit('hide:popup')
         },
         handleClickCallback (event, item, index) {
-            console.log(item, index)
             this.$emit('click:bubble', { event, item, index })
         }
     },
