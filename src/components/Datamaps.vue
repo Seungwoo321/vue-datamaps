@@ -394,6 +394,12 @@ export default {
                 this.draw()
             },
             deep: true
+        },
+        bubblesConfig: {
+            handler (value) {
+                this.draw()
+            },
+            deep: true
         }
     }
 }
