@@ -6,6 +6,8 @@
             :cy="latLng(item)[1]"
             :r="radius(item)"
             :style="styleAttributes[index]"
+            style="cursor:pointer;"
+            @click="handleClickCallback($event, item, index)"
             @mouseover="handleMouseOver($event, item, index)"
             @mouseout="handleMouseOut(index)"
         >
@@ -36,11 +38,6 @@ export default {
         bubblesData () {
             return this.options.data
         }
-    },
-    mounted () {
-        this.bubblesData.forEach((item, index) => {
-            this.styles(item, index)
-        })
     },
     methods: {
         styles (datum, index) {
@@ -104,6 +101,20 @@ export default {
                 this.$set(this.styleAttributes, index, data)
             }
             if (popupOnHover) this.$emit('hide:popup')
+        },
+        handleClickCallback (event, item, index) {
+            console.log(item, index)
+            this.$emit('click:bubble', { event, item, index })
+        }
+    },
+    watch: {
+        bubblesData: {
+            handler (value, oldValue) {
+                value.forEach((item, index) => {
+                    this.styles(item, index)
+                })
+            },
+            immediate: true
         }
     }
 }

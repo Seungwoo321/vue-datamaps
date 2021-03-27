@@ -20901,12 +20901,12 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1de2e758-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=01b29c6a&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.awsRegions)?_c('layer-aws-regions',{attrs:{"awsRegionsConfig":_vm.awsRegionsConfigOptions,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"data":_vm.awsRegionData},on:{"show:popup":_vm.showPopupRegion,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.propsData.bubblesConfig,"data":_vm.propsData.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path},on:{"show:popup":_vm.showPopupBubble,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.propsData.arcConfig,"data":_vm.propsData.arcGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"awsRegions":_vm.awsRegions},on:{"show:popup":_vm.showPopupArc,"hide:popup":_vm.hidePopup}}):_vm._e()],1),(_vm.isPopupOn)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[(_vm.showHoverInfo)?_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])]):_vm._e()]),(_vm.showHoverBubbleInfo)?_vm._t("hoverBubbleInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])])]):_vm._e(),(_vm.showHoverArcInfo)?_vm._t("hoverArcInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br'),_vm._v(" "+_vm._s(_vm.popupText.origin)+" -> "+_vm._s(_vm.popupText.destination)+" "+_vm._s(_vm.popupText.value)+" ")])]):_vm._e(),(_vm.showHoverRegionInfo)?_vm._t("hoverRegionInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br')])]):_vm._e()],2):_vm._e()])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1de2e758-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=316f4d08&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.awsRegions)?_c('layer-aws-regions',{attrs:{"awsRegionsConfig":_vm.awsRegionsConfigOptions,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"data":_vm.awsRegionData},on:{"show:popup":_vm.showPopupRegion,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.propsData.bubblesConfig,"data":_vm.propsData.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path},on:{"click:bubble":_vm.handleClickCallback,"show:popup":_vm.showPopupBubble,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.propsData.arcConfig,"data":_vm.propsData.arcGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"awsRegions":_vm.awsRegions},on:{"show:popup":_vm.showPopupArc,"hide:popup":_vm.hidePopup}}):_vm._e()],1),(_vm.isPopupOn)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[(_vm.showHoverInfo)?_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])]):_vm._e()]),(_vm.showHoverBubbleInfo)?_vm._t("hoverBubbleInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])])]):_vm._e(),(_vm.showHoverArcInfo)?_vm._t("hoverArcInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br'),_vm._v(" "+_vm._s(_vm.popupText.origin)+" -> "+_vm._s(_vm.popupText.destination)+" "+_vm._s(_vm.popupText.value)+" ")])]):_vm._e(),(_vm.showHoverRegionInfo)?_vm._t("hoverRegionInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br')])]):_vm._e()],2):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=01b29c6a&
+// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=316f4d08&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -21773,18 +21773,20 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var LayerLabel = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1de2e758-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=1c3338d1&
-var LayerBubblevue_type_template_id_1c3338d1_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut(index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
-var LayerBubblevue_type_template_id_1c3338d1_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1de2e758-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=template&id=a81f1588&
+var LayerBubblevue_type_template_id_a81f1588_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('g',{staticClass:"bubbles"},_vm._l((_vm.bubblesData),function(item,index){return _c('circle',{key:index,ref:("" + _vm.name),refInFor:true,class:_vm.name,staticStyle:{"cursor":"pointer"},style:(_vm.styleAttributes[index]),attrs:{"cx":_vm.latLng(item)[0],"cy":_vm.latLng(item)[1],"r":_vm.radius(item)},on:{"click":function($event){return _vm.handleClickCallback($event, item, index)},"mouseover":function($event){return _vm.handleMouseOver($event, item, index)},"mouseout":function($event){return _vm.handleMouseOut(index)}}},[_c('animate',{attrs:{"attributeName":"r","begin":"0s","dur":"400ms","from":"0","to":_vm.radius(item)}})])}),0)}
+var LayerBubblevue_type_template_id_a81f1588_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=1c3338d1&
+// CONCATENATED MODULE: ./src/components/LayerBubble.vue?vue&type=template&id=a81f1588&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/LayerBubble.vue?vue&type=script&lang=js&
 
 
 
 
+//
+//
 //
 //
 //
@@ -21822,13 +21824,6 @@ var LayerBubblevue_type_template_id_1c3338d1_staticRenderFns = []
     bubblesData: function bubblesData() {
       return this.options.data;
     }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.bubblesData.forEach(function (item, index) {
-      _this.styles(item, index);
-    });
   },
   methods: {
     styles: function styles(datum, index) {
@@ -21908,6 +21903,26 @@ var LayerBubblevue_type_template_id_1c3338d1_staticRenderFns = []
       }
 
       if (popupOnHover) this.$emit('hide:popup');
+    },
+    handleClickCallback: function handleClickCallback(event, item, index) {
+      console.log(item, index);
+      this.$emit('click:bubble', {
+        event: event,
+        item: item,
+        index: index
+      });
+    }
+  },
+  watch: {
+    bubblesData: {
+      handler: function handler(value, oldValue) {
+        var _this = this;
+
+        value.forEach(function (item, index) {
+          _this.styles(item, index);
+        });
+      },
+      immediate: true
     }
   }
 });
@@ -21923,8 +21938,8 @@ var LayerBubblevue_type_template_id_1c3338d1_staticRenderFns = []
 
 var LayerBubble_component = normalizeComponent(
   components_LayerBubblevue_type_script_lang_js_,
-  LayerBubblevue_type_template_id_1c3338d1_render,
-  LayerBubblevue_type_template_id_1c3338d1_staticRenderFns,
+  LayerBubblevue_type_template_id_a81f1588_render,
+  LayerBubblevue_type_template_id_a81f1588_staticRenderFns,
   false,
   null,
   null,
@@ -22394,6 +22409,7 @@ var LayerAwsRegions_component = normalizeComponent(
 //
 //
 //
+//
 
 
 
@@ -22514,7 +22530,16 @@ var LayerAwsRegions_component = normalizeComponent(
     window.removeEventListener('resize', this.resize);
   },
   methods: {
-    addPlugin: function addPlugin() {},
+    handleClickCallback: function handleClickCallback(_ref) {
+      var event = _ref.event,
+          item = _ref.item,
+          index = _ref.index;
+      this.$emit('click:bubble', {
+        event: event,
+        item: item,
+        index: index
+      });
+    },
     resize: function resize() {
       this.svgWidth = this.$el;
       this.svgHeight = this.$el;
@@ -22689,10 +22714,10 @@ var LayerAwsRegions_component = normalizeComponent(
 
       if (popupOnHover) this.hidePopup();
     },
-    showPopup: function showPopup(_ref) {
-      var event = _ref.event,
-          geography = _ref.geography,
-          datum = _ref.datum;
+    showPopup: function showPopup(_ref2) {
+      var event = _ref2.event,
+          geography = _ref2.geography,
+          datum = _ref2.datum;
       this.popupPosition = {
         left: "".concat(event.layerX, "px"),
         top: "".concat(event.layerY + 30, "px")
@@ -22715,9 +22740,9 @@ var LayerAwsRegions_component = normalizeComponent(
       this.showHoverArcInfo = false;
       this.showHoverRegionInfo = false;
     },
-    showPopupBubble: function showPopupBubble(_ref2) {
-      var event = _ref2.event,
-          datum = _ref2.datum;
+    showPopupBubble: function showPopupBubble(_ref3) {
+      var event = _ref3.event,
+          datum = _ref3.datum;
       this.popupPosition = {
         left: "".concat(event.layerX, "px"),
         top: "".concat(event.layerY + 30, "px")
@@ -22733,9 +22758,9 @@ var LayerAwsRegions_component = normalizeComponent(
 
       this.showHoverBubbleInfo = true;
     },
-    showPopupRegion: function showPopupRegion(_ref3) {
-      var event = _ref3.event,
-          datum = _ref3.datum;
+    showPopupRegion: function showPopupRegion(_ref4) {
+      var event = _ref4.event,
+          datum = _ref4.datum;
       this.popupPosition = {
         left: "".concat(event.layerX, "px"),
         top: "".concat(event.layerY + 30, "px")
@@ -22751,11 +22776,11 @@ var LayerAwsRegions_component = normalizeComponent(
 
       this.showHoverRegionInfo = true;
     },
-    showPopupArc: function showPopupArc(_ref4) {
-      var event = _ref4.event,
-          datum = _ref4.datum,
-          origin = _ref4.origin,
-          destination = _ref4.destination;
+    showPopupArc: function showPopupArc(_ref5) {
+      var event = _ref5.event,
+          datum = _ref5.datum,
+          origin = _ref5.origin,
+          destination = _ref5.destination;
       this.popupPosition = {
         left: "".concat(event.layerX, "px"),
         top: "".concat(event.layerY + 30, "px")

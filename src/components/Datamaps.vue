@@ -33,6 +33,7 @@
                 :data="propsData.bubbleGeoData"
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
+                @click:bubble="handleClickCallback"
                 @show:popup="showPopupBubble"
                 @hide:popup="hidePopup"
             ></layer-bubble>
@@ -204,7 +205,8 @@ export default {
         window.removeEventListener('resize', this.resize)
     },
     methods: {
-        addPlugin () {
+        handleClickCallback ({ event, item, index }) {
+            this.$emit('click:bubble', { event, item, index })
         },
         resize () {
             this.svgWidth = this.$el
