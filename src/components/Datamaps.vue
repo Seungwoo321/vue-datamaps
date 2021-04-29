@@ -155,6 +155,9 @@ export default {
         }
     },
     computed: {
+        regions () {
+            return (this.awsRegions && this.awsRegionsConfig.region) || regions
+        },
         isPopupOn () {
             return (this.geograpphyConfigOptions.popupOnHover || this.bubblesConfigOptions.popupOnHover) && (this.showHoverInfo || this.showHoverBubbleInfo || this.showHoverArcInfo || this.showHoverRegionInfo)
         },
@@ -267,7 +270,7 @@ export default {
                     return previousValue
                 }, {})
 
-                this.awsRegionData = regions.slice().reduce((previousValue, currentValue) => {
+                this.awsRegionData = this.regions.slice().reduce((previousValue, currentValue) => {
                     if (filters.includes(currentValue.key)) {
                         previousValue[currentValue.key] = currentValue
                     }
@@ -287,7 +290,7 @@ export default {
                     return previousValue
                 }, {})
 
-                this.awsRegionData = regions.slice().reduce((previousValue, currentValue) => {
+                this.awsRegionData = this.regions.slice().reduce((previousValue, currentValue) => {
                     if (filters.has(currentValue.code)) {
                         previousValue[currentValue.code] = currentValue
                     } else if (filters.has(currentValue.key)) {

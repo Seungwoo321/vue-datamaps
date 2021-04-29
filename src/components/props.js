@@ -173,7 +173,8 @@ export default {
                     popupOnHover: false,
                     fillOpacity: 1,
                     showPrivateRegions: false,
-                    data: []
+                    data: [],
+                    region: null
                 }
             }
         }
