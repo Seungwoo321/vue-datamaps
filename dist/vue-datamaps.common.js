@@ -20901,12 +20901,12 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1de2e758-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=316f4d08&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1de2e758-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Datamaps.vue?vue&type=template&id=5b0245a4&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"map"},[_c('svg',{ref:"svg",staticClass:"datamap"},[_c('g',_vm._l((_vm.pathData),function(item,index){return _c('path',{key:index,class:("datamaps-styleAttributes " + (item.id || item.properties.code_hasc)),style:(_vm.pathStyle[item.id || item.properties.code_hasc] || _vm.pathStyle),attrs:{"d":_vm.pathAndProjection.path(item),"fill":_vm.fillColor(item)},on:{"mouseover":function($event){return _vm.handleMouseOver($event, item)},"mouseout":function($event){return _vm.handleMouseOut($event, item)}}})}),0),(_vm.labels && _vm.pathData.length > 0)?_c('layer-label',{attrs:{"labelsConfig":_vm.labelsConfigOptions,"data":_vm.pathData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path}}):_vm._e(),(_vm.awsRegions)?_c('layer-aws-regions',{attrs:{"awsRegionsConfig":_vm.awsRegionsConfigOptions,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"data":_vm.awsRegionData},on:{"show:popup":_vm.showPopupRegion,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.bubbles && _vm.pathData.length > 0)?_c('layer-bubble',{attrs:{"bubblesConfig":_vm.propsData.bubblesConfig,"data":_vm.propsData.bubbleGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path},on:{"click:bubble":_vm.handleClickCallback,"show:popup":_vm.showPopupBubble,"hide:popup":_vm.hidePopup}}):_vm._e(),(_vm.arc && _vm.pathData.length > 0)?_c('layer-arc',{attrs:{"arcConfig":_vm.propsData.arcConfig,"data":_vm.propsData.arcGeoData,"projection":_vm.pathAndProjection.projection,"path":_vm.pathAndProjection.path,"awsRegions":_vm.awsRegions},on:{"show:popup":_vm.showPopupArc,"hide:popup":_vm.hidePopup}}):_vm._e()],1),(_vm.isPopupOn)?_c('div',{staticClass:"datamaps-hoverover",staticStyle:{"z-index":"10001","position":"absolute"},style:(_vm.popupPosition)},[_vm._t("hoverinfo",[(_vm.showHoverInfo)?_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])]):_vm._e()]),(_vm.showHoverBubbleInfo)?_vm._t("hoverBubbleInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(" "+_vm._s(_vm.popupText.title)+" ")])])]):_vm._e(),(_vm.showHoverArcInfo)?_vm._t("hoverArcInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br'),_vm._v(" "+_vm._s(_vm.popupText.origin)+" -> "+_vm._s(_vm.popupText.destination)+" "+_vm._s(_vm.popupText.value)+" ")])]):_vm._e(),(_vm.showHoverRegionInfo)?_vm._t("hoverRegionInfo",[_c('div',{staticClass:"hoverinfo"},[_c('strong',[_vm._v(_vm._s(_vm.popupText.title))]),_c('br')])]):_vm._e()],2):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=316f4d08&
+// CONCATENATED MODULE: ./src/components/Datamaps.vue?vue&type=template&id=5b0245a4&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
 var es_array_concat = __webpack_require__("99af");
@@ -21128,7 +21128,7 @@ function val(datumValue, optionsValue, context) {
   }
 }
 
-var regions = [{
+var helper_regions = [{
   name: 'N. Virginia',
   full_name: 'US East (N. Virginia)',
   code: 'us-east-1',
@@ -21557,14 +21557,15 @@ var regions = [{
           popupOnHover: false,
           fillOpacity: 1,
           showPrivateRegions: false,
-          data: []
+          data: [],
+          region: null
         }
       }
     };
   },
   computed: {
     regionsMap: function regionsMap() {
-      return regions.reduce(function (accumulator, currentValue) {
+      return helper_regions.reduce(function (accumulator, currentValue) {
         accumulator[currentValue.code] = currentValue;
         return accumulator;
       }, {});
@@ -22227,7 +22228,7 @@ var LayerAwsRegionsvue_type_template_id_0cd5af2e_staticRenderFns = []
     filterdData: function filterdData() {
       var _this = this;
 
-      return regions.filter(function (region) {
+      return helper_regions.filter(function (region) {
         return _this.options.showPrivateRegions ? region : region.public;
       }).map(function (region) {
         return _objectSpread2(_objectSpread2({}, region), _this.awsRegionsData[region.code]);
@@ -22479,6 +22480,9 @@ var LayerAwsRegions_component = normalizeComponent(
     }
   },
   computed: {
+    regions: function regions() {
+      return this.awsRegions && this.awsRegionsConfig.region || helper_regions;
+    },
     isPopupOn: function isPopupOn() {
       return (this.geograpphyConfigOptions.popupOnHover || this.bubblesConfigOptions.popupOnHover) && (this.showHoverInfo || this.showHoverBubbleInfo || this.showHoverArcInfo || this.showHoverRegionInfo);
     },
@@ -22623,7 +22627,7 @@ var LayerAwsRegions_component = normalizeComponent(
 
           return previousValue;
         }, {});
-        this.awsRegionData = regions.slice().reduce(function (previousValue, currentValue) {
+        this.awsRegionData = this.regions.slice().reduce(function (previousValue, currentValue) {
           if (filters.includes(currentValue.key)) {
             previousValue[currentValue.key] = currentValue;
           }
@@ -22652,7 +22656,7 @@ var LayerAwsRegions_component = normalizeComponent(
 
           return previousValue;
         }, {});
-        this.awsRegionData = regions.slice().reduce(function (previousValue, currentValue) {
+        this.awsRegionData = this.regions.slice().reduce(function (previousValue, currentValue) {
           if (_filters.has(currentValue.code)) {
             previousValue[currentValue.code] = currentValue;
           } else if (_filters.has(currentValue.key)) {

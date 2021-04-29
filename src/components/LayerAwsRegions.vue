@@ -5,16 +5,16 @@
             :cy="latLng(item.coordinates)[1]"
             :r="3"
             :style="innerStyles(item, index)"
-            @mouseover="handleMouseOver($event, item)"
-            @mouseout="handleMouseOut"
         >
         <animate attributeName="r" begin="200ms" dur="600ms" from="0" to="3"></animate>
         </circle>
         <circle v-for="(item, index) in filterdData" :key="`${index}-outer`" class="circle-outer" :class="useClass(item)"
             :cx="latLng(item.coordinates)[0]"
             :cy="latLng(item.coordinates)[1]"
-            :r="9"
+            :r="6"
             :style="outerStyles(item, index)"
+            @mouseover="handleMouseOver($event, item)"
+            @mouseout="handleMouseOut"
         >
         <animate attributeName="r" begin="200ms" dur="600ms" from="0" to="11"></animate>
         </circle>
@@ -34,8 +34,17 @@ export default {
         options () {
             return this.awsRegionsConfig
         },
+        regionData () {
+            return this.options.region || regions
+        },
+        activeKeys () {
+            return this.options.data.map(item => item.code)
+        },
         filterdData () {
-            return regions.filter(region => this.options.showPrivateRegions ? region : region.public).map(region => {
+            const publicFilter = region => region.public
+            const activeFiltre = region => region.coordinates && this.activeKeys.includes(region.code)
+            const regionData = this.options.showPrivateRegions ? this.regionData : this.regionData.filter(publicFilter)
+            return regionData.filter(activeFiltre).map(region => {
                 return {
                     ...region,
                     ...this.awsRegionsData[region.code]

@@ -269,7 +269,6 @@ export default {
                     }
                     return previousValue
                 }, {})
-
                 this.awsRegionData = this.regions.slice().reduce((previousValue, currentValue) => {
                     if (filters.includes(currentValue.key)) {
                         previousValue[currentValue.key] = currentValue
@@ -366,6 +365,7 @@ export default {
             this.showHoverBubbleInfo = true
         },
         showPopupRegion ({ event, datum }) {
+            console.log(datum)
             this.popupPosition = {
                 left: `${event.layerX}px`,
                 top: `${event.layerY + 30}px`
