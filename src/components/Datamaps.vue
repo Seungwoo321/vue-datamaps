@@ -365,7 +365,6 @@ export default {
             this.showHoverBubbleInfo = true
         },
         showPopupRegion ({ event, datum }) {
-            console.log(datum)
             this.popupPosition = {
                 left: `${event.layerX}px`,
                 top: `${event.layerY + 30}px`
