@@ -1,7 +1,7 @@
 {
   "name": "vue-datamaps",
   "version": "0.3.2",
-  "main": "src/index.js",
+  "main": "dist/vue-pivottable.mjs",
   "files": [
     "dist",
     "src"
