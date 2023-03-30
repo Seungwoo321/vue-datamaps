@@ -18,7 +18,7 @@
                 :projection="pathAndProjection.projection"
                 :path="pathAndProjection.path"
             />
-           <layer-aws-regions
+            <layer-aws-regions
                 v-if="awsRegions"
                 :awsRegionsConfig="awsRegionsConfigOptions"
                 :projection="pathAndProjection.projection"
@@ -88,7 +88,7 @@
 import * as d3 from 'd3v4'
 import props from './props'
 import { val, regions } from './helper'
-import LayerLabel from './LayerLabel'
+import LayerLabel from './LayerLabel.vue'
 import LayerBubble from './LayerBubble'
 import LayerArc from './LayerArc'
 import LayerAwsRegions from './LayerAwsRegions'
