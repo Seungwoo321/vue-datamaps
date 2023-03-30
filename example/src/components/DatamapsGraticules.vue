@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import { VueDatamaps } from '../../../../src'
-import { world } from '../../../../src/data/index'
+import { VueDatamaps } from '../../../src'
+import { world } from '../../../data/index'
 import * as d3 from 'd3v4'
 export default {
   components: {

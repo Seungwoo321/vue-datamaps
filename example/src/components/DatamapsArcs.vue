@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import { VueDatamaps } from '../../../../src'
-import { usa } from '../../../../src/data/index'
+import { VueDatamaps } from 'vue-datamaps'
+import { usa } from '../../../data/index'
+console.log(VueDatamaps)
 export default {
   components: {
     VueDatamaps

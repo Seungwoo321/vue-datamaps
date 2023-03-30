@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { VueDatamaps } from '../../../../src'
-import { kor } from '../../../../src/data/index'
+import { VueDatamaps } from '../../../src'
+import { kor } from '../../../data/index'
 export default {
   components: {
     VueDatamaps
