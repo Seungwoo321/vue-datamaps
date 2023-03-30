@@ -21,6 +21,11 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
                 entry: resolve(__dirname, 'src/index.js'),
                 name: 'VueDatamaps',
                 fileName: 'vue-datamaps'
+            },
+            rollupOptions: {
+                output: {
+                    exports: 'named'
+                }
             }
         }
     }
