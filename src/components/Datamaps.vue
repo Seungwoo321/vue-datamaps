@@ -233,13 +233,11 @@ export default {
             if (this.localData.type) {
                 this.geoData = this.localData
                 this.drawSubunits(this.geoData)
-            } else if (this.geograpphyConfigOptions.dataUrl && this.geograpphyConfigOptions.dataUrl !== '') {
-                if (this.dataType === 'csv' && (this.geoData && this.geoData.slice)) {
-                    let tmpData = {}
-                    this.geoData.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
-                    this.geoData = tmpData
-                    this.drawSubunits(this.geoData)
-                }
+            } else if (this.geograpphyConfigOptions.dataUrl && this.dataType === 'csv' && (this.geoData && this.geoData.slice)) {
+                let tmpData = {}
+                this.geoData.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
+                this.geoData = tmpData
+                this.drawSubunits(this.geoData)
             } else {
                 fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`).then(response => {
                     return response.json()
