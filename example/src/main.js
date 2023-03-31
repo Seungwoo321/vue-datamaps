@@ -9,5 +9,5 @@ Vue.config.productionTip = false
 // Vue.use(window['vue-datamaps'])
 
 new Vue({
-  render: h => h(App)
+    render: h => h(App)
 }).$mount('#app')

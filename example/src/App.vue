@@ -1,27 +1,27 @@
 <template>
-  <div id="app">
-    <h2>Vue Datamaps Example</h2>
-    <hr>
-    <datamaps-basic/>
-    <hr>
-    <datamaps-state-label/>
-    <hr>
-    <datamaps-bubbles/>
-    <hr>
-    <datamaps-arcs/>
-    <hr>
-    <datamaps-graticules/>
-    <hr>
-    <datamaps-zoom/>
-    <hr>
-    <datamaps-south-korea/>
-    <hr>
-    <datamaps-custom-color/>
-    <hr>
-    <datamaps-aws-region-arc/>
-    <hr>
-    <datamaps-aws-region-bubble/>
-  </div>
+    <div id="app">
+        <h2>Vue Datamaps Example</h2>
+        <hr>
+        <datamaps-basic/>
+        <hr>
+        <datamaps-state-label/>
+        <hr>
+        <datamaps-bubbles/>
+        <hr>
+        <datamaps-arcs/>
+        <hr>
+        <datamaps-graticules/>
+        <hr>
+        <datamaps-zoom/>
+        <hr>
+        <datamaps-south-korea/>
+        <hr>
+        <datamaps-custom-color/>
+        <hr>
+        <datamaps-aws-region-arc/>
+        <hr>
+        <datamaps-aws-region-bubble/>
+    </div>
 </template>
 
 <script>
@@ -36,18 +36,18 @@ import DatamapsCustomColor from '@/components/DatamapsCustomColor'
 import DatamapsAwsRegionArc from '@/components/DatamapsAwsRegionArc'
 import DatamapsAwsRegionBubble from '@/components/DatamapsAwsRegionBubble'
 export default {
-  name: 'home',
-  components: {
-    DatamapsBasic,
-    DatamapsStateLabel,
-    DatamapsBubbles,
-    DatamapsArcs,
-    DatamapsGraticules,
-    DatamapsZoom,
-    DatamapsSouthKorea,
-    DatamapsCustomColor,
-    DatamapsAwsRegionArc,
-    DatamapsAwsRegionBubble
-  }
+    name: 'home',
+    components: {
+        DatamapsBasic,
+        DatamapsStateLabel,
+        DatamapsBubbles,
+        DatamapsArcs,
+        DatamapsGraticules,
+        DatamapsZoom,
+        DatamapsSouthKorea,
+        DatamapsCustomColor,
+        DatamapsAwsRegionArc,
+        DatamapsAwsRegionBubble
+    }
 }
 </script>

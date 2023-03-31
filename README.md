@@ -5,33 +5,44 @@ It is a Vue port of the javascript-based [DataMaps](https://datamaps.github.io/)
 [![npm](https://flat.badgen.net/npm/v/vue-datamaps)](https://npmjs.com/package/vue-datamaps)
 [![npm](https://flat.badgen.net/npm/dt/vue-datamaps)](https://npmjs.com/package/vue-datamaps)
 [![npm](https://flat.badgen.net/npm/license/vue-datamaps)](https://flat.badgen.net/npm/license/vue-datamaps)
-[![](https://data.jsdelivr.com/v1/package/npm/vue-datamaps/badge)](https://www.jsdelivr.com/package/npm/vue-datamaps)
-
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/vue-datamaps/badge)](https://www.jsdelivr.com/package/npm/vue-datamaps)
 
 ## Live Demo
+
 [link](https://jsfiddle.net/front123/437a5wvf/)
 
-## Run Demo 
+## Run Demo
 
 ```bash
+# project clone
 $ git clone https://github.com/Seungwoo321/vue-datamaps.git 
-$ cd vue-datamaps/demo/example-vue-cli3/
+
+# move to example directory
+$ cd vue-datamaps/example/
+
+# install dependencies
 $ npm install
+
+# run
 $ npm run serve
 ```
 
 ## Installation
+
 ```bash
-$ npm install -D vue-datamaps
+$ npm install vue-datamaps
 ```
 
 ## Base Usage
 
 ### Required
-* The [json data](https://github.com/Seungwoo321/vue-datamaps/tree/master/demo/example-vue-cli3/public/) must be in a public directory.
+
+* If `dataUrl` is specified in `geographyConfig`, the library will make a fetch API call to retrieve the data. Otherwise, the JSON data located in the [data folder](https://github.com/Seungwoo321/vue-datamaps/tree/master/example/data) in the root of the project can be used.
 
 #### Global
+
 main.js
+
 ```js
 import Vue from 'vue'
 import VueDatamaps from 'vue-datamaps'
@@ -39,7 +50,9 @@ import VueDatamaps from 'vue-datamaps'
 Vue.use(VueDatamaps)
 
 ```
-_vue template_
+
+vue template
+
 ```vue
 <template>
     <div id="app">
@@ -49,7 +62,9 @@ _vue template_
 ```
 
 #### Component Style
-_vue template_
+
+vue template
+
 ```vue
 <template>
     <div id="app">
@@ -64,10 +79,7 @@ export default {
     }
 }
 </script>
-<style>
-</style>
 ```
-
 
 ## Example
 
@@ -1038,75 +1050,85 @@ export default {
 </style>
 ```
 
-
-
 ## Available Props Option
 
 ### scope
+
 * type: __String__
 * value: __world__, __usa__, __custom_map__
 
 Same as the original.
 
 ### setProjection
+
 * type: __Function__
 * value: __See sample code.__
 
 Same as original but d3 version different.
 
 ### projection
+
 * type: __String__
 * value: __Equirectangular__, __Orthographic__, __Mercator__
 
 Same as original but PascalCase.
 
 ### dataType
+
 * type: __String__
 * value __json__, __csv__
 
 Same as original.
 
 ### data
+
 * type: __Object__
 * value: __See sample code.__
 
 Same as original.
 
-### done 
+### done
+
 * type: __Function__
 
 Not implemented.
 
 ### fills
+
 * type: Object
 * value: __The keys in this object map to the "fillKey" of [data] or [data of bubbles]__
 
 Same as original.
 
 ### geographyConfig
+
 * type: __Object__
 * value: __See sample code.__
 
 Same as original but not include `popupTemplate`.
 
 ### bubblesConfig
+
 * type: __Object__
 * value: __See sample code.__
 
 Same as original but not include `popupTemplate`.
 
 ### bubbles
+
 * type: __Boolean__
 * value: __true__, __false__
 If `bubblesConfig` required.
 
 ### arcConfig
+
 * type: __Object__
 * value: __See sample code.__
 
 Same as original but not include `popupTemplate`.
 
 ### arc
+
 * type: __Boolean__
 * value: __true__, __false__
 
@@ -1120,25 +1142,28 @@ If `arcConfig` required.
 Not implemented.
 
 ### labelsConfig
+
 * type: __Object__
 * value: __See sample code.__
 
 Same as original.
 
 ### labels
+
 * type: __Boolean__
 * value: __true__, __false__
 
 If `labelsConfig` required.
 
 ### popupTemplate
+
 * type: __Boolean__
 * value: __true__, __false__
 
 If slot `hoverinfo` and event `custom:popup`||`custom:popup-bubble`||`custom:popup-arc`||`custom:popup-region`|| required.
 
-
 ## Default Props Option
+
 ```js
 {
   scope: 'world',
@@ -1253,11 +1278,11 @@ If slot `hoverinfo` and event `custom:popup`||`custom:popup-bubble`||`custom:pop
 
 ```
 
-
 ## Slot & Event for @mouseover
+
 * when geography mouse hover:
-  - slot: `hoverinfo`
-  - event: `custom:popup`
+  * slot: `hoverinfo`
+  * event: `custom:popup`
 
 ```html
   <div slot="hoverinfo" class="hoverinfo" style="text-align:center;">
@@ -1265,9 +1290,10 @@ If slot `hoverinfo` and event `custom:popup`||`custom:popup-bubble`||`custom:pop
   </div>
 ```
 
-* when bubbles mouse hover: 
-  - slot: `hoverBubbleInfo`
-  - event: `custom:popup-bubble`
+* when bubbles mouse hover:
+  * slot: `hoverBubbleInfo`
+  * event: `custom:popup-bubble`
+
 ```html
   <div slot="hoverBubbleInfo" class="hoverinfo" style="text-align:center;">
     <!-- ... -->
@@ -1275,8 +1301,9 @@ If slot `hoverinfo` and event `custom:popup`||`custom:popup-bubble`||`custom:pop
 ```
 
 * when arc mouse hover:
-  - slot: `hoverArcInfo`
-  - event: `custom:popup-arc`
+  * slot: `hoverArcInfo`
+  * event: `custom:popup-arc`
+
 ```html
   <div slot="hoverArcInfo" class="hoverinfo" style="text-align:center;">
     <!-- ... -->
@@ -1284,8 +1311,10 @@ If slot `hoverinfo` and event `custom:popup`||`custom:popup-bubble`||`custom:pop
 ```
 
 * when aws-region mouse hover
-  - slot: `hoverRegionInfo`
-  - event: `custom:popup-region`
+
+  * slot: `hoverRegionInfo`
+  * event: `custom:popup-region`
+
 ```html
   <div slot="hoverRegionInfo" class="hoverinfo" style="text-align:center;">
     <!-- ... -->
@@ -1293,10 +1322,11 @@ If slot `hoverinfo` and event `custom:popup`||`custom:popup-bubble`||`custom:pop
 ```
 
 ## Inspired
+
 * [markmarkoh/datamaps](https://datamaps.github.io/) - original
 * [btmills/react-datamaps](https://github.com/btmills/react-datamaps) - React-based datamaps library
 * [jsonmaur/aws-regions](https://github.com/jsonmaur/aws-regions) - AWS Regions and Availability Zones
 
-
 ## License
+
 MIT
