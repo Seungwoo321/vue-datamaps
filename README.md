@@ -30,6 +30,7 @@ $ npm run serve
 ## Installation
 
 ```bash
+# install
 $ npm install vue-datamaps
 ```
 
