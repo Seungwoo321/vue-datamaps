@@ -37,7 +37,7 @@ $ npm install vue-datamaps
 
 ### Required
 
-* If `dataUrl` is specified in `geographyConfig`, the library will make a fetch API call to retrieve the data. Otherwise, the JSON data located in the [data folder](https://github.com/Seungwoo321/vue-datamaps/tree/master/example/data) in the root of the project can be used.
+* If `dataUrl` is specified in `geographyConfig`, the library will make a fetch API call to retrieve the data. Otherwise, the JSON data located in the [data folder](https://github.com/Seungwoo321/vue-datamaps/tree/master/data) in the root of the project can be used.
 
 #### Global
 
