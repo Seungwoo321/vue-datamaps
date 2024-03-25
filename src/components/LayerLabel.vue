@@ -8,13 +8,15 @@
                 :y2="center(item)[1]"
                 :style="`stroke:${labelsConfig.labelColor};stroke-width:${labelsConfig.lineWidth};`"
             />
-            <text :key="`text-${index}`"
-                :x="x(item)"
-                :y="y(item)"
-                :style="`font-size:${labelsConfig.fontSize}px;font-family:${labelsConfig.fontFamily};fill:${labelsConfig.labelColor}`"
-            >
-            {{ item.id }}
-            </text>
+            <template>
+                <text :key="`text-${index}`"
+                    :x="x(item)"
+                    :y="y(item)"
+                    :style="`font-size:${labelsConfig.fontSize}px;font-family:${labelsConfig.fontFamily};fill:${labelsConfig.labelColor}`"
+                >
+                {{ item.id }}
+                </text>
+            </template>
         </template>
     </g>
 </template>
