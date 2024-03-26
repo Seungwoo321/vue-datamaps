@@ -7,6 +7,17 @@ It is a Vue port of the javascript-based [DataMaps](https://datamaps.github.io/)
 [![npm](https://flat.badgen.net/npm/license/vue-datamaps)](https://flat.badgen.net/npm/license/vue-datamaps)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/npm/vue-datamaps/badge)](https://www.jsdelivr.com/package/npm/vue-datamaps)
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ## Live Demo
 
 [link](https://jsfiddle.net/front123/437a5wvf/)
