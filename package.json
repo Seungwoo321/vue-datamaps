@@ -43,6 +43,6 @@
         "eslint-loader": "^3.0.2",
         "eslint-plugin-vue": "^5.2.3",
         "postcss-rtl": "^2.0.0",
-        "vite": "^3.2.7"
+        "vite": "^3.2.8"
     }
 }
