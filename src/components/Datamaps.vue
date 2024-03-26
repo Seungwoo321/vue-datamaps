@@ -133,7 +133,7 @@ export default {
     },
     computed: {
         regions () {
-            return this.awsRegionsConfig.region || regions
+            return (this.awsRegionsConfig && this.awsRegionsConfig.region) || regions
         },
         isPopupOn () {
             return (this.geograpphyConfigOptions.popupOnHover || this.bubblesConfigOptions.popupOnHover) && (this.showHoverInfo || this.showHoverBubbleInfo || this.showHoverArcInfo || this.showHoverRegionInfo)
