@@ -1,4 +1,11 @@
 {
+  "files": [
+    "README.md"
+  ],
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
   "projectName": "vue-datamaps",
-  "projectOwner": "Seungwoo321"
+  "projectOwner": "Seungwoo321",
+  "contributorsPerLine": 7
 }
