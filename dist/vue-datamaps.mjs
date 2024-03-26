@@ -10422,7 +10422,7 @@ const Xw = {
 var Ww = function() {
   var n = this, e = n._self._c;
   return n.projection ? e("g", { staticClass: "bubbles-aws-regions" }, [n._l(n.filterdData, function(i, r) {
-    return e("circle", { key: `${r}-inner`, staticClass: "circle-inner", class: n.useClass(i), style: n.innerStyles(i, r), attrs: { cx: n.latLng(i.coordinates)[0], cy: n.latLng(i.coordinates)[1], r: 3 } }, [e("animate", { attrs: { attributeName: "r", begin: "200ms", dur: "600ms", from: "0", to: "3" } })]);
+    return e("circle", { key: `${r}-inner`, staticClass: "circle-inner", class: n.useClass(i), style: n.innerStyles(i, r), attrs: { cx: n.latLng(i.coordinates)[0], cy: n.latLng(i.coordinates)[1], r: 4 } }, [e("animate", { attrs: { attributeName: "r", begin: "200ms", dur: "600ms", from: "0", to: "3" } })]);
   }), n._l(n.filterdData, function(i, r) {
     return e("circle", { key: `${r}-outer`, staticClass: "circle-outer", class: n.useClass(i), style: n.outerStyles(i, r), attrs: { cx: n.latLng(i.coordinates)[0], cy: n.latLng(i.coordinates)[1], r: 6 }, on: { mouseover: function(o) {
       return n.handleMouseOver(o, i);
