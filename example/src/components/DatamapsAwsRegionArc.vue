@@ -103,7 +103,7 @@ export default {
                     }
                 ],
                 strokeColor: '#e8762e',
-                strokeWidth: 2,
+                strokeWidth: 1,
                 greatArc: true,
                 animationSpeed: 2000
             },
