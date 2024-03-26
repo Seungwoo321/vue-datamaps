@@ -3,7 +3,7 @@
         <circle v-for="(item, index) in filterdData" :key="`${index}-inner`" class="circle-inner" :class="useClass(item)"
             :cx="latLng(item.coordinates)[0]"
             :cy="latLng(item.coordinates)[1]"
-            :r="3"
+            :r="4"
             :style="innerStyles(item, index)"
         >
         <animate attributeName="r" begin="200ms" dur="600ms" from="0" to="3"></animate>
