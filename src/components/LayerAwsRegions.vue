@@ -66,15 +66,15 @@ export default {
         },
         innerStyles (datum, index) {
             return {
-                stroke: val(datum.borderColor, this.options.borderColor, datum),
+                stroke: datum.color || val(datum.borderColor, this.options.borderColor, datum),
                 strokeWidth: val(datum.borderWidth, this.options.borderWidth, datum),
-                fill: this.options.fills[val(datum.fillKey, this.options.fillKey, datum)] || 'transparent',
+                fill: datum.color || this.options.fills[val(datum.fillKey, this.options.fillKey, datum)] || 'transparent',
                 fillOpacity: val(datum.borderOpacity, this.options.borderOpacity, datum)
             }
         },
         outerStyles (datum, index) {
             return {
-                stroke: val(datum.borderColor, this.options.borderColor, datum),
+                stroke: this.options.borderColor || datum.color || val(datum.borderColor, this.options.borderColor, datum),
                 strokeWidth: val(datum.borderWidth, this.options.borderWidth, datum),
                 fill: 'transparent',
                 fillOpacity: val(datum.borderOpacity, this.options.borderOpacity, datum)

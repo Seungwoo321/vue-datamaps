@@ -21,7 +21,8 @@
 
 <script>
 import { world } from '../../../data/index'
-import { VueDatamaps } from 'vue-datamaps'
+// import { VueDatamaps } from 'vue-datamaps'
+import { VueDatamaps } from '../../../src/index'
 export default {
     components: {
         VueDatamaps
@@ -41,27 +42,33 @@ export default {
             },
             awsRegionsConfig: {
                 popupOnHover: true,
-                borderColor: '#e8762e',
+                borderColor: 'transparent',
                 data: [
                     {
-                        code: 'ap-northeast-2',
-                        fillKey: 'active'
+                        code: 'ap-northeast-1',
+                        fillKey: 'active',
+                        color: 'orange'
                     },
                     {
-                        code: 'ap-northeast-1',
-                        fillKey: 'active'
+                        code: 'ap-northeast-2',
+                        fillKey: 'active',
+                        color: 'orange'
                     },
+
                     {
                         code: 'us-east-2',
-                        fillKey: 'active'
+                        fillKey: 'active',
+                        color: 'red'
                     },
                     {
                         code: 'ap-southeast-1',
-                        fillKey: 'active'
+                        fillKey: 'active',
+                        color: 'red'
                     },
                     {
                         code: 'ca-central-1',
-                        fillKey: 'active'
+                        fillKey: 'active',
+                        color: 'red'
                     }
                 ]
             },
@@ -71,23 +78,28 @@ export default {
                 data: [
                     {
                         origin: 'ap-northeast-1',
-                        destination: 'ap-northeast-2'
+                        destination: 'ap-northeast-2',
+                        color: 'orange'
                     },
                     {
                         origin: 'ap-southeast-1',
-                        destination: 'ap-northeast-2'
+                        destination: 'ap-northeast-2',
+                        color: 'red'
                     },
                     {
                         origin: 'ap-southeast-2',
-                        destination: 'ap-northeast-1'
+                        destination: 'ap-northeast-1',
+                        color: 'red'
                     },
                     {
                         origin: 'ca-central-1',
-                        destination: 'ap-northeast-2'
+                        destination: 'ap-northeast-2',
+                        color: 'red'
                     },
                     {
                         origin: 'us-east-2',
-                        destination: 'ap-northeast-2'
+                        destination: 'ap-northeast-2',
+                        color: 'red'
                     }
                 ],
                 strokeColor: '#e8762e',

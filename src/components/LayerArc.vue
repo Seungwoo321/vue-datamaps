@@ -31,6 +31,7 @@ export default {
                 return {
                     origin: item.origin,
                     destination: item.destination,
+                    color: item.color,
                     ...item.options
                 }
             })
@@ -45,7 +46,7 @@ export default {
         styles (datum, index) {
             const data = {
                 strokeLinecap: 'round',
-                stroke: val(datum.strokeColor, this.options.strokeColor, datum),
+                stroke: datum.color || val(datum.strokeColor, this.options.strokeColor, datum),
                 fill: 'none',
                 strokeWidth: val(datum.strokeWidth, this.options.strokeWidth, datum)
             }
