@@ -54,33 +54,10 @@
             style="z-index:10001;position:absolute"
             :style="popupPosition"
         >
-            <slot name="hoverinfo">
-                <div v-if="showHoverInfo" class="hoverinfo">
-                    <strong>
-                        {{ popupText.title }}
-                    </strong>
-                </div>
-
-            </slot>
-            <slot name="hoverBubbleInfo" v-if="showHoverBubbleInfo">
-                <div class="hoverinfo">
-                    <strong>
-                        {{ popupText.title }}
-                    </strong>
-                </div>
-            </slot>
-            <slot name="hoverArcInfo" v-if="showHoverArcInfo">
-                <div class="hoverinfo">
-                    <strong>{{ popupText.title }}</strong><br>
-                    {{ popupText.origin }} -> {{ popupText.destination }}
-                    {{ popupText.value }}
-                </div>
-            </slot>
-            <slot name="hoverRegionInfo" v-if="showHoverRegionInfo">
-                <div class="hoverinfo">
-                    <strong>{{ popupText.title }}</strong><br>
-                </div>
-            </slot>
+            <slot v-if="showHoverInfo" name="hoverinfo"></slot>
+            <slot name="hoverBubbleInfo" v-if="showHoverBubbleInfo"></slot>
+            <slot name="hoverArcInfo" v-if="showHoverArcInfo"></slot>
+            <slot name="hoverRegionInfo" v-if="showHoverRegionInfo"></slot>
         </div>
     </div>
 </template>
@@ -156,7 +133,7 @@ export default {
     },
     computed: {
         regions () {
-            return (this.awsRegions && this.awsRegionsConfig.region) || regions
+            return this.awsRegionsConfig.region || regions
         },
         isPopupOn () {
             return (this.geograpphyConfigOptions.popupOnHover || this.bubblesConfigOptions.popupOnHover) && (this.showHoverInfo || this.showHoverBubbleInfo || this.showHoverArcInfo || this.showHoverRegionInfo)
