@@ -10503,7 +10503,7 @@ const Kw = {
   },
   computed: {
     regions() {
-      return this.awsRegionsConfig.region || $u;
+      return this.awsRegionsConfig && this.awsRegionsConfig.region || $u;
     },
     isPopupOn() {
       return (this.geograpphyConfigOptions.popupOnHover || this.bubblesConfigOptions.popupOnHover) && (this.showHoverInfo || this.showHoverBubbleInfo || this.showHoverArcInfo || this.showHoverRegionInfo);
