@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { val } from './helper'
+import { val } from '@/utils/helper'
 export default {
     name: 'layer-bubble',
     props: ['bubblesConfig', 'path', 'projection', 'data'],

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { val, regions } from './helper'
+import { val, regions } from '@/utils/helper'
 export default {
     name: 'layer-aws-regions',
     props: ['awsRegionsConfig', 'path', 'projection', 'data'],

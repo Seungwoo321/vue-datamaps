@@ -63,12 +63,14 @@
 </template>
 <script>
 import * as d3 from 'd3v4'
-import props from './props'
-import { val, regions } from './helper'
+import props from '@/utils/props'
+import { val, regions } from '@/utils/helper'
 import LayerLabel from './LayerLabel.vue'
-import LayerBubble from './LayerBubble'
-import LayerArc from './LayerArc'
-import LayerAwsRegions from './LayerAwsRegions'
+import LayerBubble from './LayerBubble.vue'
+import LayerArc from './LayerArc.vue'
+import LayerAwsRegions from './LayerAwsRegions.vue'
+import * as topojson from 'topojson-client'
+import topology from '@/utils/topology.js'
 export default {
     name: 'vue-datamaps',
     components: {
@@ -79,6 +81,8 @@ export default {
     },
     data () {
         return {
+            // eslint-disable-next-line no-undef
+            // worldData: __WORLD__,
             geoData: {},
             setProjectionData: {
                 path: null,
@@ -116,12 +120,6 @@ export default {
     },
     mixins: [ props ],
     props: {
-        localData: {
-            type: Object,
-            default: function () {
-                return {}
-            }
-        },
         width: {
             type: Number,
             default: 750
@@ -207,44 +205,45 @@ export default {
             return color
         },
         draw () {
-            if (this.localData.type) {
-                this.geoData = this.localData
-                this.drawSubunits(this.geoData)
-            } else if (this.geograpphyConfigOptions.dataUrl && this.dataType === 'csv' && (this.geoData && this.geoData.slice)) {
+            if (this.geograpphyConfigOptions.dataUrl && this.dataType === 'csv' && (this.geoData && this.geoData.slice)) {
                 let tmpData = {}
                 this.geoData.forEach(element => item => { tmpData[item.id || item.properties.code_hasc] = item })
                 this.geoData = tmpData
                 this.drawSubunits(this.geoData)
-            } else {
-                fetch(this.geograpphyConfigOptions.dataUrl || `/data/${this.scope}.${this.dataType}`).then(response => {
+            } else if (this.geograpphyConfigOptions.dataUrl && this.dataType !== 'csv') {
+                fetch(this.geograpphyConfigOptions.dataUrl).then(response => {
                     return response.json()
                 }).then(result => {
                     this.geoData = result
                     this.drawSubunits(this.geoData)
                 })
+            } else {
+                const topoJsonData = JSON.parse(topology[`${this.scope}Topo`])
+                this.geoData = topojson.feature(topoJsonData, topoJsonData.objects[this.scope])
+                this.drawSubunits(this.geoData)
             }
         },
         drawSubunits (data) {
             if (this.geograpphyConfigOptions.hideAntarctica) {
-                this.pathData = data.features.slice().filter(function (feature) {
+                this.pathData = data.features.filter(function (feature) {
                     return feature.id !== 'ATA'
                 })
             }
             if (this.geograpphyConfigOptions.hideHawaiiAndAlaska) {
-                this.pathData = data.features.slice().filter(function (feature) {
+                this.pathData = data.features.filter(function (feature) {
                     return feature.id !== 'HI' && feature.id !== 'AK'
                 })
             }
 
             if (this.bubbles && this.bubblesConfigOptions.data) {
                 const filters = this.bubblesConfigOptions.data.filter(item => item.centered || item.region).map(item => item.centered || item.region)
-                this.bubbleGeoData = data.features.slice().reduce((previousValue, currentValue) => {
+                this.bubbleGeoData = data.features.reduce((previousValue, currentValue) => {
                     if (filters.includes(currentValue.id)) {
                         previousValue[currentValue.id] = currentValue
                     }
                     return previousValue
                 }, {})
-                this.awsRegionData = this.regions.slice().reduce((previousValue, currentValue) => {
+                this.awsRegionData = this.regions.reduce((previousValue, currentValue) => {
                     if (filters.includes(currentValue.key)) {
                         previousValue[currentValue.key] = currentValue
                     }
@@ -255,16 +254,16 @@ export default {
             }
             if (this.arc && this.arcConfigOptions.data) {
                 const filtered = this.arcConfigOptions.data.filter(item => typeof item.origin === 'string' || typeof item.destination === 'string')
-                const filters = new Set([...filtered.slice().map(item => item.origin), ...filtered.slice().map(item => item.destination)])
+                const filters = new Set([...filtered.map(item => item.origin), ...filtered.map(item => item.destination)])
 
-                this.arcGeoData = data.features.slice().reduce((previousValue, currentValue) => {
+                this.arcGeoData = data.features.reduce((previousValue, currentValue) => {
                     if (filters.has(currentValue.id)) {
                         previousValue[currentValue.id] = currentValue
                     }
                     return previousValue
                 }, {})
 
-                this.awsRegionData = this.regions.slice().reduce((previousValue, currentValue) => {
+                this.awsRegionData = this.regions.reduce((previousValue, currentValue) => {
                     if (filters.has(currentValue.code)) {
                         previousValue[currentValue.code] = currentValue
                     } else if (filters.has(currentValue.key)) {

@@ -25,23 +25,31 @@
     "author": "Seungwoo, Lee <seungwoo321@gmail.com> (https://github.com/seungwoo321)",
     "license": "MIT",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build",
+        "dev": "vite --config vite.config.demo.js",
+        "build": "vite build --config vite.config.lib.js",
+        "build:lib": "vite build --config vite.config.lib.js",
+        "build:demo": "vite build --config vite.config.demo.js",
         "serve": "vite preview",
         "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
     },
     "dependencies": {
         "d3v4": "^4.2.2",
-        "vue": "^2.6.12"
+        "topojson-client": "^3.1.0",
+        "vue": "^2.7.14",
+        "vue-datamaps": "^0.4.2"
     },
     "devDependencies": {
-        "@vitejs/plugin-vue2": "^2.0.0",
+        "@rollup/plugin-replace": "^5.0.5",
+        "@vitejs/plugin-vue2": "^2.2.0",
         "@vue/eslint-config-standard": "^4.0.0",
         "babel-eslint": "^10.1.0",
         "babel-preset-env": "^1.7.0",
-        "eslint": "^5.16.0",
-        "eslint-loader": "^3.0.2",
-        "eslint-plugin-vue": "^5.2.3",
+        "eslint": "^8.44.0",
+        "eslint-config-standard": "^17.1.0",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-n": "^16.0.1",
+        "eslint-plugin-promise": "^6.1.1",
+        "eslint-plugin-vue": "^9.15.1",
         "postcss-rtl": "^2.0.0",
         "vite": "^3.2.8"
     }
