@@ -38,7 +38,9 @@ export default {
                         name: 'Seoul',
                         radius: 100,
                         cost: '$100',
-                        region: 'APN2'
+                        region: 'APN2',
+                        color: 'red',
+                        highlightFillColor: 'firebrick'
                     },
                     {
                         name: 'Tokyo',
@@ -71,7 +73,7 @@ export default {
             fills: {
                 defaultFill: '#9fabaf',
                 region: '#ff8132',
-                red: 'red'
+                red: 'blue'
             }
         }
     },

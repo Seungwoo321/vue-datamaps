@@ -38,6 +38,7 @@ import DatamapsCustomColor from '@/views/DatamapsCustomColor.vue'
 import DatamapsAwsRegionArc from '@/views/DatamapsAwsRegionArc.vue'
 import DatamapsAwsRegionBubble from '@/views/DatamapsAwsRegionBubble.vue'
 import DatamapsDataTransfer from '@/views/DatamapsDataTransfer.vue'
+
 export default {
     name: 'home',
     components: {

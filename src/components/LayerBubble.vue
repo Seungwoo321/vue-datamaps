@@ -45,7 +45,7 @@ export default {
                 stroke: val(datum.borderColor, this.options.borderColor, datum),
                 strokeWidth: val(datum.borderWidth, this.options.borderWidth, datum),
                 strokeOpacity: val(datum.borderOpacity, this.options.highlightBorderOpacity, datum),
-                fill: this.options.fills[val(datum.fillKey, this.options.fillKey, datum)] || this.options.fills.defaultFill,
+                fill: datum.color || this.options.fills[val(datum.fillKey, this.options.fillKey, datum)] || this.options.fills.defaultFill,
                 fillOpacity: val(datum.fillOpacity, this.options.highlightFillOpacity, datum)
             }
             this.$set(this.styleAttributes, index, data)
@@ -84,7 +84,7 @@ export default {
             const { highlightOnHover, popupOnHover, highlightFillColor, highlightBorderColor, highlightBorderWidth, highlightBorderOpacity, highlightFillOpacity } = this.options
             if (highlightOnHover || popupOnHover) {
                 const data = {
-                    fill: val(datum.highlightFillColor, highlightFillColor, datum),
+                    fill: datum.highlightFillColor || val(datum.highlightFillColor, highlightFillColor, datum),
                     stroke: val(datum.highlightBorderColor, highlightBorderColor, datum),
                     strokeWidth: val(datum.highlightBorderWidth, highlightBorderWidth, datum),
                     strokeOpacity: val(datum.highlightBorderOpacity, highlightBorderOpacity, datum),
