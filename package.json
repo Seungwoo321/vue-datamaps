@@ -1,10 +1,9 @@
 {
     "name": "vue-datamaps",
-    "version": "0.4.3",
+    "version": "0.4.4",
     "main": "dist/vue-datamaps.mjs",
     "files": [
-        "dist",
-        "src"
+        "dist"
     ],
     "exports": {
         ".": {
