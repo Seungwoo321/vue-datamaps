@@ -36,24 +36,21 @@ It is a Vue port of the javascript-based [DataMaps](https://datamaps.github.io/)
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-## Live Demo
+## Live demo
 
 [link](https://jsfiddle.net/front123/437a5wvf/)
 
-## Run Demo
+## Run demo
 
 ```bash
 # project clone
 $ git clone https://github.com/Seungwoo321/vue-datamaps.git 
 
-# move to example directory
-$ cd vue-datamaps/example/
-
 # install dependencies
 $ npm install
 
 # run
-$ npm run serve
+$ npm run dev
 ```
 
 ## Installation
@@ -67,7 +64,7 @@ $ npm install vue-datamaps
 
 ### Required
 
-* If `dataUrl` is specified in `geographyConfig`, the library will make a fetch API call to retrieve the data. Otherwise, the JSON data located in the [data folder](https://github.com/Seungwoo321/vue-datamaps/tree/master/data) in the root of the project can be used.
+* json data is no longer required.
 
 #### Global
 
