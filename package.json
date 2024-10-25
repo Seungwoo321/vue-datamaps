@@ -34,7 +34,7 @@
     "dependencies": {
         "d3v4": "^4.2.2",
         "topojson-client": "^3.1.0",
-        "vue": "^2.7.14"
+        "vue": "^3.0.0"
     },
     "devDependencies": {
         "@rollup/plugin-replace": "^5.0.5",
